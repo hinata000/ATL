@@ -1,0 +1,2 @@
+class AnimationDetail < ApplicationRecord
+end
