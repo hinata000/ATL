@@ -76,7 +76,15 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
+    faraday (2.7.10)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.14.1)
@@ -150,6 +158,10 @@ GEM
     rake (13.0.6)
     reline (0.3.7)
       io-console (~> 0.5)
+    rexml (3.2.6)
+    rss (0.2.9)
+      rexml
+    ruby2_keywords (0.0.5)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -159,6 +171,9 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    syobocal (0.15.0)
+      rexml (~> 3.2)
+      rss (~> 0.2)
     tailwindcss-rails (2.0.30-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.2.2)
@@ -185,12 +200,15 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  dotenv-rails
+  faraday
   importmap-rails
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rails (~> 7.0.6)
   sprockets-rails
   stimulus-rails
+  syobocal
   tailwindcss-rails
   turbo-rails
   tzinfo-data
