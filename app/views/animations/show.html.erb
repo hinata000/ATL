@@ -1,0 +1,41 @@
+<div class="text-gray-600 body-font overflow-hidden">
+  <% @animations.each do |animation| %>
+  <% @animations_detail.each do |animationD| %>
+    <div class="container px-5 py-12 mx-auto">
+      <div class="mx-auto flex flex-wrap">
+        <div class="lg:w-2/5 w-full h-full">
+            <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded" %>
+          <div class="flex justify-end align-center mt-2">
+            <%= button_to new_animation_review_path(@animation.id), method: :get do %>
+              <div class="flex px-6">
+                <i class="fa-regular fa-comment fa-2x"></i>
+                <p class="text-2xl ml-1">
+                </p>
+                </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="lg:w-3/5 w-full lg:pl-10 lg:py-2 mt-6 lg:mt-0">
+          <h1 class="text-gray-300 text-3xl title-font font-medium mb-1"><%= animation.title %></h1>
+          <div class="flex">
+            <div class="relative">
+              <div class="text-gray-500 text-xl">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-gray-400 leading-relaxed py-2"><%= animation.season_name_text%> | <%= animation.media_text %></p>
+          <%= link_to '公式サイト', animation.official_site_url, class: "font-medium text-blue-600 dark:text-blue-500 hover:underline py-2" %>
+          <%= link_to 'Twitter', "https://twitter.com/#{animation.twitter_username}", class: "font-medium text-blue-600 dark:text-blue-500 hover:underline py-2" %>
+          <p class="text-gray-400 leading-relaxed pt-4 pb-2 font-black">スタッフ</p>
+          <% animationD.staffs.each do |staff| %>
+          <span class="text-sm font-normal inline-block py-1 px-2 uppercase rounded text-gray-400 bg-gray-700 uppercase last:mr-0 mr-1"><%= staff[:role] %> : <%= staff[:name] %></span>
+          <% end %>
+          <p class="text-gray-400 leading-relaxed pt-4 pb-2 font-black">キャスト</p>
+          <% animationD.casts.each do |cast| %>
+          <span class="text-sm font-normal inline-block py-1 px-2 uppercase rounded text-gray-400 bg-gray-700 uppercase last:mr-0 mr-1"><%= cast[:name] %>(<%= cast[:character] %>)</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
+</div>
