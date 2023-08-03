@@ -10,12 +10,12 @@
                 <%# メールアドレス %>
                 <div class="field">
                   <%= f.label :email, "メールアドレス", class: "label" %>
-                  <%= f.email_field :email, class: "input input-bordered block w-full p-2.5", autofocus: true, autocomplete: "email", placeholder: "email@example.com", required: true %>
+                  <%= f.email_field :email, class: "input input-bordered block w-full p-2.5", autofocus: true, autocomplete: "email", required: true %>
                 </div>
                 <%# パスワード %>
                 <div class="field">
                   <%= f.label :password, "パスワード", class: "label" %>
-                  <%= f.password_field :password, class: "input input-bordered block w-full p-2.5", autocomplete: "current-password", placeholder: "••••••••", required: true %>
+                  <%= f.password_field :password, class: "input input-bordered block w-full p-2.5", autocomplete: "current-password", required: true %>
                 </div>
                   <div class="flex items-center justify-between">
                       <div class="flex items-start">
