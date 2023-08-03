@@ -1,26 +1,42 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<section class="py-6">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+      <div class="w-full bg-base-200 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+        <%= form_with model: @user, url: session_path(resource_name), local: true do |f| %>
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-secondary-content md:text-2xl">
+                ログイン
+              </h1>
+              <form class="space-y-4 md:space-y-6" action="#">
+                <%# メールアドレス %>
+                <div class="field">
+                  <%= f.label :email, "メールアドレス", class: "label" %>
+                  <%= f.email_field :email, class: "input input-bordered block w-full p-2.5", autofocus: true, autocomplete: "email", placeholder: "email@example.com", required: true %>
+                </div>
+                <%# パスワード %>
+                <div class="field">
+                  <%= f.label :password, "パスワード", class: "label" %>
+                  <%= f.password_field :password, class: "input input-bordered block w-full p-2.5", autocomplete: "current-password", placeholder: "••••••••", required: true %>
+                </div>
+                  <div class="flex items-center justify-between">
+                      <div class="flex items-start">
+                        <% if devise_mapping.rememberable? %>
+                          <div class="flex items-center h-5">
+                            <%= f.check_box :remember_me, type: "checkbox", checked: "checked", class: "checkbox checkbox-primary bg-base-content w-6 h-6 border border-base-100"%>
+                          </div>
+                          <div class="ml-3 text-sm">
+                            <%= f.label :remember_me, "ログイン状態を保存", class: "text-base-content" %>
+                          </div>
+                        <% end %>
+                      </div>
+                      <%= link_to 'パスワードをお忘れの方', new_user_password_path, class: "text-base-content hover:underline" %>
+                  </div>
+                  <div class="actions pb-4">
+                    <%= f.submit "ログイン", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
+                  </div>
+                  <%= link_to 'アカウントを作成', new_user_registration_path, class: "text-base-content hover:underline" %>
+              </form>
+          </div>
+        <% end %>
+      </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>
