@@ -1,25 +1,32 @@
-<h2>Change your password</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+<%= render "devise/shared/error_messages", resource: resource %>
+<section class="py-6">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+    <div class="w-full bg-base-200 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.hidden_field :reset_password_token %>
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-secondary-content md:text-2xl">
+            パスワードを再設定する
+          </h1>
+          <form class="space-y-4 md:space-y-6" action="#">
+            <%# パスワード %>
+            <div class="field">
+              <%= f.label :password, "パスワード", class: "label" %>
+              <%= f.password_field :password, class: "input input-bordered block w-full p-2.5", autocomplete: "new-password", required: true %>
+            </div>
+            <div class="field">
+            <%# パスワード確認 %>
+            <div class="field pb-4">
+              <%= f.label :password_confirmation, "パスワード確認", class: "label" %>
+              <%= f.password_field :password_confirmation, class: "input input-bordered block w-full p-2.5", autocomplete: "new-password", required: true %>
+            </div>
+            <div class="actions pb-4">
+              <%= f.submit "再設定", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
+            </div>
+            <%= render "devise/shared/links" %>
+          </form>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>
