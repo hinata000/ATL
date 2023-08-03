@@ -1,3 +1,4 @@
+<%= render "devise/shared/error_messages", resource: resource %>
 <section class="py-6">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
       <div class="w-full bg-base-200 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
@@ -28,12 +29,11 @@
                           </div>
                         <% end %>
                       </div>
-                      <%= link_to 'パスワードをお忘れの方', new_user_password_path, class: "text-base-content hover:underline" %>
                   </div>
                   <div class="actions pb-4">
                     <%= f.submit "ログイン", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
                   </div>
-                  <%= link_to 'アカウントを作成', new_user_registration_path, class: "text-base-content hover:underline" %>
+                  <%= render "devise/shared/links" %>
               </form>
           </div>
         <% end %>

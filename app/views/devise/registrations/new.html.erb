@@ -15,13 +15,13 @@
                   </div>
                   <%# ユーザーネーム %>
                   <div class="field">
-                    <%= f.label :name, "ユーザー名", class: "label" %>
-                    <%= f.text_field :name, class: "input input-bordered block w-full p-2.5", autofocus: true, required: true %>
+                    <%= f.label :user_name, "ユーザー名", class: "label" %>
+                    <%= f.text_field :user_name, class: "input input-bordered block w-full p-2.5", autofocus: true, required: true %>
                   </div>
                   <%# Anikomi ID %>
                   <div class="field">
-                    <%= f.label :anikomi_id, "ユーザーID", class: "label" %>
-                    <%= f.text_field :anikomi_id, class: "input input-bordered block w-full p-2.5", autofocus: true, required: true %>
+                    <%= f.label :uesr_id, "ユーザーID", class: "label" %>
+                    <%= f.text_field :user_id, class: "input input-bordered block w-full p-2.5", autofocus: true, required: true %>
                   </div>
                   <%# パスワード %>
                   <div class="field">
@@ -38,7 +38,7 @@
                   <div class="actions py-6">
                     <%= f.submit "登録", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
                   </div>
-                  <%= link_to 'ログインはこちら', new_user_session_path, class: "text-base-content hover:underline" %>
+                  <%= render "devise/shared/links" %>
               </form>
           </div>
         <% end %>
