@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_01_113512) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_153048) do
   create_table "animation_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "animation_id"
     t.text "staffs"
@@ -34,6 +34,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_113512) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tier_lists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "animation_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "tier_score", null: false
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["animation_id"], name: "index_tier_lists_on_animation_id"
+    t.index ["user_id"], name: "index_tier_lists_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -54,4 +65,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_113512) do
     t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
+  add_foreign_key "tier_lists", "animations"
+  add_foreign_key "tier_lists", "users"
 end

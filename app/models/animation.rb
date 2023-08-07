@@ -1,6 +1,7 @@
 class Animation < ApplicationRecord
   enum season: { spring: 1, summer: 2, autumn: 3, winter: 4 }
   has_one :animation_detail
+  has_many :tier_list
   # belongs_to :user
   # has_many :favorites, dependent: :destroy
   # has_many :reviews, dependent: :destroy
