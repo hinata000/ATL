@@ -12,13 +12,13 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="flex flex-col min-h-screen">
     <% if user_signed_in? %>
       <%= render 'layouts/login_header', user: @user %>
     <% else %>
       <%= render 'layouts/no_login_header' %>
     <% end %>
-    <main class="container mx-auto mt-28 px-5">
+    <main class="container mx-auto mt-28 px-5 flex-grow">
       <%= render 'layouts/flash' %>
       <%= yield %>
     </main>
