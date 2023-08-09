@@ -1,5 +1,9 @@
 class TierListsController < ApplicationController
 
+  def new
+    @tier_list = TierList.new(animation_id: params[:animation_id])
+  end
+
   def create
     @tier_list = TierList.new(tier_list_params)
     @tier_list.user_id = current_user.id

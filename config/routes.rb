@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
 
   resources :animations, only: [:index, :show,] do
-    resources :tier_lists, only: [:create]
+    resources :tier_lists, only: [:create, :edit, :new]
     collection do
       get 'search_results'
     end

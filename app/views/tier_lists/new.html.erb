@@ -1,6 +1,6 @@
-<%= form_with model: [@animation, @tier_list], local: true do |f| %>
+<%= form_with model: @tier_list, url: animation_tier_lists_path, local: true do |f| %>
             <%= f.label :score, "スコア", class: "block text-sm font-medium text-gray-900 mt-6 mb-2" %>
-              <%= f.hidden_field :animation_id, value: @animation.id  %>
+              <%= f.hidden_field :animation_id, value: @tier_list.animation_id  %>
               <%= f.text_field :tier_score %>
             <%# コメント %>
               <%= f.label :comment, "コメント", class: "block mb-2 text-sm font-medium text-gray-900" %>
