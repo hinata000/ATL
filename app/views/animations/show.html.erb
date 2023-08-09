@@ -6,13 +6,11 @@
         <div class="lg:w-2/5 w-full h-full">
             <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded" %>
           <div class="flex justify-end align-center mt-2">
-            <%= button_to new_animation_review_path(@animation.id), method: :get do %>
               <div class="flex px-6">
                 <i class="fa-regular fa-comment fa-2x"></i>
                 <p class="text-2xl ml-1">
                 </p>
                 </div>
-            <% end %>
           </div>
         </div>
         <div class="lg:w-3/5 w-full lg:pl-10 lg:py-2 mt-6 lg:mt-0">
@@ -39,3 +37,9 @@
   <% end %>
   <% end %>
 </div>
+
+<%= render 'tier_lists/form' %>
+
+<% @tier_lists.each do |t| %>
+  <p><%= t.comment %></p>
+<% end %>

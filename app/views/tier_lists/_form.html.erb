@@ -1,0 +1,10 @@
+<%= form_with model: [@animation, @tier_list], local: true do |f| %>
+            <%= f.label :score, "スコア", class: "block text-sm font-medium text-gray-900 mt-6 mb-2" %>
+              <%= f.hidden_field :animation_id, value: @animation.id  %>
+              <%= f.text_field :tier_score %>
+            <%# コメント %>
+              <%= f.label :comment, "コメント", class: "block mb-2 text-sm font-medium text-gray-900" %>
+              <%= f.text_area :comment, class: "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full h-36 p-2.5" %>
+            <%# ボタン %>
+              <%= f.submit "レビューを投稿", class: "w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+<% end %>
