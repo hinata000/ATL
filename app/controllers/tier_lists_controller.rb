@@ -2,6 +2,7 @@ class TierListsController < ApplicationController
 
   def new
     @tier_list = TierList.new(animation_id: params[:animation_id])
+    @animation = Animation.find_by(id: params[:animation_id])
   end
 
   def create
