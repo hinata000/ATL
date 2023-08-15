@@ -5,11 +5,30 @@
       <div class="mx-auto flex flex-wrap">
         <div class="lg:w-2/5 w-full h-full">
           <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded" %>
-          <i class="fa-solid fa-house"></i>
+          <div class="flex justify-start p-2">
+
+            <%# 後ほど、いいねボタンも実装します %>
+            <% if @tier_lists.select(current_user.id).present? %>
+              <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral mr-1" do %>
+                <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
+                <p class="text-accent"><%= @tier_lists.count %></p>
+              <% end %>
+            <% else %>
+              <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral mr-1" do %>
+                <i class="fa-solid fa-square-plus text-2xl"></i>
+                <p><%= @tier_lists.count %></p>
+              <% end %>
+            <% end %>
+            <%= link_to '#', class: "btn btn-neutral" do %>
+              <i class="fa-solid fa-heart text-xl"></i>
+              <p>0</p>
+            <% end %>
+
+
+          </div>
         </div>
         <div class="lg:w-3/5 w-full lg:pl-10 lg:py-2 mt-6 lg:mt-0">
           <h1 class="text-gray-300 text-3xl title-font font-medium mb-1"><%= animation.title %></h1>
-          <%= link_to 'listに追加する', new_animation_tier_list_path(animation.id) %>
           <p class="text-gray-400 leading-relaxed py-2"><%= animation.season_name_text%> | <%= animation.media_text %></p>
           <%= link_to '公式サイト', animation.official_site_url, class: "font-medium text-blue-600 dark:text-blue-500 hover:underline py-2" %>
           <%= link_to 'Twitter', "https://twitter.com/#{animation.twitter_username}", class: "font-medium text-blue-600 dark:text-blue-500 hover:underline py-2" %>
