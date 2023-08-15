@@ -5,23 +5,31 @@
       <div class="mx-auto flex flex-wrap">
         <div class="lg:w-2/5 w-full h-full">
           <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded" %>
-          <div class="flex justify-start p-2">
+          <div class="flex justify-center py-2">
 
-            <%# 後ほど、いいねボタンも実装します %>
             <% if @tier_lists.select(current_user.id).present? %>
-              <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral mr-1" do %>
+              <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral" do %>
                 <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
                 <p class="text-accent"><%= @tier_lists.count %></p>
               <% end %>
             <% else %>
-              <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral mr-1" do %>
+              <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral" do %>
                 <i class="fa-solid fa-square-plus text-2xl"></i>
                 <p><%= @tier_lists.count %></p>
               <% end %>
             <% end %>
+
+            <%# 後ほど、いいねボタンも実装します %>
             <%= link_to '#', class: "btn btn-neutral" do %>
-              <i class="fa-solid fa-heart text-xl"></i>
+              <i class="fa-solid fa-bookmark text-2xl"></i>
               <p>0</p>
+            <% end %>
+
+            <%= link_to animation.official_site_url, class: "btn btn-neutral" do %>
+              <i class="fa-solid fa-pager text-2xl"></i>
+            <% end %>
+            <%= link_to "https://twitter.com/#{animation.twitter_username}", class: "btn btn-neutral" do %>
+              <i class="fa-brands fa-x-twitter text-2xl"></i>
             <% end %>
 
 
