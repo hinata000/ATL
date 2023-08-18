@@ -7,7 +7,7 @@
           <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded" %>
           <div class="flex justify-center py-2">
 
-            <% if @tier_lists.select(current_user.id).present? %>
+            <% if user_signed_in? && @tier_lists.select(current_user.id).present? %>
               <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral" do %>
                 <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
                 <p class="text-accent"><%= @tier_lists.count %></p>
@@ -38,8 +38,18 @@
         <div class="lg:w-3/5 w-full lg:pl-10 lg:py-2 mt-6 lg:mt-0">
           <h1 class="text-gray-300 text-3xl title-font font-medium mb-1"><%= animation.title %></h1>
           <p class="text-gray-400 leading-relaxed py-2"><%= animation.season_name_text%> | <%= animation.media_text %></p>
-          <%= link_to '公式サイト', animation.official_site_url, class: "font-medium text-blue-600 dark:text-blue-500 hover:underline py-2" %>
-          <%= link_to 'Twitter', "https://twitter.com/#{animation.twitter_username}", class: "font-medium text-blue-600 dark:text-blue-500 hover:underline py-2" %>
+          <% if @tier_list.present? %>
+            <div class="tracking-tighter ml-1" style="<%= @tier_list.tier_color(@tier_lists.average(:tier_score).round(1)) %>">
+              <span class="text-4xl font-bold">
+                <%= @tier_list.tier_score_change(@tier_lists.average(:tier_score).round(1)) %>
+              </span>
+              <span class="text-2xl font-bold -ml-1.5">
+                Tier
+              </span>
+            </div>
+            <% else %>
+            <span>- Tier</span>
+          <% end %>
           <p class="text-gray-400 leading-relaxed pt-4 pb-2 font-black">スタッフ</p>
           <% animationD.staffs.each do |staff| %>
           <span class="text-sm font-normal inline-block py-1 px-2 uppercase rounded text-gray-400 bg-gray-700 uppercase last:mr-0 mr-1"><%= staff[:role] %> : <%= staff[:name] %></span>
@@ -55,6 +65,51 @@
   <% end %>
 </div>
 
-<% @tier_lists.each do |t| %>
-  <p><%= t.comment %></p>
-<% end %>
+<div class="py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-md px-4 md:px-8">
+
+    <div class="mb-4 flex items-center justify-between border-t border-b py-4">
+      <div class="flex flex-col gap-0.5">
+        <span class="text-2xl font-bold mb-1">TierList追加履歴・コメント</span>
+        <% if @tier_list.present? %>
+          <span class="block text-sm mt-2"><%= @tier_lists.count %>件の追加履歴・コメント</span>
+      </div>
+      </div>
+
+      <div class="divide-y">
+        <% @tier_lists.each do |t| %>
+          <!-- review - start -->
+          <div class="flex flex-col gap-3 py-4 md:py-8">
+            <div class="flex items-center">
+              <div class="avatar w-12 mr-1 -ml-1">
+                <%= link_to user_path(t.user.id) do %>
+                  <%= image_tag t.user.user_image, class: "rounded-full" %>
+                <% end %>
+              </div>
+              <div>
+                <%= link_to t.user.user_name, user_path(t.user.id), class: "block text-base font-bold link link-hover" %>
+                <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
+              </div>
+            </div>
+
+            <!-- stars - start -->
+            <div class="">
+              <span class="badge text-base font-bold py-3" style="<%= t.tier_color(t.tier_score) %>">
+                <%= t.tier_score_change(t.tier_score) %> Tier
+              </span>
+              <span class="badge text-base font-bold py-3">
+                全期間
+              </span>
+            </div>
+            <!-- stars - end -->
+
+            <p class=""><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+          </div>
+          <!-- review - end -->
+        <% end %>
+      <% else %>
+      <span>このアニメはまだTierListに追加されていません。</span>
+      <% end %>
+    </div>
+  </div>
+</div>

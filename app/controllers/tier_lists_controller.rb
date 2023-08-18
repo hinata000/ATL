@@ -1,4 +1,5 @@
 class TierListsController < ApplicationController
+  before_action :authenticate_user!
 
   def new
     @tier_list = TierList.new(animation_id: params[:animation_id])
