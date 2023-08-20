@@ -14,5 +14,6 @@ class HomesController < ApplicationController
     end
 
     @animations = Animation.where(season: today_season, year: today.year)
+    @tier_lists = TierList.new
   end
 end

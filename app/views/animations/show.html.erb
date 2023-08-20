@@ -39,16 +39,23 @@
           <h1 class="text-gray-300 text-3xl title-font font-medium mb-1"><%= animation.title %></h1>
           <p class="text-gray-400 leading-relaxed py-2"><%= animation.season_name_text%> | <%= animation.media_text %></p>
           <% if @tier_list.present? %>
-            <div class="tracking-tighter ml-1" style="<%= @tier_list.tier_color(@tier_lists.average(:tier_score).round(1)) %>">
+            <div class="tracking-tighter ml-1" style="<%= @tier_list.tier_color(@tier_lists.average(:tier_score)) %>">
               <span class="text-4xl font-bold">
-                <%= @tier_list.tier_score_change(@tier_lists.average(:tier_score).round(1)) %>
+                <%= @tier_list.tier_score_change(@tier_lists.average(:tier_score)) %>
               </span>
               <span class="text-2xl font-bold -ml-1.5">
                 Tier
               </span>
             </div>
             <% else %>
-            <span>- Tier</span>
+              <div class="tracking-tighter ml-1">
+                <span class="text-4xl font-bold text-neutral-content">
+                  -
+                </span>
+                <span class="text-2xl font-bold -ml-0.5 text-neutral-content">
+                  Tier
+                </span>
+              </div>
           <% end %>
           <p class="text-gray-400 leading-relaxed pt-4 pb-2 font-black">スタッフ</p>
           <% animationD.staffs.each do |staff| %>
