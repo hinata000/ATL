@@ -39,9 +39,9 @@
           <h1 class="text-gray-300 text-3xl title-font font-medium mb-1"><%= animation.title %></h1>
           <p class="text-gray-400 leading-relaxed py-2"><%= animation.season_name_text%> | <%= animation.media_text %></p>
           <% if @tier_list.present? %>
-            <div class="tracking-tighter ml-1" style="<%= @tier_list.tier_color(@tier_lists.average(:tier_score)) %>">
+            <div class="tracking-tighter ml-1" style="<%= @tier_list.tier_color(@tier_lists.average(:tier_score).to_f) %>">
               <span class="text-4xl font-bold">
-                <%= @tier_list.tier_score_change(@tier_lists.average(:tier_score)) %>
+                <%= @tier_list.tier_score_change(@tier_lists.average(:tier_score).to_f) %>
               </span>
               <span class="text-2xl font-bold -ml-1.5">
                 Tier
