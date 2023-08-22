@@ -21,4 +21,16 @@
       <%= f.submit "TierListを編集する", class: "btn btn-primary btn-block" %>
     </div>
   <% end %>
+  <div class="text-center">
+    <button class="font-bold text-red-400 pt-2" onclick="my_modal_1.showModal()">削除</button>
+  </div>
+  <dialog id="my_modal_1" class="modal">
+    <form method="dialog" class="modal-box">
+      <h3 class="font-bold text-lg">TierListから削除しますか？</h3>
+      <div class="modal-action">
+        <button class="btn btn-neutral">キャンセル</button>
+        <%= link_to "削除する", animation_tier_list_path(@tier_list), data: { turbo_method: :delete }, class: "btn btn-neutral" %>
+      </div>
+    </form>
+  </dialog>
 </div>
