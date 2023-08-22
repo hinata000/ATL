@@ -18,6 +18,28 @@ class TierListsController < ApplicationController
     end
   end
 
+  def edit
+    @tier_list = TierList.find(params[:id])
+    @animation = Animation.find_by(id: params[:animation_id])
+    session[:previous_url] = request.referer
+  end
+
+  def update
+    @tier_list = TierList.find(params[:id])
+    if @tier_list.update(tier_list_params)
+      redirect_to session[:previous_url], notice: "TierListを編集しました"
+    else
+      @animation = Animation.find(params[:id])
+      render :edit
+    end
+  end
+
+  def destroy
+    @tier_list = TierList.find(params[:id])
+    @tier_list.destroy
+    redirect_to session[:previous_url], notice: "TierListから削除しました"
+  end
+
   private
 
     def tier_list_params
