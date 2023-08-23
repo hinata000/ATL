@@ -17,6 +17,7 @@
     <div class="py-8">
       <%= f.text_area :comment, placeholder: "レビュー無記入でも追加できます。", class: "textarea textarea-bordered textarea-lg w-full h-60" %>
     </div>
+    <%= f.check_box :spoiler, {}, "true", "false"  %>
     <div class="mx-auto w-fit">
       <%= f.submit "TierListへ追加する", class: "btn btn-primary btn-block" %>
     </div>
