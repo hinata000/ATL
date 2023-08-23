@@ -17,7 +17,17 @@
     <div class="py-8">
       <%= f.text_area :comment, placeholder: "レビュー無記入でも追加できます。", class: "textarea textarea-bordered textarea-lg w-full h-60" %>
     </div>
-    <%= f.check_box :spoiler, {}, "true", "false"  %>
+    <div>
+      <%= f.radio_button :entire_season, false, {:checked => true, class: "radio"} %>
+      <%= f.label :entier_season, "放送クール" %>
+      <%= f.radio_button :entire_season, true, {class: "radio"} %>
+      <%= f.label :entier_season, "全期間" %>
+    </div>
+    <div>
+      <%= f.label :spoiler, "コメントがネタバレになる場合はチェックを入れてください" %>
+      <%= f.hidden_field :spoiler, :value => false %>
+      <%= f.check_box :spoiler, { class: "checkbox checkbox-primary" }, true, false %>
+    </div>
     <div class="mx-auto w-fit">
       <%= f.submit "TierListへ追加する", class: "btn btn-primary btn-block" %>
     </div>
