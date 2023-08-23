@@ -104,11 +104,19 @@
               <span class="badge text-base font-bold py-3">
                 全期間
               </span>
+          <% if t.spoiler == true %>
+          <div class="collapse !p-0">
+            <input type="checkbox" />
+            <div class="collapse-title p-0">このコメントはネタバレを含みます</div>
+            <div class="collapse-content">
+              <p class=""><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
             </div>
-            <!-- stars - end -->
-
+          </div>
+          <% else %>
+          <div>
             <p class=""><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
           </div>
+          <% end %>
           <!-- review - end -->
         <% end %>
       <% else %>
