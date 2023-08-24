@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
 
   resources :animations, only: [:index, :show,] do
-    resources :favorites, only: [:create, :destroy]
-    resources :reviews, only: [:index, :new, :create]
+    resources :tier_lists, only: [:create, :new, :edit, :update, :destroy]
     collection do
       get 'search_results'
     end

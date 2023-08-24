@@ -5,11 +5,20 @@
       <%= link_to image_tag(animation.image, class: "w-full h-full object-cover object-center group-hover:scale-110 transition duration-200", alt: animation.title), "/animations/#{animation.id}", class: "group h-36 block bg-gray-100 rounded-t-lg overflow-hidden relative" %>
       <div class="flex justify-between items-start bg-base-200 rounded-b-lg gap-2 p-4">
         <div class="flex flex-col truncate">
-          <div class="flex">
-            <div class="relative">
-              <div class="text-gray-500 text-xl">★★★★★</div>
+          <% if animation.tier_lists.present? %>
+            <span class="badge text-base font-bold py-3" style="<%= @tier_lists.tier_color(animation.tier_lists.average(:tier_score).to_f) %>">
+              <%= @tier_lists.tier_score_change(animation.tier_lists.average(:tier_score).to_f) %> Tier
+            </span>
+          <% else %>
+            <div class="badge py-3">
+              <span class="text-xs font-bold">
+                ー&nbsp;
+              </span>
+              <span class="text-base font-bold">
+                Tier
+              </span>
             </div>
-          </div>
+          <% end %>
           <%= link_to animation.title, "/animations/#{animation.id}", class: "w-60 secondary-content hover:base-content lg:text-lg font-semibold transition duration-100 mt-1 truncate" %>
         </div>
       </div>
