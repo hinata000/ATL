@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_24_054126) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_24_123352) do
   create_table "animation_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "animation_id"
     t.text "staffs"
@@ -40,11 +40,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_054126) do
     t.boolean "spoiler", null: false
     t.bigint "animation_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "tier_list_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["animation_id"], name: "index_tier_list_entiers_on_animation_id"
-    t.index ["tier_list_id"], name: "index_tier_list_entiers_on_tier_list_id"
     t.index ["user_id"], name: "index_tier_list_entiers_on_user_id"
   end
 
@@ -81,7 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_054126) do
   end
 
   add_foreign_key "tier_list_entiers", "animations"
-  add_foreign_key "tier_list_entiers", "tier_lists"
   add_foreign_key "tier_list_entiers", "users"
   add_foreign_key "tier_lists", "animations"
   add_foreign_key "tier_lists", "users"
