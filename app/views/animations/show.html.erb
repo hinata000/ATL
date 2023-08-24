@@ -76,49 +76,49 @@
       <div class="flex flex-col gap-0.5">
         <span class="text-2xl font-bold mb-1">TierList追加履歴・コメント</span>
         <% if @tier_list.present? %>
-          <span class="block text-sm mt-2"><%= @tier_lists.count %>件の追加履歴・コメント</span>
+        <span class="block text-sm mt-2"><%= @tier_lists.count %>件の追加履歴・コメント</span>
       </div>
-      </div>
+    </div>
 
-      <div class="divide-y">
-        <% @tier_lists.each do |t| %>
-          <!-- review - start -->
-          <div class="flex flex-col gap-3 py-4 md:py-8">
-            <div class="flex items-center">
-              <div class="avatar w-12 mr-1 -ml-1">
-                <%= link_to user_path(t.user.id) do %>
-                  <%= image_tag t.user.user_image, class: "rounded-full" %>
-                <% end %>
-              </div>
-              <div>
-                <%= link_to t.user.user_name, user_path(t.user.id), class: "block text-base font-bold link link-hover" %>
-                <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
-              </div>
+    <div class="divide-y">
+      <% @tier_lists.each do |t| %>
+
+        <div class="flex flex-col gap-3 py-4 md:py-8">
+          <div class="flex items-center">
+            <div class="avatar w-12 mr-1 -ml-1">
+              <%= link_to user_path(t.user.id) do %>
+                <%= image_tag t.user.user_image, class: "rounded-full" %>
+              <% end %>
             </div>
-
-            <!-- stars - start -->
-            <div class="">
-              <span class="badge text-base font-bold py-3" style="<%= t.tier_color(t.tier_score) %>">
-                <%= t.tier_score_change(t.tier_score) %> Tier
-              </span>
-              <span class="badge text-base font-bold py-3">
-                全期間
-              </span>
-          <% if t.spoiler == true %>
-          <div class="collapse !p-0">
-            <input type="checkbox" />
-            <div class="collapse-title p-0">このコメントはネタバレを含みます</div>
-            <div class="collapse-content">
-              <p class=""><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+            <div>
+              <%= link_to t.user.user_name, user_path(t.user.id), class: "block text-base font-bold link link-hover" %>
+              <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
             </div>
           </div>
-          <% else %>
-          <div>
-            <p class=""><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
-          </div>
-          <% end %>
-          <!-- review - end -->
-        <% end %>
+
+          <!-- stars - start -->
+          <div class="">
+            <span class="badge text-base font-bold py-3" style="<%= t.tier_color(t.tier_score) %>">
+              <%= t.tier_score_change(t.tier_score) %> Tier
+            </span>
+            <span class="badge text-base font-bold py-3">
+              全期間
+            </span>
+            <% if t.spoiler == true %>
+              <div class="collapse">
+                <input type="checkbox" />
+                <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
+                <div class="collapse-content">
+                  <p><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+                </div>
+              </div>
+            <% else %>
+              <div class="p-4">
+                <p><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+              </div>
+            <% end %>
+        <!-- review - end -->
+      <% end %>
       <% else %>
       <span>このアニメはまだTierListに追加されていません。</span>
       <% end %>
