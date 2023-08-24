@@ -9,6 +9,7 @@ class AnimationsController < ApplicationController
     @animations_detail = AnimationDetail.where(animation_id: params[:id])
     @tier_lists = @animation.tier_lists.order(id: :desc)
     @tier_list = TierList.find_by(animation_id: params[:id])
+    @tier_list_entier = TierListEntier.find_by(animation_id: params[:id])
   end
 
   def search_results

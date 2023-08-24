@@ -1,4 +1,4 @@
-<div class="text-gray-600 body-font overflow-hidden">
+<div class="text-gray-600 body-font overflow-hidden pb-12">
   <% @animations.each do |animation| %>
   <% @animations_detail.each do |animationD| %>
     <div class="container px-5 py-12 mx-auto">
@@ -7,17 +7,42 @@
           <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded" %>
           <div class="flex justify-center py-2">
 
-            <% if user_signed_in? && animation.tier_lists.find_by(user_id: current_user.id).present? %>
-              <%= link_to edit_animation_tier_list_path(animation_id: animation.id, id: @tier_list.id), class: "btn btn-neutral" do %>
-                <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
-                <p class="text-accent"><%= @tier_lists.count %></p>
+          <div class="dropdown">
+            <% if user_signed_in? %>
+              <% if animation.tier_lists.find_by(user_id: current_user.id).present? || animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
+                <label tabindex="0" class="btn btn-neutral">
+                  <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
+                  <p class="text-accent"><%= @tier_lists.count %></p>
+                </label>
+              <% else %>
+                <label tabindex="0" class="btn btn-neutral">
+                  <i class="fa-solid fa-square-plus text-2xl"></i>
+                  <p><%= @tier_lists.count %></p>
+                </label>
               <% end %>
             <% else %>
-              <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral" do %>
+              <label tabindex="0" class="btn btn-neutral">
                 <i class="fa-solid fa-square-plus text-2xl"></i>
                 <p><%= @tier_lists.count %></p>
-              <% end %>
+              </label>
             <% end %>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-neutral rounded-box w-52 m-1">
+              <li>
+                <% if user_signed_in? && animation.tier_lists.find_by(user_id: current_user.id).present? %>
+                  <%= link_to "放送クール", edit_animation_tier_list_path(animation_id: animation.id, id: @tier_list.id), class: "text-accent" %>
+                <% else %>
+                  <%= link_to "放送クール", new_animation_tier_list_path(animation.id), class: "text-neutral-content" %>
+                <% end %>
+              </li>
+              <li>
+                <% if user_signed_in? && animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
+                  <%= link_to "全期間", edit_animation_tier_list_entier_path(animation_id: animation.id, id: @tier_list_entier.id), class: "text-accent" %>
+                <% else %>
+                  <%= link_to "全期間", new_animation_tier_list_entier_path(animation.id), class: "text-neutral-content" %>
+                <% end %>
+              </li>
+            </ul>
+          </div>
 
             <%# 後ほど、いいねボタンも実装します %>
             <%= link_to '#', class: "btn btn-neutral" do %>
@@ -31,7 +56,6 @@
             <%= link_to "https://twitter.com/#{animation.twitter_username}", class: "btn btn-neutral" do %>
               <i class="fa-brands fa-x-twitter text-2xl"></i>
             <% end %>
-
 
           </div>
         </div>
