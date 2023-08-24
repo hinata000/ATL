@@ -1,6 +1,7 @@
 class TierList < ApplicationRecord
   belongs_to :animation
   belongs_to :user
+  has_one :tier_list_entier
 
   validates :tier_score, numericality: {
     less_than_or_equal_to: 5,
