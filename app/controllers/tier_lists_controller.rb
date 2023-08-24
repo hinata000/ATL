@@ -43,6 +43,6 @@ class TierListsController < ApplicationController
   private
 
     def tier_list_params
-      params.require(:tier_list).permit(:animation_id, :tier_score, :comment, :spoiler, :entire_season)
+      params.require(:tier_list).permit(:animation_id, :tier_score, :comment, :spoiler)
     end
 end
