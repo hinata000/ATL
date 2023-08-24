@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_23_032342) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_24_053145) do
   create_table "animation_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "animation_id"
     t.text "staffs"
@@ -42,7 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_23_032342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "spoiler", null: false
-    t.boolean "entire_season", null: false
     t.index ["animation_id"], name: "index_tier_lists_on_animation_id"
     t.index ["user_id"], name: "index_tier_lists_on_user_id"
   end
