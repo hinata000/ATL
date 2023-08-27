@@ -58,4 +58,42 @@ class Animation < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     %w[title]
   end
+
+  def tier_score_change(score, entier_score)
+    if score > 0 && entier_score > 0
+      total_score = (score + entier_score) / 2
+    else
+      total_score = score + entier_score
+    end
+    if total_score >= 4.5
+      "SS"
+    elsif total_score >= 4
+      'S'
+    elsif total_score >= 3
+      'A'
+    elsif total_score >= 2
+      'B'
+    elsif total_score >= 1
+      'C'
+    end
+  end
+
+  def tier_color(score, entier_score)
+    if score > 0 && entier_score > 0
+      total_score = (score + entier_score) / 2
+    else
+      total_score = score + entier_score
+    end
+    if total_score >= 4.5
+      'color: #EF4444;'
+    elsif total_score >= 4
+      'color: #D97706;'
+    elsif total_score >= 3
+      'color: #F59E0B;'
+    elsif total_score >= 2
+      'color: #FCD34D;'
+    elsif total_score >= 1
+      'color: #10B981;'
+    end
+  end
 end

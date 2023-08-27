@@ -12,18 +12,18 @@
               <% if animation.tier_lists.find_by(user_id: current_user.id).present? || animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
                 <label tabindex="0" class="btn btn-neutral">
                   <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
-                  <p class="text-accent"><%= @tier_lists.count %></p>
+                  <p class="text-accent"><%= @animation.tier_lists.count + @animation.tier_list_entiers.count %></p>
                 </label>
               <% else %>
                 <label tabindex="0" class="btn btn-neutral">
                   <i class="fa-solid fa-square-plus text-2xl"></i>
-                  <p><%= @tier_lists.count %></p>
+                  <p><%= @animation.tier_lists.count + @animation.tier_list_entiers.count %></p>
                 </label>
               <% end %>
             <% else %>
               <label tabindex="0" class="btn btn-neutral">
                 <i class="fa-solid fa-square-plus text-2xl"></i>
-                <p><%= @tier_lists.count %></p>
+                <p><%= @animation.tier_lists.count + @animation.tier_list_entiers.count %></p>
               </label>
             <% end %>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-neutral rounded-box w-52 m-1">
@@ -62,10 +62,12 @@
         <div class="lg:w-3/5 w-full lg:pl-10 lg:py-2 mt-6 lg:mt-0">
           <h1 class="text-gray-300 text-3xl title-font font-medium mb-1"><%= animation.title %></h1>
           <p class="text-gray-400 leading-relaxed py-2"><%= animation.season_name_text%> | <%= animation.media_text %></p>
-          <% if @tier_list.present? %>
-            <div class="tracking-tighter ml-1" style="<%= @tier_list.tier_color(@tier_lists.average(:tier_score).to_f) %>">
+          <% if @tier_list.present? || @tier_list_entier.present? %>
+            <div class="tracking-tighter ml-1" style="<%= @animation.tier_color(@animation.tier_lists.average(:tier_score).to_f, @animation.tier_list_entiers.average(:tier_score).to_f) %>">
               <span class="text-4xl font-bold">
-                <%= @tier_list.tier_score_change(@tier_lists.average(:tier_score).to_f) %>
+                <%= @animation.tier_score_change(@animation.tier_lists.average(:tier_score).to_f, @animation.tier_list_entiers.average(:tier_score).to_f) %>
+                <%= @animation.tier_lists.average(:tier_score).to_f %>
+                <%= @animation.tier_list_entiers.average(:tier_score).to_f %>
               </span>
               <span class="text-2xl font-bold -ml-1.5">
                 Tier
