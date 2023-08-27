@@ -1,6 +1,6 @@
 <div class="w-5/6 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto">
-  <%= form_with model: @tier_list, url: animation_tier_lists_path, local: true do |f| %>
-    <%= f.hidden_field :animation_id, value: @tier_list.animation_id  %>
+  <%= form_with model: @tier_list_entier, url: animation_tier_list_entiers_path, local: true do |f| %>
+    <%= f.hidden_field :animation_id, value: @tier_list_entier.animation_id  %>
     <h2 class="text-primary-content text-3xl title-font font-medium text-center pb-8">「<%= @animation.title %>」<br>をリストに追加</h2>
     <div class="py-10">
       <div class="mx-3">

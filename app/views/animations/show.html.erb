@@ -1,4 +1,4 @@
-<div class="text-gray-600 body-font overflow-hidden">
+<div class="text-gray-600 body-font overflow-hidden pb-12">
   <% @animations.each do |animation| %>
   <% @animations_detail.each do |animationD| %>
     <div class="container px-5 py-12 mx-auto">
@@ -7,17 +7,42 @@
           <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded" %>
           <div class="flex justify-center py-2">
 
-            <% if user_signed_in? && animation.tier_lists.find_by(user_id: current_user.id).present? %>
-              <%= link_to edit_animation_tier_list_path(animation_id: animation.id, id: @tier_list.id), class: "btn btn-neutral" do %>
-                <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
-                <p class="text-accent"><%= @tier_lists.count %></p>
+          <div class="dropdown">
+            <% if user_signed_in? %>
+              <% if animation.tier_lists.find_by(user_id: current_user.id).present? || animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
+                <label tabindex="0" class="btn btn-neutral">
+                  <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
+                  <p class="text-accent"><%= @animation.tier_lists.count + @animation.tier_list_entiers.count %></p>
+                </label>
+              <% else %>
+                <label tabindex="0" class="btn btn-neutral">
+                  <i class="fa-solid fa-square-plus text-2xl"></i>
+                  <p><%= @animation.tier_lists.count + @animation.tier_list_entiers.count %></p>
+                </label>
               <% end %>
             <% else %>
-              <%= link_to new_animation_tier_list_path(animation.id), class: "btn btn-neutral" do %>
+              <label tabindex="0" class="btn btn-neutral">
                 <i class="fa-solid fa-square-plus text-2xl"></i>
-                <p><%= @tier_lists.count %></p>
-              <% end %>
+                <p><%= @animation.tier_lists.count + @animation.tier_list_entiers.count %></p>
+              </label>
             <% end %>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-neutral rounded-box w-52 m-1">
+              <li>
+                <% if user_signed_in? && animation.tier_lists.find_by(user_id: current_user.id).present? %>
+                  <%= link_to "放送クール", edit_animation_tier_list_path(animation_id: animation.id, id: @tier_list.id), class: "text-accent" %>
+                <% else %>
+                  <%= link_to "放送クール", new_animation_tier_list_path(animation.id), class: "text-neutral-content" %>
+                <% end %>
+              </li>
+              <li>
+                <% if user_signed_in? && animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
+                  <%= link_to "全期間", edit_animation_tier_list_entier_path(animation_id: animation.id, id: @tier_list_entier.id), class: "text-accent" %>
+                <% else %>
+                  <%= link_to "全期間", new_animation_tier_list_entier_path(animation.id), class: "text-neutral-content" %>
+                <% end %>
+              </li>
+            </ul>
+          </div>
 
             <%# 後ほど、いいねボタンも実装します %>
             <%= link_to '#', class: "btn btn-neutral" do %>
@@ -32,16 +57,15 @@
               <i class="fa-brands fa-x-twitter text-2xl"></i>
             <% end %>
 
-
           </div>
         </div>
         <div class="lg:w-3/5 w-full lg:pl-10 lg:py-2 mt-6 lg:mt-0">
           <h1 class="text-gray-300 text-3xl title-font font-medium mb-1"><%= animation.title %></h1>
           <p class="text-gray-400 leading-relaxed py-2"><%= animation.season_name_text%> | <%= animation.media_text %></p>
-          <% if @tier_list.present? %>
-            <div class="tracking-tighter ml-1" style="<%= @tier_list.tier_color(@tier_lists.average(:tier_score).to_f) %>">
+          <% if @tier_list.present? || @tier_list_entier.present? %>
+            <div class="tracking-tighter ml-1" style="<%= @animation.total_tier_color(@animation.tier_lists.average(:tier_score).to_f, @animation.tier_list_entiers.average(:tier_score).to_f) %>">
               <span class="text-4xl font-bold">
-                <%= @tier_list.tier_score_change(@tier_lists.average(:tier_score).to_f) %>
+                <%= @animation.total_tier_score_change(@animation.tier_lists.average(:tier_score).to_f, @animation.tier_list_entiers.average(:tier_score).to_f) %>
               </span>
               <span class="text-2xl font-bold -ml-1.5">
                 Tier
@@ -75,13 +99,13 @@
     <div class="mb-4 flex items-center justify-between border-t border-b py-4">
       <div class="flex flex-col gap-0.5">
         <span class="text-2xl font-bold mb-1">TierList追加履歴・コメント</span>
-        <% if @tier_list.present? %>
-        <span class="block text-sm mt-2"><%= @tier_lists.count %>件の追加履歴・コメント</span>
+        <% if @tier_list.present? || @tier_list_entier.present? %>
+        <span class="block text-sm mt-2"><%= @tier_lists.count + @tier_list_entiers.count %>件の追加履歴・コメント</span>
       </div>
     </div>
 
     <div class="divide-y">
-      <% @tier_lists.each do |t| %>
+      <% @tier_list_mix.each do |t| %>
 
         <div class="flex flex-col gap-3 py-4 md:py-8">
           <div class="flex items-center">
@@ -98,12 +122,14 @@
 
           <!-- stars - start -->
           <div class="">
-            <span class="badge text-base font-bold py-3" style="<%= t.tier_color(t.tier_score) %>">
-              <%= t.tier_score_change(t.tier_score) %> Tier
+            <span class="badge text-base font-bold py-3" style="<%= @animation.tier_color(t.tier_score) %>">
+              <%= @animation.tier_score_change(t.tier_score) %> Tier
             </span>
+            <%# 表示する方法を思いついたら実装
             <span class="badge text-base font-bold py-3">
               全期間
             </span>
+            %>
             <% if t.spoiler == true %>
               <div class="collapse">
                 <input type="checkbox" />

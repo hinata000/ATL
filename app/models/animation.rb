@@ -2,6 +2,7 @@ class Animation < ApplicationRecord
   enum season: { spring: 1, summer: 2, autumn: 3, winter: 4 }
   has_one :animation_detail
   has_many :tier_lists, dependent: :destroy
+  has_many :tier_list_entiers, dependent: :destroy
   # belongs_to :user
   # has_many :favorites, dependent: :destroy
   # has_many :reviews, dependent: :destroy
@@ -56,5 +57,71 @@ class Animation < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     %w[title]
+  end
+
+  def tier_score_change(score)
+    if score >= 4.5
+      "SS"
+    elsif score >= 4
+      'S'
+    elsif score >= 3
+      'A'
+    elsif score >= 2
+      'B'
+    elsif score >= 1
+      'C'
+    end
+  end
+
+  def total_tier_score_change(score, entier_score)
+    if score > 0 && entier_score > 0
+      total_score = (score + entier_score) / 2
+    else
+      total_score = score + entier_score
+    end
+    if total_score >= 4.5
+      "SS"
+    elsif total_score >= 4
+      'S'
+    elsif total_score >= 3
+      'A'
+    elsif total_score >= 2
+      'B'
+    elsif total_score >= 1
+      'C'
+    end
+  end
+
+  def tier_color(score)
+    if score >= 4.5
+      'color: #EF4444;'
+    elsif score >= 4
+      'color: #D97706;'
+    elsif score >= 3
+      'color: #F59E0B;'
+    elsif score >= 2
+      'color: #FCD34D;'
+    elsif score >= 1
+      'color: #10B981;'
+    end
+  end
+
+  def total_tier_color(score, entier_score)
+    if score > 0 && entier_score > 0
+      total_score = (score + entier_score) / 2
+    else
+      total_score = score + entier_score
+    end
+    if total_score >= 4.5
+      'color: #EF4444;'
+    elsif total_score >= 4
+      'color: #D97706;'
+    elsif total_score >= 3
+      'color: #F59E0B;'
+    elsif total_score >= 2
+      'color: #FCD34D;'
+    elsif total_score >= 1
+      'color: #10B981;'
+    end
   end
 end
