@@ -9,6 +9,6 @@ class BookmarksController < ApplicationController
   def destroy
     @bookmark = Bookmark.find_by(user_id: current_user.id, animation_id: params[:animation_id])
     @bookmark.destroy
-    redirect_to animation_path(params[:animation_id]) 
+    redirect_to animation_path(params[:animation_id])
   end
 end

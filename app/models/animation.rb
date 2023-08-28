@@ -3,7 +3,7 @@ class Animation < ApplicationRecord
   has_one :animation_detail
   has_many :tier_lists, dependent: :destroy
   has_many :tier_list_entiers, dependent: :destroy
-  has_many :bookmark, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
   # belongs_to :user
   # has_many :favorites, dependent: :destroy
   # has_many :reviews, dependent: :destroy
@@ -52,9 +52,9 @@ class Animation < ApplicationRecord
     end
   end
 
-  # def favorited?(user)
-  #   favorites.where(user_id: user.id).exists?
-  # end
+  def bookmarked?(user)
+    bookmarks.where(user_id: user.id).exists?
+  end
 
   def self.ransackable_attributes(auth_object = nil)
     %w[title]
