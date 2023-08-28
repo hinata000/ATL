@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :animations, only: [:index, :show,] do
     resources :tier_lists, only: [:create, :new, :edit, :update, :destroy]
     resources :tier_list_entiers, only: [:create, :new, :edit, :update, :destroy]
+    resources :bookmark, only: [:create, :destroy]
     collection do
       get 'search_results'
     end
