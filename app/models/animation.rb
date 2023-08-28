@@ -3,6 +3,7 @@ class Animation < ApplicationRecord
   has_one :animation_detail
   has_many :tier_lists, dependent: :destroy
   has_many :tier_list_entiers, dependent: :destroy
+  has_many :bookmark, dependent: :destroy
   # belongs_to :user
   # has_many :favorites, dependent: :destroy
   # has_many :reviews, dependent: :destroy
