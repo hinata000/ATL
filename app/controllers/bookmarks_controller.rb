@@ -1,4 +1,5 @@
 class BookmarksController < ApplicationController
+  before_action :authenticate_user!
 
   def create
     @bookmark = Bookmark.new(user_id: current_user.id, animation_id: params[:animation_id])
