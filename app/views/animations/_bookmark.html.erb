@@ -1,0 +1,11 @@
+<% if @animation.bookmarked?(current_user) %>
+  <%= link_to animation_bookmark_path(@animation.id), class: "btn btn-neutral text-info", data: { turbo_method: :delete } do %>
+    <i class="fa-solid fa-bookmark text-2xl"></i>
+    <p><%= @animation.bookmarks.count %></p>
+  <% end %>
+<% else %>
+  <%= link_to animation_bookmarks_path(@animation.id), class: "btn btn-neutral", data: { "turbo-method": :post } do %>
+    <i class="fa-solid fa-bookmark text-2xl"></i>
+    <p><%= @animation.bookmarks.count %></p>
+  <% end %>
+<% end %>

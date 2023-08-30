@@ -44,18 +44,21 @@
             </ul>
           </div>
 
-            <%# 後ほど、いいねボタンも実装します %>
-            <%= link_to '#', class: "btn btn-neutral" do %>
+          <% if user_signed_in? %>
+            <%= render "bookmark", animation: @animation %>
+          <% else %>
+            <%= link_to animation_bookmarks_path(@animation.id), class: "btn btn-neutral", data: { "turbo-method": :post } do %>
               <i class="fa-solid fa-bookmark text-2xl"></i>
-              <p>0</p>
+              <p><%= @animation.bookmarks.count %></p>
             <% end %>
+          <% end %>
 
-            <%= link_to animation.official_site_url, class: "btn btn-neutral" do %>
-              <i class="fa-solid fa-pager text-2xl"></i>
-            <% end %>
-            <%= link_to "https://twitter.com/#{animation.twitter_username}", class: "btn btn-neutral" do %>
-              <i class="fa-brands fa-x-twitter text-2xl"></i>
-            <% end %>
+          <%= link_to animation.official_site_url, class: "btn btn-neutral" do %>
+            <i class="fa-solid fa-pager text-2xl"></i>
+          <% end %>
+          <%= link_to "https://twitter.com/#{animation.twitter_username}", class: "btn btn-neutral" do %>
+            <i class="fa-brands fa-x-twitter text-2xl"></i>
+          <% end %>
 
           </div>
         </div>
