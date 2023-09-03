@@ -27,48 +27,28 @@
   </div>
 </div>
 
-<div class="flex overflow-x-auto mb-8">
-  <table class="flex-none">
+<div class="overflow-x-scroll">
+  <table class="w-max">
     <tbody>
       <tr>
         <th class="bg-red-400 w-12 sm:w-24 text-base-300 text-xl font-bold border-b">SS</th>
-        <% @ss_tier.each do |ss| %>
-          <td class="p-0">
-            <%= image_tag Animation.find(ss.animation_id).image, class: "sm:w-48 w-32 p-0 h-auto" %>
-          </td>
-        <% end %>
+        <%= render "animation_modal", tier_list: @ss_tier %>
       </tr>
       <tr>
         <th class="bg-yellow-500 w-12 sm:w-24 text-base-300 text-xl font-bold border-b">S</th>
-        <% @s_tier.each do |s| %>
-          <td class="p-0">
-            <%= image_tag Animation.find(s.animation_id).image, class: "sm:w-48 w-32 p-0 h-auto" %>
-          </td>
-        <% end %>
+        <%= render "animation_modal", tier_list: @s_tier %>
       </tr>
       <tr>
         <th class="bg-yellow-300 w-12 sm:w-24 text-base-300 text-xl font-bold border-b">A</th>
-        <% @a_tier.each do |a| %>
-          <td class="p-0">
-            <%= image_tag Animation.find(a.animation_id).image, class: "sm:w-48 w-32 p-0 h-auto" %>
-          </td>
-        <% end %>
+        <%= render "animation_modal", tier_list: @a_tier %>
       </tr>
       <tr>
         <th class="bg-green-400 w-12 sm:w-24 text-base-300 text-xl font-bold border-b">B</th>
-        <% @b_tier.each do |b| %>
-          <td class="p-0">
-            <%= image_tag Animation.find(b.animation_id).image, class: "sm:w-48 w-32 p-0 h-auto" %>
-          </td>
-        <% end %>
+        <%= render "animation_modal", tier_list: @b_tier %>
       </tr>
       <tr>
         <th class="bg-blue-400 w-12 sm:w-24 text-base-300 text-xl font-bold border-b">C</th>
-        <% @c_tier.each do |c| %>
-          <td class="p-0">
-            <%= image_tag Animation.find(c.animation_id).image, class: "sm:w-48 w-32 p-0 h-auto" %>
-          </td>
-        <% end %>
+        <%= render "animation_modal", tier_list: @c_tier %>
       </tr>
     </tbody>
   </table>
