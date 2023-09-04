@@ -12,7 +12,7 @@
             <p>AnimeTierListの公式アカウントです。</p>
           </div>
           <div class="flex justify-between items-center my-5 px-6">
-            <p class="font-medium text-base-content text-sm text-center w-full py-3">TierList<br><%= @tier_list.count %></p>
+            <p class="font-medium text-base-content text-sm text-center w-full py-3">TierList<br><%= @tier_list.count + @tier_list_entier.count %></p>
             <p class="font-medium text-base-content text-sm text-center w-full py-3">フォロー<br>10</p>
             <p class="font-medium text-base-content text-sm text-center w-full py-3">フォロワー<br>1000</p>
           </div>
@@ -26,6 +26,7 @@
             <a class="tab tab-bordered tab-active w-1/3">レビュー</a>
             <a class="tab tab-bordered w-1/3">ブックマーク</a>
           </div>
+          <%= render "comment", tier_list_mix: @tier_list_mix %>
         </div>
       </div>
     </div>
@@ -35,3 +36,5 @@
 <%= render "tier_list", {ss_tier: @ss_tier, s_tier: @s_tier, a_tier: @a_tier, b_tier: @b_tier, c_tier: @c_tier} %>
 
 <%= render "tier_list_entier", {ss_tier_entier: @ss_tier_entier, s_tier_entier: @s_tier_entier, a_tier_entier: @a_tier_entier, b_tier_entier: @b_tier_entier, c_tier_entier: @c_tier_entier} %>
+
+

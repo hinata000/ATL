@@ -1,0 +1,48 @@
+<div class="divide-y">
+  <% if tier_list_mix.pluck(:comment).present? %>
+    <% tier_list_mix.each do |t| %>
+      <% if t.comment.present? %>
+        <div class="flex flex-col gap-3 py-4 md:py-8">
+          <div class="flex items-center">
+            <div class="avatar w-12 mr-1 -ml-1">
+              <%= link_to user_path(t.user.id) do %>
+                <%= image_tag t.user.user_image, class: "rounded-full" %>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to t.user.user_name, user_path(t.user.id), class: "block text-base font-bold link link-hover" %>
+              <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
+            </div>
+          </div>
+
+          <!-- stars - start -->
+          <div class="">
+            <span class="badge text-base font-bold py-3" style="<%= t.animation.tier_color(t.tier_score) %>">
+              <%= t.animation.tier_score_change(t.tier_score) %> Tier
+            </span>
+            <%# 表示する方法を思いついたら実装
+            <span class="badge text-base font-bold py-3">
+              全期間
+            </span>
+            %>
+            <% if t.spoiler == true %>
+              <div class="collapse">
+                <input type="checkbox" />
+                <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
+                <div class="collapse-content">
+                  <p><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+                </div>
+              </div>
+            <% else %>
+              <div class="p-4">
+                <p><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p class="my-6 text-center">レビューが存在しません</p>
+  <% end %>
+</div>
