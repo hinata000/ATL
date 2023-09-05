@@ -1,9 +1,7 @@
 class HeaderImageUploader < CarrierWave::Uploader::Base
-  mount_uploader :header_image, ImageUploader
-
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
   process resize_to_fit: [650, 350]
 
   # Choose what kind of storage to use for this uploader:
