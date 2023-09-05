@@ -1,23 +1,16 @@
-<h1>プロフィール編集</h1>
-
-<%= form_with model: @user do |form| %>
-  <div>username<%= form.text_field :user_name %></div>
-  <div><%= form.submit "保存" %></div>
-<% end %>
-
 <section class="py-6">
   <div class="flex flex-col items-center justify-center px-6 py-6 mx-auto lg:py-0">
       <div class="w-full bg-base-200 rounded-lg shadow sm:max-w-md xl:p-0">
         <%= form_with model: @user, local: true do |f| %>
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-secondary-content md:text-2xl">
-                  アカウント作成
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-secondary-content md:text-2xl text-center">
+                  編集
               </h1>
               <form class="space-y-4 md:space-y-6" action="#">
                   <%# メールアドレス %>
                   <div class="field">
                     <%= f.label :user_name, "ユーザーネーム", class: "label" %>
-                    <%= f.text_filed :user_name, class: "input input-bordered block w-full p-2.5", autofocus: true, autocomplete: "email", required: true %>
+                    <%= f.text_field :user_name, class: "input input-bordered block w-full p-2.5", autofocus: true, autocomplete: "email", required: true %>
                   </div>
                   <%# ユーザーネーム %>
                   <div class="field">
@@ -31,20 +24,19 @@
                   </div>
                   <%# パスワード %>
                   <div class="field">
-                    <%= f.label :user_image, "パスワード", class: "label" %>
+                    <%= f.label :user_image, "プロフィール画像", class: "label" %>
                     <%= f.password_field :user_image, class: "input input-bordered block w-full p-2.5", autocomplete: "new-password", required: true %>
                   </div>
                   <div class="field">
                   <%# パスワード確認 %>
                   <div class="field">
-                    <%= f.label :header_image, "パスワード確認", class: "label" %>
+                    <%= f.label :header_image, "ヘッダー画像", class: "label" %>
                     <%= f.password_field :header_image, class: "input input-bordered block w-full p-2.5", autocomplete: "new-password", required: true %>
                   </div>
                   <%# アカウント作成 %>
                   <div class="actions py-6">
-                    <%= f.submit "登録", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
+                    <%= f.submit "編集", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
                   </div>
-                  <%= render "devise/shared/links" %>
               </form>
           </div>
         <% end %>
