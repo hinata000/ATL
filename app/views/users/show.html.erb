@@ -9,8 +9,9 @@
   <div class="container mx-auto my-32">
     <div>
       <div class="relative w-5/6 md:w-5/6  lg:w-7/12 xl:w-5/12 mx-auto pb-4">
+        <%= image_tag @user.header_image.thumb.url %>
         <div class="flex justify-center">
-          <%= image_tag @user.user_image, class: "rounded-full mx-auto absolute -top-20 w-32 h-32 transition duration-200 transform hover:scale-110" %>
+          <%= image_tag @user.user_image.thumb.url, class: "rounded-full mx-auto absolute -top-20 w-32 h-32 transition duration-200 transform hover:scale-110" %>
         </div>
         <div class="mt-12">
           <h1 class="font-bold text-center text-3xl text-primary-content"><%= @user.user_name %></h1>
