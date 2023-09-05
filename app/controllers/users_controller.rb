@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show]
+  before_action :authenticate_user!, only: [:mypage]
 
   def show
-    @user = User.find(params[:id])
     @tier_list = @user.tier_lists
     @tier_list_entier = @user.tier_list_entiers
     @tier_list_mix = @tier_list | @tier_list_entier
@@ -19,4 +20,14 @@ class UsersController < ApplicationController
     @b_tier_entier = @user.tier_list_entiers.where(tier_score: 2)
     @c_tier_entier = @user.tier_list_entiers.where(tier_score: 1)
   end
+
+  def mypage
+    redirect_to user_path(current_user)
+  end
+
+  private
+
+    def set_user
+      @user = User.find(params[:id])
+    end
 end

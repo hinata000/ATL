@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   resources :users, only: [:show]
+  get '/mypage' => 'users#mypage'
 
   resources :animations, only: [:index, :show,] do
     resources :tier_lists, only: [:create, :new, :edit, :update, :destroy]
