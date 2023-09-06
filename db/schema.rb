@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_075242) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_120112) do
   create_table "animation_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "animation_id"
     t.text "staffs"
@@ -77,12 +77,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_075242) do
     t.datetime "updated_at", null: false
     t.string "user_name", null: false
     t.string "user_id", null: false
-    t.string "user_image", default: "user_icon_purple.png"
+    t.string "user_image"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "header_image", default: "user_header.png"
+    t.string "header_image"
     t.text "profile"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
