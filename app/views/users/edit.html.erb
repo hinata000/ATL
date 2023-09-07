@@ -8,6 +8,16 @@
               </h1>
               <form class="space-y-4 md:space-y-6" action="#">
                   <div class="field">
+                    <%= f.label :user_image, "プロフィール画像", class: "label" %>
+                    <%= f.file_field :user_image, class: "file-input file-input-bordered w-full max-w-xs", autocomplete: "new-password" %>
+                    <%= f.hidden_field :user_image_cache %>
+                  </div>
+                  <div class="field">
+                    <%= f.label :header_image, "ヘッダー画像", class: "label" %>
+                    <%= f.file_field :header_image, class: "file-input file-input-bordered w-full max-w-xs", autocomplete: "new-password" %>
+                    <%= f.hidden_field :header_image_cache %>
+                  </div>
+                  <div class="field">
                     <%= f.label :user_name, "ユーザーネーム", class: "label" %>
                     <%= f.text_field :user_name, class: "input input-bordered block w-full p-2.5", autofocus: true, autocomplete: "email", required: true %>
                   </div>
@@ -17,18 +27,7 @@
                   </div>
                   <div class="field">
                     <%= f.label :profile, "プロフィール", class: "label" %>
-                    <%= f.text_field :profile, class: "input input-bordered block w-full p-2.5", autofocus: true %>
-                  </div>
-                  <div class="field">
-                    <%= f.label :user_image, "プロフィール画像", class: "label" %>
-                    <%= f.file_field :user_image, class: "input input-bordered block w-full p-2.5", autocomplete: "new-password" %>
-                    <%= f.hidden_field :user_image_cache %>
-                  </div>
-                  <div class="field">
-                  <div class="field">
-                    <%= f.label :header_image, "ヘッダー画像", class: "label" %>
-                    <%= f.file_field :header_image, class: "input input-bordered block w-full p-2.5", autocomplete: "new-password" %>
-                    <%= f.hidden_field :header_image_cache %>
+                    <%= f.text_area :profile, class: "textarea textarea-bordered textarea-lg w-full h-32", autofocus: true %>
                   </div>
                   <div class="actions py-6">
                     <%= f.submit "更新", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
