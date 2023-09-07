@@ -20,8 +20,8 @@
           </div>
           <div class="flex justify-between items-center my-5 px-6">
             <p class="font-medium text-base-content text-sm text-center w-full py-3">TierList<br><%= @tier_list.count + @tier_list_entier.count %></p>
-            <p class="font-medium text-base-content text-sm text-center w-full py-3">フォロー<br>10</p>
-            <p class="font-medium text-base-content text-sm text-center w-full py-3">フォロワー<br>1000</p>
+            <%= render "relationships/follow_list" %>
+            <%= render "relationships/follower_list" %>
           </div>
           <div class="my-5 px-6">
             <% if user_signed_in? && @user == current_user %>
