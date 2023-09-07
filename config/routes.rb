@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'relationships/followings'
-  get 'relationships/followers'
   devise_for :users
 
   root 'homes#index'
@@ -15,5 +13,11 @@ Rails.application.routes.draw do
     collection do
       get 'search_results'
     end
+  end
+
+  resources :users do
+    resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
   end
 end
