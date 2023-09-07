@@ -1,0 +1,7 @@
+<% tier_list.each do |t| %>
+  <td class="p-0">
+    <%= link_to animation_path(t.animation_id) do %>
+      <%= image_tag Animation.find(t.animation_id).image, class: "sm:w-48 w-32 p-0 h-auto" %>
+    <% end %>
+  </td>
+<% end %>

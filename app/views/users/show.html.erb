@@ -1,28 +1,52 @@
 <div class="antialiased">
-    <div class="container mx-auto my-60">
-        <div>
-            <div class="bg-base-200 relative shadow rounded-lg w-5/6 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto pb-4">
-                <div class="flex justify-center">
-                    <%= image_tag @user.user_image, class: "rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md transition duration-200 transform hover:scale-110" %>
-                </div>
-                <div class="mt-12">
-                    <h1 class="font-bold text-center text-3xl text-primary-content"><%= @user.user_name %></h1>
-                    <p class="text-center text-sm text-neutral-content font-medium">@<%= @user.user_id %></p>
-                    <div class="px-6 my-4 text-center">
-                        <p>AnimeTierListの公式アカウントです。</p>
-                    </div>
-                    <div class="flex justify-between items-center my-5 px-6">
-                        <p class="font-medium text-base-content text-sm text-center w-full py-3">TierList<br>100</p>
-                        <p class="font-medium text-base-content text-sm text-center w-full py-3">フォロー<br>10</p>
-                        <p class="font-medium text-base-content text-sm text-center w-full py-3">フォロワー<br>1000</p>
-                    </div>
-                    <div class="my-5 px-6">
-                        <button class="btn btn-primary w-full">
-                            <%= link_to 'フォローする', '#' %>
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <div class="container mx-auto my-32">
+    <div>
+      <div class="w-5/6 md:w-5/6  lg:w-7/12 xl:w-5/12 mx-auto pb-4">
+        <div class="relative">
+          <div class="mb-12">
+            <%= image_tag @user.header_image.thumb.url, class: "rounded-3xl" %>
+          </div>
+          <div class="flex justify-center">
+            <%= image_tag @user.user_image.thumb.url, class: "rounded-full mx-auto top-80 absolute w-32 h-32 object-cover border-2 border-neutral" %>
+          </div>
         </div>
-    </div>
+        <div class="mt-8">
+          <h1 class="font-bold text-center text-3xl text-primary-content"><%= @user.user_name %></h1>
+          <p class="text-center text-sm text-neutral-content font-medium">@<%= @user.user_id %></p>
+          <div class="px-6 my-4 text-center">
+            <% if @user.profile.present? %>
+            <p><%= safe_join(@user.profile.split("\n"),tag(:br)) %></p>
+            <% end %>
+          </div>
+          <div class="flex justify-between items-center my-5 px-6">
+            <p class="font-medium text-base-content text-sm text-center w-full py-3">TierList<br><%= @tier_list.count + @tier_list_entier.count %></p>
+            <p class="font-medium text-base-content text-sm text-center w-full py-3">フォロー<br>10</p>
+            <p class="font-medium text-base-content text-sm text-center w-full py-3">フォロワー<br>1000</p>
+          </div>
+          <div class="my-5 px-6">
+            <% if user_signed_in? && @user == current_user %>
+              <button class="btn btn-neutral w-full">
+                <%= link_to "プロフィール編集", edit_user_path(current_user) %>
+              </button>
+            <% else %>
+              <button class="btn btn-primary w-full">
+                <%= link_to 'フォローする', '#' %>
+              </button>
+            <% end %>
+          </div>
+          <div class="tabs mt-8">
+            <a class="tab tab-bordered w-1/3">TierList</a>
+            <a class="tab tab-bordered tab-active w-1/3">レビュー</a>
+            <a class="tab tab-bordered w-1/3">ブックマーク</a>
+          </div>
+          <%= render "comment", tier_list_mix: @tier_list_mix %>
+          <%= render "bookmark", user: @user %>
+        </div>
+      </div>
+    </div>s
+  </div>
 </div>
+
+<%= render "tier_list", {ss_tier: @ss_tier, s_tier: @s_tier, a_tier: @a_tier, b_tier: @b_tier, c_tier: @c_tier} %>
+
+<%= render "tier_list_entier", {ss_tier_entier: @ss_tier_entier, s_tier_entier: @s_tier_entier, a_tier_entier: @a_tier_entier, b_tier_entier: @b_tier_entier, c_tier_entier: @c_tier_entier} %>
