@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_06_120112) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_07_073434) do
   create_table "animation_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "animation_id"
     t.text "staffs"
@@ -41,6 +41,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_120112) do
     t.datetime "updated_at", null: false
     t.index ["animation_id"], name: "index_bookmarks_on_animation_id"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tier_list_entiers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
