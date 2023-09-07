@@ -6,7 +6,7 @@ class RelationshipsController < ApplicationController
 
   def destroy
     current_user.unfollow(params[:user_id])
-    redirect_to request.referergit
+    redirect_to request.referergit, status: :see_other
   end
 
   def followings
