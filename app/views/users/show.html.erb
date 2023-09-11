@@ -41,9 +41,9 @@
             <% end %>
           </div>
 
-          <%= turbo_frame_tag "list" do %>
+          <%= turbo_frame_tag @user do %>
             <div class="tabs mt-8">
-              <%= link_to "TierList", tier_list, class: "tab tab-bordered tab-active w-1/3" %>
+              <%= link_to "TierList", @user, class: "tab tab-bordered tab-active w-1/3" %>
               <%= link_to "レビュー", @user, class: "tab tab-bordered w-1/3" %>
               <%= link_to "ブックマーク", @user, class: "tab tab-bordered w-1/3" %>
             </div>
