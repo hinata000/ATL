@@ -44,14 +44,7 @@
             </ul>
           </div>
 
-          <% if user_signed_in? %>
-            <%= render "bookmark", animation: @animation %>
-          <% else %>
-            <%= link_to animation_bookmarks_path(@animation.id), class: "btn btn-neutral", data: { "turbo-method": :post } do %>
-              <i class="fa-solid fa-bookmark text-2xl"></i>
-              <p><%= @animation.bookmarks.count %></p>
-            <% end %>
-          <% end %>
+          <%= render 'bookmark_button', animation: animation %>
 
           <%= link_to animation.official_site_url, class: "btn btn-neutral" do %>
             <i class="fa-solid fa-pager text-2xl"></i>
