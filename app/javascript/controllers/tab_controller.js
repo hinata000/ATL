@@ -12,7 +12,7 @@ export default class extends Controller {
 
     tabs.forEach((tab, index)=>{
       if(current.classList.contains("not-active")){
-        tab.classList.remove("is-active")
+        tab.classList.remove("tab-active")
         tab.classList.add("not-active")
         contents[index].classList.add("hidden")
       }
@@ -20,7 +20,7 @@ export default class extends Controller {
 
     if(current.classList.contains("not-active")){
       current.classList.remove("not-active")
-      current.classList.add("is-active")
+      current.classList.add("tab-active")
       contents[currentIndex].classList.remove("hidden")
     }
   }

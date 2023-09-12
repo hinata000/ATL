@@ -7,7 +7,7 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    @animation = current_user.bookmark.find(params[:id]).animation
+    @animation = current_user.bookmarks.find(params[:id]).animation
     current_user.unbookmark(@animation)
   end
 end

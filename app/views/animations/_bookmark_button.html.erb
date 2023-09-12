@@ -1,4 +1,4 @@
-<% if animation.bookmarked?(current_user) %>
+<% if current_user.bookmarked?(animation) %>
   <%= render 'unbookmark', animation: animation %>
 <% else %>
   <%= render 'bookmark', animation: animation %>

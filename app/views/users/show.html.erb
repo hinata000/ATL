@@ -41,24 +41,22 @@
             <% end %>
           </div>
 
-          <%= turbo_frame_tag @user do %>
-            <div data-controller="tab">
-              <div class="tabs mt-8">
-                <a class="tab tab-bordered w-1/3 is-active" aria-current="page" data-tab-target="tab" data-action="tab#tabClick">TierList</a>
-                <a class="tab tab-bordered w-1/3 not-active" data-tab-target="tab" data-action="tab#tabClick">レビュー</a>
-                <a class="tab tab-bordered w-1/3 not-active" data-tab-target="tab" data-action="tab#tabClick">ブックマーク</a>
-              </div>
-              <div data-tab-target="content">
-                <%= render "tier_list", {ss_tier: @ss_tier, s_tier: @s_tier, a_tier: @a_tier, b_tier: @b_tier, c_tier: @c_tier} %>
-              </div>
-              <div class="hidden" data-tab-target="content">
-                <%= render "comment", tier_list_mix: @tier_list_mix %>
-              </div>
-              <div class="hidden" data-tab-target="content">
-                <%= render "bookmark", user: @user %>
-              </div>
+          <div data-controller="tab">
+            <div class="tabs mt-8">
+              <a class="tab tab-bordered w-1/3 tab-active" aria-current="page" data-tab-target="tab" data-action="tab#tabClick">TierList</a>
+              <a class="tab tab-bordered w-1/3 not-active" data-tab-target="tab" data-action="tab#tabClick">レビュー</a>
+              <a class="tab tab-bordered w-1/3 not-active" data-tab-target="tab" data-action="tab#tabClick">ブックマーク</a>
             </div>
-          <% end %>
+            <div class="" data-tab-target="content">
+              <%= render "tier_list", {ss_tier: @ss_tier, s_tier: @s_tier, a_tier: @a_tier, b_tier: @b_tier, c_tier: @c_tier} %>
+            </div>
+            <div class="hidden" data-tab-target="content">
+              <%= render "comment", tier_list_mix: @tier_list_mix %>
+            </div>
+            <div class="hidden" data-tab-target="content">
+              <%= render "bookmark", user: @user %>
+            </div>
+          </div>
 
         </div>
       </div>

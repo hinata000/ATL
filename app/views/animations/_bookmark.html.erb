@@ -1,5 +1,5 @@
-<%= turbo_frame_tag dom_id(animation, :bookmark_animation) do %>
-  <%= link_to animation_bookmarks_path(animation_id: animation.id), id: "js-bookmark-button-for-animation-#{animation.id}", class: "btn btn-neutral", data: { "turbo-method": :post } do %>
+<%= turbo_frame_tag dom_id(animation, :bookmark_animations) do %>
+  <%= link_to bookmarks_path(animation_id: animation.id), class: "btn btn-neutral", data: { "turbo-method": :post } do %>
     <i class="fa-solid fa-bookmark text-2xl"></i>
     <p><%= animation.bookmarks.count %></p>
   <% end %>
