@@ -5,8 +5,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :edit, :update]
 
-  resources :bookmarks, only: [:create, :destroy]
-
   get '/mypage' => 'users#mypage'
 
   resources :animations, only: [:index, :show,] do
@@ -17,6 +15,8 @@ Rails.application.routes.draw do
       get 'bookmarks'
     end
   end
+
+  resources :bookmarks, only: [:create, :destroy]
 
   resources :users do
     resource :relationships, only: [:create, :destroy]

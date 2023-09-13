@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @animation = Animation.find(:animation_id)
+    @animation = Animation.find(params[:animation_id])
     current_user.bookmark(@animation)
   end
 
