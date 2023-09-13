@@ -54,7 +54,7 @@
               <%= render "comment", tier_list_mix: @tier_list_mix %>
             </div>
             <div class="hidden" data-tab-target="content">
-              <%= render "bookmark", user: @user %>
+              <%= render "bookmark", {bookmarks: @bookmarks, animation: @animation, user: @user} %>
             </div>
           </div>
 
