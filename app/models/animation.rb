@@ -53,7 +53,7 @@ class Animation < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "season", "year"]
+    ["title", "season", "year", "bookmarks_count", "tier_average"]
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -124,5 +124,10 @@ class Animation < ApplicationRecord
     elsif total_score >= 1
       'color: #10B981;'
     end
+  end
+
+  def update_tier_average
+    tier_average = tier_lists.average(:tier_score).to_f + tier_list_entiers.average(:tier_score).to_f
+    self.update(tier_average: tier_average)
   end
 end

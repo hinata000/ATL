@@ -2,6 +2,9 @@ class TierList < ApplicationRecord
   belongs_to :animation
   belongs_to :user
 
+  after_save :update_tier_average
+  after_destroy :update_tier_average
+
   validates :tier_score, numericality: {
     less_than_or_equal_to: 5,
     greater_than_or_equal_to: 1}, presence: true
@@ -34,5 +37,9 @@ class TierList < ApplicationRecord
     elsif score >= 1
       'color: #10B981;'
     end
+  end
+
+  def update_tier_average
+    animation.update_tier_average
   end
 end

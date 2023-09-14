@@ -6,7 +6,6 @@
         <%= f.search_field :title_cont, class: "input input-bordered", placeholder: "タイトルで検索", value: "" %>
         <%= f.date_select :year, discard_day: true, discard_month: true, include_blank: true %>
         <%= sort_link(@q, :updated_at, '新着順' ) %>
-        <%= sort_link(@q, :bookmarks_animation_id, 'ブックーマークが多い順' ) %>
       </div>
     </form>
   <% end %>
