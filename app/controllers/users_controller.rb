@@ -3,6 +3,10 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:mypage, :edit, :update]
 
   def show
+    @bookmarks = @user.bookmarks.order(created_at: :desc)
+
+    @animation = Animation.find(params[:id])
+
     @tier_list = @user.tier_lists
     @tier_list_entier = @user.tier_list_entiers
     @tier_list_mix = @tier_list | @tier_list_entier

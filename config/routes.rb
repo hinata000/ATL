@@ -4,16 +4,19 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   resources :users, only: [:show, :edit, :update]
+
   get '/mypage' => 'users#mypage'
 
   resources :animations, only: [:index, :show,] do
     resources :tier_lists, only: [:create, :new, :edit, :update, :destroy]
     resources :tier_list_entiers, only: [:create, :new, :edit, :update, :destroy]
-    resources :bookmarks, only: [:create, :destroy]
     collection do
       get 'search_results'
+      get 'bookmarks'
     end
   end
+
+  resources :bookmarks, only: [:create, :destroy]
 
   resources :users do
     resource :relationships, only: [:create, :destroy]

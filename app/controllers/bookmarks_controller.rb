@@ -2,14 +2,12 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @bookmark = Bookmark.new(user_id: current_user.id, animation_id: params[:animation_id])
-    @bookmark.save
-    redirect_back(fallback_location: root_path)
+    @animation = Animation.find(params[:animation_id])
+    current_user.bookmark(@animation)
   end
 
   def destroy
-    @bookmark = Bookmark.find_by(user_id: current_user.id, animation_id: params[:animation_id])
-    @bookmark.destroy
-    redirect_back(fallback_location: root_path)
+    @animation = current_user.bookmarks.find(params[:id]).animation
+    current_user.unbookmark(@animation)
   end
 end

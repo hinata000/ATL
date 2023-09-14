@@ -52,10 +52,6 @@ class Animation < ApplicationRecord
     end
   end
 
-  def bookmarked?(user)
-    bookmarks.where(user_id: user.id).exists?
-  end
-
   def self.ransackable_attributes(auth_object = nil)
     %w[title]
   end

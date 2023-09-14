@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   has_many :tier_lists, dependent: :destroy
   has_many :tier_list_entiers, dependent: :destroy
-  has_many :bookmark, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_animations, through: :bookmarks, source: :animation
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followings, through: :relationships, source: :followed
@@ -23,5 +24,17 @@ class User < ApplicationRecord
 
   def following?(user)
     followings.include?(user)
+  end
+
+  def bookmarked?(animation)
+    bookmark_animations.include?(animation)
+  end
+
+  def bookmark(animation)
+    bookmark_animations << animation
+  end
+
+  def unbookmark(animation)
+    bookmark_animations.destroy(animation)
   end
 end
