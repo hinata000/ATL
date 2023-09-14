@@ -53,7 +53,11 @@ class Animation < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[title]
+    ["title", "season", "year"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["bookmarks"]
   end
 
   def tier_score_change(score)
