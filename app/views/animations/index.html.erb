@@ -11,6 +11,10 @@
   <% end %>
 </div>
 
+<%= sort_link(@q, :title, '新着順' ) %>
+<%= sort_link(@q, :bookmarks_count, '新着順' ) %>
+<%= sort_link(@q, :tier_average, '新着順' ) %>
+
 <%= turbo_frame_tag "animations-list" do %>
   <div class="py-6 sm:py-8 lg:py-12">
     <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
