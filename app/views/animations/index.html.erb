@@ -4,7 +4,6 @@
       <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
       <div class="relative">
         <%= f.search_field :title_cont, class: "input input-bordered", placeholder: "タイトルで検索", value: "" %>
-        <%= f.date_select :year, discard_day: true, discard_month: true, include_blank: true %>
         <%= sort_link(@q, :updated_at, '新着順' ) %>
       </div>
     </form>
