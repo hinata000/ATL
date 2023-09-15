@@ -29,7 +29,7 @@ class Animation < ApplicationRecord
 
         # 現在のページ <= ページの数になるまで繰り返し処理を実行
         while current_page <= page_count do
-          data = JSON.parse(Faraday.get("#{base_url}/works?fields=title,title_kana,images,twitter_username,official_site_url,media_text,syobocal_tid,released_on,season_name_text&page=#{current_page}&per_page=50&filter_season=#{year}-#{season}&sort_watchers_count=desc&access_token=#{access_token}").body)
+          data = JSON.parse(Faraday.get("#{base_url}/works?fields=title,title_kana,images,twitter_username,official_site_url,media_text,syobocal_tid,season_name_text&page=#{current_page}&per_page=50&filter_season=#{year}-#{season}&sort_watchers_count=desc&access_token=#{access_token}").body)
           animations = data["works"]
 
           animations.each do |animation|
@@ -54,7 +54,7 @@ class Animation < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "season", "year", "bookmarks_count", "tier_average"]
+    ["title", "title_kana", "bookmarks_count", "tier_average"]
   end
 
   def self.ransackable_associations(auth_object = nil)
