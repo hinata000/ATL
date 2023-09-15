@@ -35,7 +35,7 @@ class Animation < ApplicationRecord
           animations.each do |animation|
             # すでにレコードが存在する場合は更新、無ければ新規作成
             Animation.find_or_initialize_by(title: animation["title"]).update(
-              title_kane: animation["title_kana"],
+              title_kana: animation["title_kana"],
               year: year,
               season: index,
               image: animation["images"]["facebook"]["og_image_url"],
