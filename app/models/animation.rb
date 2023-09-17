@@ -4,6 +4,7 @@ class Animation < ApplicationRecord
   has_many :tier_lists, dependent: :destroy
   has_many :tier_list_entiers, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+
   # belongs_to :user
   # has_many :favorites, dependent: :destroy
   # has_many :reviews, dependent: :destroy
@@ -29,12 +30,13 @@ class Animation < ApplicationRecord
 
         # 現在のページ <= ページの数になるまで繰り返し処理を実行
         while current_page <= page_count do
-          data = JSON.parse(Faraday.get("#{base_url}/works?fields=title,images,twitter_username,official_site_url,media_text,syobocal_tid,season_name_text&page=#{current_page}&per_page=50&filter_season=#{year}-#{season}&sort_watchers_count=desc&access_token=#{access_token}").body)
+          data = JSON.parse(Faraday.get("#{base_url}/works?fields=title,title_kana,images,twitter_username,official_site_url,media_text,syobocal_tid,season_name_text&page=#{current_page}&per_page=50&filter_season=#{year}-#{season}&sort_watchers_count=desc&access_token=#{access_token}").body)
           animations = data["works"]
 
           animations.each do |animation|
             # すでにレコードが存在する場合は更新、無ければ新規作成
             Animation.find_or_initialize_by(title: animation["title"]).update(
+              title_kana: animation["title_kana"],
               year: year,
               season: index,
               image: animation["images"]["facebook"]["og_image_url"],
@@ -53,7 +55,11 @@ class Animation < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[title]
+    ["title", "title_kana", "bookmarks_count", "tier_average"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["bookmarks"]
   end
 
   def tier_score_change(score)
@@ -120,5 +126,16 @@ class Animation < ApplicationRecord
     elsif total_score >= 1
       'color: #10B981;'
     end
+  end
+
+  def update_tier_average
+    if tier_lists.average(:tier_score).to_f > 0 && tier_list_entiers.average(:tier_score).to_f > 0
+      tier_average = (tier_lists.average(:tier_score).to_f + tier_list_entiers.average(:tier_score).to_f) / 2
+    elsif tier_lists.average(:tier_score).to_f > 0
+      tier_average = tier_lists.average(:tier_score).to_f
+    elsif tier_list_entiers.average(:tier_score).to_f > 0
+      tier_average = tier_list_entiers.average(:tier_score).to_f
+    end
+    self.update(tier_average: tier_average)
   end
 end

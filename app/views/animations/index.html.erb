@@ -1,3 +1,19 @@
+<div class="form-control">
+  <%= search_form_for @q, url: search_results_animations_path do |f| %>
+    <form>
+      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+      <div class="relative">
+        <%= f.search_field :title_cont, class: "input input-bordered", placeholder: "タイトルで検索", value: "" %>
+        <%= sort_link(@q, :updated_at, '新着順' ) %>
+      </div>
+    </form>
+  <% end %>
+</div>
+
+<%= sort_link(@q, :title, '新着順' ) %>
+<%= sort_link(@q, :bookmarks_count, '新着順' ) %>
+<%= sort_link(@q, :tier_average, '新着順' ) %>
+
 <%= turbo_frame_tag "animations-list" do %>
   <div class="py-6 sm:py-8 lg:py-12">
     <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">

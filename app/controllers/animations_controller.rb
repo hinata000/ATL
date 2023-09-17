@@ -1,6 +1,6 @@
 class AnimationsController < ApplicationController
   def index
-    @animations = Animation.all.order(created_at: :desc).page(params[:page]).per(16)
+    @animations = Animation.where.not(syobocal_tid: nil).order(created_at: :desc).page(params[:page]).per(16)
   end
 
   def show

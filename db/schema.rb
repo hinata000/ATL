@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_225026) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_15_192410) do
   create_table "animation_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "animation_id"
     t.text "staffs"
@@ -32,6 +32,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_225026) do
     t.integer "syobocal_tid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "bookmarks_count", default: 0, null: false
+    t.float "tier_average", default: 0.0
+    t.string "title_kana"
   end
 
   create_table "bookmarks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
