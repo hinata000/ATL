@@ -13,7 +13,7 @@ class HomesController < ApplicationController
       today_season = 3
     end
 
-    @animations = Animation.where(season: today_season, year: today.year)
+    @animations = Animation.where(season: today_season, year: today.year).and(Animation.where.not(syobocal_tid: nil))
     @tier_lists = TierList.new
   end
 end
