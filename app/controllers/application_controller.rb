@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def set_search
     @search_word = params[:q][:title_or_title_kana_cont] if params[:q]
     @q = Animation.where.not(syobocal_tid: nil).ransack(params[:q])
-    @animations = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(16)
+    @animations = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def configure_permitted_parameters
