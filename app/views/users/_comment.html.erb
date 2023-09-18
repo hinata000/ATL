@@ -11,7 +11,7 @@
             </div>
             <div class="flex flex-col sm:w-2/3 w-1/2">
               <div>
-                <%= link_to t.animation.title, animation_path(t.animation.id), class: "block text-base font-bold link link-hover" %>
+                <%= link_to t.animation.title, animation_path(t.animation.id), class: "block text-sm font-bold link link-hover truncate" %>
                 <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
               </div>
               <div class="badge text-base font-bold py-3 sm:mt-3 mt-2" style="<%= t.animation.tier_color(t.tier_score) %>">

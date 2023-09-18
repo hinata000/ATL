@@ -12,6 +12,8 @@
 
     <%= render "search_results_pc", animations: @animations %>
 
+    <%= render "search_results_sm", animations: @animations %>
+
     <%= turbo_frame_tag "animation-page-#{@animations.next_page}", loading: :lazy, src: path_to_next_page(@animations) %>
 
   <% end %>
