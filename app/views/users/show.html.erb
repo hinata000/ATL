@@ -1,16 +1,18 @@
 <div class="antialiased">
-  <div class="container mx-auto my-32">
+  <div class="container mx-auto my-8">
     <div>
       <div class="w-5/6 md:w-5/6  lg:w-7/12 xl:w-5/12 mx-auto pb-4">
-        <div class="relative">
+
+        <div class="">
           <div class="mb-12">
             <%= image_tag @user.header_image.thumb.url, class: "rounded-3xl" %>
           </div>
-          <div class="flex justify-center">
-            <%= image_tag @user.user_image.thumb.url, class: "rounded-full mx-auto top-80 absolute w-32 h-32 object-cover border-2 border-neutral" %>
+          <div class="flex justify-center relative">
+            <%= image_tag @user.user_image.thumb.url, class: "rounded-full mx-auto absolute w-32 h-32 object-cover border border-neutral -top-24 bg-base-300" %>
           </div>
         </div>
-        <div class="mt-8">
+
+        <div class="mt-10">
           <h1 class="font-bold text-center text-3xl text-primary-content"><%= @user.user_name %></h1>
           <p class="text-center text-sm text-neutral-content font-medium">@<%= @user.user_id %></p>
           <div class="px-6 my-4 text-center">
@@ -41,25 +43,28 @@
             <% end %>
           </div>
 
-          <div data-controller="tab">
-            <div class="tabs mt-8">
-              <a class="tab tab-bordered w-1/3 tab-active" aria-current="page" data-tab-target="tab" data-action="tab#tabClick">TierList</a>
-              <a class="tab tab-bordered w-1/3 not-active" data-tab-target="tab" data-action="tab#tabClick">レビュー</a>
-              <a class="tab tab-bordered w-1/3 not-active" data-tab-target="tab" data-action="tab#tabClick">ブックマーク</a>
-            </div>
-            <div class="" data-tab-target="content">
-              <%= render "tier_list", {ss_tier: @ss_tier, s_tier: @s_tier, a_tier: @a_tier, b_tier: @b_tier, c_tier: @c_tier} %>
-            </div>
-            <div class="hidden" data-tab-target="content">
-              <%= render "comment", tier_list_mix: @tier_list_mix %>
-            </div>
-            <div class="hidden" data-tab-target="content">
-              <%= render "bookmark", {bookmarks: @bookmarks, animation: @animation, user: @user} %>
-            </div>
-          </div>
+
 
         </div>
       </div>
+
+      <div data-controller="tab">
+        <div class="tabs mt-8 w-5/6 md:w-5/6  lg:w-7/12 xl:w-5/12 mx-auto">
+          <a class="tab tab-bordered w-1/3 tab-active" aria-current="page" data-tab-target="tab" data-action="tab#tabClick">TierList</a>
+          <a class="tab tab-bordered w-1/3 not-active" data-tab-target="tab" data-action="tab#tabClick">レビュー</a>
+          <a class="tab tab-bordered w-1/3 not-active" data-tab-target="tab" data-action="tab#tabClick">ブックマーク</a>
+        </div>
+        <div class="" data-tab-target="content">
+          <%= render "tier_list", {ss_tier: @ss_tier, s_tier: @s_tier, a_tier: @a_tier, b_tier: @b_tier, c_tier: @c_tier} %>
+        </div>
+        <div class="hidden w-5/6 md:w-5/6  lg:w-7/12 xl:w-5/12 mx-auto" data-tab-target="content">
+          <%= render "comment", tier_list_mix: @tier_list_mix %>
+        </div>
+        <div class="hidden w-5/6 md:w-5/6  lg:w-7/12 xl:w-5/12 mx-auto" data-tab-target="content">
+          <%= render "bookmark", {bookmarks: @bookmarks, animation: @animation, user: @user} %>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
