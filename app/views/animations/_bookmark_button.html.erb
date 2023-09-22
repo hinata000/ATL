@@ -1,5 +1,12 @@
-<% if current_user.bookmarked?(animation) %>
-  <%= render 'unbookmark', animation: animation %>
+<% if user_signed_in? %>
+  <% if current_user.bookmarked?(animation) %>
+    <%= render 'unbookmark', animation: animation %>
+  <% else %>
+    <%= render 'bookmark', animation: animation %>
+  <% end %>
 <% else %>
-  <%= render 'bookmark', animation: animation %>
+  <%= link_to bookmarks_path(animation_id: animation.id), class: "btn btn-neutral", data: { "turbo-method": :post } do %>
+    <i class="fa-solid fa-bookmark text-2xl"></i>
+    <p><%= animation.bookmarks.count %></p>
+  <% end %>
 <% end %>
