@@ -5,9 +5,6 @@ import { application } from "controllers/application"
 import TabController from "./tab_controller"
 application.register("tab", TabController)
 
-import ImageSelectController from "./image-select_controller"
-application.register("image-select", ImageSelectController)
-
 // Eager load all controllers defined in the import map under controllers/**/*_controller
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)
