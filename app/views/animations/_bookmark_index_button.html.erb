@@ -1,10 +1,10 @@
 <% if user_signed_in? %>
   <% if current_user.bookmarked?(animation) %>
-    <div class="btn btn-neutral">
+    <div class="btn btn-ghost btn-xs">
       <%= render 'unbookmark', animation: animation %>
     </div>
   <% else %>
-    <div class="btn btn-neutral">
+    <div class="btn btn-ghost btn-xs">
       <%= render 'bookmark', animation: animation %>
     </div>
   <% end %>

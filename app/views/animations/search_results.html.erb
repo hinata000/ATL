@@ -1,4 +1,4 @@
-<div class="my-10">
+<div class="my-10 mx-6">
 
   <div class="text-right mb-4">
     <select onChange="location.href=value;" class="select select-bordered w-fit" value="<%= params[:q][:sorts] %>">
@@ -9,10 +9,48 @@
   </div>
 
   <%= turbo_frame_tag "animation-page-#{@animations.current_page}" do %>
+    <div class="sm:grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 sm:gap-2">
+      <% @animations.each do |animation| %>
 
-    <%= render "search_results_pc", animations: @animations %>
+        <div>
+          <%= link_to image_tag(animation.image, class: "w-full h-full object-cover object-center group-hover:scale-110 transition duration-200", alt: animation.title), "/animations/#{animation.id}", class: "group h-36 block bg-gray-100 rounded-t-lg overflow-hidden relative", data: { turbo_frame: "_top" } %>
+          <div class="bg-base-200 rounded-b-lg p-4 mb-4">
+            <div class="flex flex-col truncate">
 
-    <%= render "search_results_sm", animations: @animations %>
+              <div class="flex justify-between">
+                <% if animation.tier_lists.present? || animation.tier_list_entiers.present? %>
+                  <span class="badge text-base font-bold py-3" style="<%= animation.total_tier_color(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %>">
+                    <%= animation.total_tier_score_change(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %> Tier
+                  </span>
+                <% else %>
+                  <div class="badge py-3">
+                    <span class="text-xs font-bold">
+                      ー&nbsp;
+                    </span>
+                    <span class="text-base font-bold">
+                      Tier
+                    </span>
+                  </div>
+                <% end %>
+
+                <div class="flex">
+                  <div class="px-2">
+                    <i class="fa-solid fa-square-plus text-xl"></i>
+                  </div>
+
+                  <div class="px-2">
+                    <%= render 'bookmark_index_button', animation: animation %>
+                  </div>
+                </div>
+
+              </div>
+
+              <%= link_to animation.title, "/animations/#{animation.id}", class: "secondary-content hover:base-content lg:text-lg font-semibold transition duration-100 mt-1 truncate", data: { turbo_frame: "_top" } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
     <%= turbo_frame_tag "animation-page-#{@animations.next_page}", loading: :lazy, src: path_to_next_page(@animations) %>
 
