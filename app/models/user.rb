@@ -15,11 +15,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   def follow(user)
-    bookmark_animations << animation
+    followings << user
   end
 
   def unfollow(user)
-    relationships.find_by(followed_id: user_id).destroy
+    reverse_of_relationships.find_by(followed_id: user.id).destroy
   end
 
   def following?(user)
