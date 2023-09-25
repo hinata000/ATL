@@ -14,11 +14,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  def follow(user_id)
-    relationships.create(followed_id: user_id)
+  def follow(user)
+    bookmark_animations << animation
   end
 
-  def unfollow(user_id)
+  def unfollow(user)
     relationships.find_by(followed_id: user_id).destroy
   end
 
