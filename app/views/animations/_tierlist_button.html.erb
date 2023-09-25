@@ -17,7 +17,7 @@
       <p><%= animation.tier_lists.count + animation.tier_list_entiers.count %></p>
     </label>
   <% end %>
-  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-neutral rounded-box w-52 m-1">
+  <ul tabindex="0" class="dropdown-content z-50 menu p-2 shadow bg-neutral rounded-box w-52 m-1">
     <li>
       <% if user_signed_in? && animations.tier_lists.find_by(user_id: current_user.id).present? %>
         <%= link_to "放送クール", edit_animation_tier_list_path(animation_id: animations.id, id: @tier_list.id), class: "text-accent" %>
