@@ -1,8 +1,12 @@
 <% if user_signed_in? %>
   <% if current_user.bookmarked?(animation) %>
-    <%= render 'unbookmark', animation: animation %>
+    <div class="btn btn-neutral">
+      <%= render 'unbookmark', animation: animation %>
+    </div>
   <% else %>
-    <%= render 'bookmark', animation: animation %>
+    <div class="btn btn-neutral">
+      <%= render 'bookmark', animation: animation %>
+    </div>
   <% end %>
 <% else %>
   <%= link_to bookmarks_path(animation_id: animation.id), class: "btn btn-neutral", data: { "turbo-method": :post } do %>
