@@ -1,1 +1,1 @@
-<%= turbo_stream.replace(dom_id(@user, :follow_user), partial: 'relationships/follow', locals: { user: @user }) %>
+<%= turbo_stream.replace(dom_id(@user, :follow), partial: 'relationships/unfollow', locals: { user: @user }) %>
