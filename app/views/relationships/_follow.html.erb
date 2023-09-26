@@ -1,0 +1,6 @@
+<%= turbo_frame_tag dom_id(user, :follow) do %>
+  <%= form_with(model: current_user.relationships.build) do |f| %>
+    <div><%= hidden_field_tag :followed_id, user.id %></div>
+    <%= f.submit 'フォローする' , class: "btn btn-primary w-full" %>
+  <% end %>
+<% end %>
