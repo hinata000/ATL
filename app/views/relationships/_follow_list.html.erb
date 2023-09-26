@@ -24,11 +24,11 @@
           </div>
           <% if @user.following?(user) %>
             <button class="btn btn-sm	 btn-neutral ml-auto">
-              <%= link_to "フォロー中", user_relationships_path(user.id), data: { turbo_method: :delete } %>
+              <%= link_to "フォロー中", relationships_path(user.id), data: { turbo_method: :delete } %>
             </button>
           <% else %>
             <button class="btn btn-sm	 btn-primary ml-auto">
-              <%= link_to "フォローする", user_relationships_path(user.id), data: { turbo_method: :post } %>
+              <%= link_to "フォローする", relationships_path(user.id), data: { turbo_method: :post } %>
             </button>
           <% end %>
         </div>

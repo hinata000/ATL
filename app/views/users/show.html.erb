@@ -26,21 +26,7 @@
             <%= render "relationships/follower_list" %>
           </div>
           <div class="my-5 px-6">
-            <% if user_signed_in? && @user == current_user %>
-              <button class="btn btn-neutral w-full">
-                <%= link_to "プロフィール編集", edit_user_path(current_user) %>
-              </button>
-            <% else %>
-              <% if current_user.following?(@user) %>
-                <button class="btn btn-neutral w-full">
-                  <%= link_to "フォロー中", user_relationships_path(@user.id), data: { turbo_method: :delete } %>
-                </button>
-              <% else %>
-                <button class="btn btn-primary w-full">
-                  <%= link_to "フォローする", user_relationships_path(@user.id), data: { turbo_method: :post } %>
-                </button>
-              <% end %>
-            <% end %>
+            <%= render "relationships/relationship_button", user: @user %>
           </div>
 
 
