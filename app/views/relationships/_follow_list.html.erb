@@ -1,40 +1,36 @@
-<p class="font-medium text-base-content text-sm text-center w-full py-3 link link-hover" onclick="my_modal_3.showModal()">
-  フォロー<br><%= @user.followings.count %>
-</p>
+<%= turbo_frame_tag dom_id(@user, :follow_count) do %>
+  <p class="font-medium text-base-content text-sm text-center w-full py-3 link link-hover" onclick="my_modal_3.showModal()">
+    フォロー<br><%= @user.followings.count %>
+  </p>
 
 
-<dialog id="my_modal_3" class="modal">
-  <div class="modal-box">
-    <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-    </form>
-    <% if @user.followings.exists? %>
-      <h2 class="text-xl text-primary-content font-bold text-center">フォロー</h2>
-      <% @user.followings.each do |user| %>
-        <div class="flex my-5">
-          <%= link_to user_path(user.id) do %>
-            <%= image_tag user.user_image.thumb.url, class: "rounded-full w-12 h-12 object-cover" %>
-          <% end %>
-          <div class="flex flex-col ml-2">
+  <dialog id="my_modal_3" class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+      <% if @user.followings.exists? %>
+        <h2 class="text-xl text-primary-content font-bold text-center">フォロー</h2>
+        <% @user.followings.each do |user| %>
+          <div class="flex my-5">
             <%= link_to user_path(user.id) do %>
-              <p class="text-primary-content font-bold link link-hover"><%= user.user_name %></p>
+              <%= image_tag user.user_image.thumb.url, class: "rounded-full w-12 h-12 object-cover" %>
             <% end %>
-            <p class="">@<%= user.user_id %></p>
-            <p class="text-neutral-content"><%= user.profile %></p>
+            <div class="flex flex-col ml-2">
+              <%= link_to user_path(user.id) do %>
+                <p class="text-primary-content font-bold link link-hover"><%= user.user_name %></p>
+              <% end %>
+              <p class="">@<%= user.user_id %></p>
+              <p class="text-neutral-content"><%= user.profile %></p>
+            </div>
+            <div class="ml-auto">
+              <%= render "relationships/relationship_list_button", user: user %>
+            </div>
           </div>
-          <% if @user.following?(user) %>
-            <button class="btn btn-sm	 btn-neutral ml-auto">
-              <%= link_to "フォロー中", relationships_path(user.id), data: { turbo_method: :delete } %>
-            </button>
-          <% else %>
-            <button class="btn btn-sm	 btn-primary ml-auto">
-              <%= link_to "フォローする", relationships_path(user.id), data: { turbo_method: :post } %>
-            </button>
-          <% end %>
-        </div>
+        <% end %>
+      <% else %>
+        <p class="text-center">フォローしているユーザーが存在しません。</p>
       <% end %>
-    <% else %>
-      <p class="text-center">フォローしているユーザーが存在しません。</p>
-    <% end %>
-  </div>
-</dialog>
+    </div>
+  </dialog>
+<% end %>
