@@ -11,7 +11,7 @@
       <% if @user.followers.exists? %>
         <h2 class="text-xl text-primary-content font-bold text-center">フォロワー</h2>
         <% @user.followers.each do |user| %>
-          <div class="flex my-5">
+          <div class="flex mt-5">
             <%= link_to user_path(user.id), data: { turbo_frame: "_top" } do %>
               <%= image_tag user.user_image.thumb.url, class: "rounded-full w-12 h-12 object-cover" %>
             <% end %>
@@ -20,12 +20,12 @@
                 <p class="text-primary-content font-bold link link-hover"><%= user.user_name %></p>
               <% end %>
               <p class="">@<%= user.user_id %></p>
-              <p class="text-neutral-content"><%= user.profile %></p>
             </div>
             <div class="ml-auto">
               <%= render "relationships/relationship_list_button", user: user %>
             </div>
           </div>
+          <p class="ml-14 mt-1.5 text-neutral-content"><%= user.profile %></p>
         <% end %>
       <% else %>
         <p class="text-center">フォロワーされているユーザーが存在しません。</p>
