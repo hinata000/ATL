@@ -4,14 +4,13 @@ class TierListsController < ApplicationController
   def new
     @tier_list = TierList.new(animation_id: params[:animation_id])
     @animation = Animation.find_by(id: params[:animation_id])
-    session[:previous_url] = request.referer
   end
 
   def create
     @tier_list = TierList.new(tier_list_params)
     @tier_list.user_id = current_user.id
     if @tier_list.save
-      redirect_to session[:previous_url], notice: "TierListに追加しました"
+      redirect_to request.referer, notice: "TierListに追加しました"
     else
       @animation = Animation.find_by(id: params[:animation_id])
       render :new, status: :unprocessable_entity
@@ -21,13 +20,12 @@ class TierListsController < ApplicationController
   def edit
     @tier_list = TierList.find(params[:id])
     @animation = Animation.find_by(id: params[:animation_id])
-    session[:previous_url] = request.referer
   end
 
   def update
     @tier_list = TierList.find(params[:id])
     if @tier_list.update(tier_list_params)
-      redirect_to session[:previous_url], notice: "TierListを編集しました"
+      redirect_to request.referer, notice: "TierListを編集しました"
     else
       @animation = Animation.find(params[:id])
       render :edit
@@ -37,7 +35,7 @@ class TierListsController < ApplicationController
   def destroy
     @tier_list = TierList.find(params[:id])
     @tier_list.destroy
-    redirect_to session[:previous_url], notice: "TierListから削除しました"
+    redirect_to request.referer, notice: "TierListから削除しました"
   end
 
   private
