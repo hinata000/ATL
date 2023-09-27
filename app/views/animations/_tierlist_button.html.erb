@@ -22,14 +22,14 @@
       <% if user_signed_in? && animations.tier_lists.find_by(user_id: current_user.id).present? %>
         <%= link_to "放送クール", edit_animation_tier_list_path(animation_id: animations.id, id: @tier_list.id), class: "text-accent" %>
       <% else %>
-        <%= link_to "放送クール", new_animation_tier_list_path(animations.id), class: "text-neutral-content" %>
+        <%= render "tier_lists/new", animation: animation %>
       <% end %>
     </li>
     <li>
       <% if user_signed_in? && animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
         <%= link_to "全期間", edit_animation_tier_list_entier_path(animation_id: animations.id, id: @tier_list_entier.id), class: "text-accent" %>
       <% else %>
-        <%= link_to "全期間", new_animation_tier_list_entier_path(animations.id), class: "text-neutral-content" %>
+        <%= render "tier_list_entiers/new", animation: animation %>
       <% end %>
     </li>
   </ul>
