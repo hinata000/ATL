@@ -13,7 +13,9 @@ class AnimationsController < ApplicationController
     @tier_list_entier = TierListEntier.find_by(animation_id: params[:id])
 
     @tier_list_new = TierList.new
+    @tier_list_edit = TierList.find_by(animation_id: params[:id], user_id: current_user.id)
     @tier_list_entier_new = TierListEntier.new
+    @tier_list_entier_edit = TierListEntier.find_by(animation_id: params[:id], user_id: current_user.id)
 
     @tier_list_mix = @tier_lists | @tier_list_entiers
     @tier_list_mix.sort!{ |a, b| b.created_at <=> a.created_at }
