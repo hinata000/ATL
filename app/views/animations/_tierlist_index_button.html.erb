@@ -20,16 +20,16 @@
   <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-neutral rounded-box w-52 m-1 overflow-visible">
     <li>
       <% if user_signed_in? && animation.tier_lists.find_by(user_id: current_user.id).present? %>
-        <%= link_to "放送クール", edit_animation_tier_list_path(animation_id: animation.id, id: animation.tier_lists), class: "text-accent", data: { turbo_frame: "_top" } %>
+        <%= link_to "放送クール", animation_path(animation.id), class: "text-accent", data: { turbo_method: "get", turbo_confirm: "TierListの編集はアニメ詳細画面から行ってください", turbo_frame: "_top" } %>
       <% else %>
-        <%= link_to "放送クール", new_animation_tier_list_path(animation.id), class: "text-neutral-content", data: { turbo_frame: "_top" } %>
+        <%= render "tier_lists/new", animation: animation %>
       <% end %>
     </li>
     <li>
       <% if user_signed_in? && animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
-        <%= link_to "全期間", edit_animation_tier_list_entier_path(animation_id: animation.id, id: animation.tier_list_entiers), class: "text-accent", data: { turbo_frame: "_top" } %>
+        <%= link_to "全期間", animation_path(animation.id), class: "text-accent", data: { turbo_method: "get", turbo_confirm: "TierListの編集はアニメ詳細画面から行ってください", turbo_frame: "_top" } %>
       <% else %>
-        <%= link_to "全期間", new_animation_tier_list_entier_path(animation.id), class: "text-neutral-content", data: { turbo_frame: "_top" } %>
+        <%= render "tier_list_entiers/new", animation: animation %>
       <% end %>
     </li>
   </ul>
