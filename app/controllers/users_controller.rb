@@ -23,6 +23,9 @@ class UsersController < ApplicationController
     @a_tier_entier = @user.tier_list_entiers.where(tier_score: 3)
     @b_tier_entier = @user.tier_list_entiers.where(tier_score: 2)
     @c_tier_entier = @user.tier_list_entiers.where(tier_score: 1)
+
+    @tier_list_new = TierList.new
+    @tier_list_entier_new = TierListEntier.new
   end
 
   def edit
