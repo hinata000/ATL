@@ -1,4 +1,4 @@
-<div class="py-4">
+<div class="pt-4">
   <% if tier_list_mix.pluck(:comment).present? %>
     <% tier_list_mix.each do |t| %>
       <% if t.comment.present? %>
@@ -21,7 +21,7 @@
           </div>
 
           <!-- stars - start -->
-          <div class="">
+          <div class="pb-2">
             <%# 表示する方法を思いついたら実装
             <span class="badge text-base font-bold py-3">
               全期間
