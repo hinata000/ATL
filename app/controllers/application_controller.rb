@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def set_search
-    @search_word = params[:q][:title_or_title_kana_cont] if params[:q]
     @q = Animation.where.not(syobocal_tid: nil).ransack(params[:q])
     @animations = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(20)
   end

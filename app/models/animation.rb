@@ -5,10 +5,6 @@ class Animation < ApplicationRecord
   has_many :tier_list_entiers, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
 
-  # belongs_to :user
-  # has_many :favorites, dependent: :destroy
-  # has_many :reviews, dependent: :destroy
-
   # Annictから情報を取得
   def import_from_annict
     base_url = "https://api.annict.com/v1"
@@ -55,7 +51,7 @@ class Animation < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "title_kana", "bookmarks_count", "tier_average"]
+    ["title", "title_kana", "bookmarks_count", "tier_average", "year", "season"]
   end
 
   def self.ransackable_associations(auth_object = nil)
