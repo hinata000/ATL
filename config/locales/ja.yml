@@ -1,5 +1,8 @@
 ja:
-  views:
-      pagination:
-        previous: '<'
-        next: '>'
+  enums:
+    animation:
+      season:
+        spring: '春クール'
+        summer: "夏クール"
+        autumn: "秋クール"
+        winter: "冬クール"

@@ -5,24 +5,14 @@ class UsersController < ApplicationController
   def show
     @bookmarks = @user.bookmarks.order(created_at: :desc)
 
-    @animation = Animation.find(params[:id])
-
     @tier_list = @user.tier_lists
     @tier_list_entier = @user.tier_list_entiers
     @tier_list_mix = @tier_list | @tier_list_entier
     @tier_list_mix.sort!{ |a, b| b.created_at <=> a.created_at }
 
-    @ss_tier = @user.tier_lists.where(tier_score: 5)
-    @s_tier = @user.tier_lists.where(tier_score: 4)
-    @a_tier = @user.tier_lists.where(tier_score: 3)
-    @b_tier = @user.tier_lists.where(tier_score: 2)
-    @c_tier = @user.tier_lists.where(tier_score: 1)
-
-    @ss_tier_entier = @user.tier_list_entiers.where(tier_score: 5)
-    @s_tier_entier = @user.tier_list_entiers.where(tier_score: 4)
-    @a_tier_entier = @user.tier_list_entiers.where(tier_score: 3)
-    @b_tier_entier = @user.tier_list_entiers.where(tier_score: 2)
-    @c_tier_entier = @user.tier_list_entiers.where(tier_score: 1)
+    @q = Animation.joins(:tier_lists).where(tier_lists: { user_id: @user.id }).ransack(params[:q])
+    @tier_lists = @q.result(distinct: true).order(created_at: :desc)
+    @tier_list_entiers = Animation.joins(:tier_list_entiers).where(tier_list_entiers: { user_id: @user.id })
 
     @tier_list_new = TierList.new
     @tier_list_entier_new = TierListEntier.new
@@ -53,6 +43,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.fetch(:user, {}).permit(:user_name, :user_id, :profile, :user_image, :header_image)
+      params.fetch(:user, {}).permit(:user_name, :user_id, :profile, :user_image, :header_image, :year, :season)
     end
 end
