@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :authenticate_user!, only: [:mypage, :edit, :update]
+  before_action :ensure_normal_user, only: [:update, :destroy]
 
   def show
     @bookmarks = @user.bookmarks.order(created_at: :desc)
@@ -40,6 +41,12 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def ensure_normal_user
+      if @user.email == 'guest@example.com'
+        redirect_to user_path, alert: 'ゲストユーザーの更新・削除はできません。'
+      end
     end
 
     def user_params
