@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_25_160754) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_10_170224) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -73,6 +73,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_25_160754) do
     t.index ["animation_id", "user_id"], name: "index_bookmarks_on_animation_id_and_user_id", unique: true
     t.index ["animation_id"], name: "index_bookmarks_on_animation_id"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "visitor_id"
+    t.integer "visited_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
