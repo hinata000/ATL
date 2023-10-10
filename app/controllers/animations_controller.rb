@@ -3,7 +3,8 @@ class AnimationsController < ApplicationController
   before_action :set_tier_list, only: [:show, :search_results]
 
   def index
-    @animations = Animation.where.not(syobocal_tid: nil).order(created_at: :desc).page(params[:page]).per(20)
+    @q = Animation.where.not(syobocal_tid: nil).ransack(params[:q])
+    @animations = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def show
@@ -20,9 +21,6 @@ class AnimationsController < ApplicationController
 
     @tier_list_edit = TierList.find_by(animation_id: params[:id], user_id: current_user.id)
     @tier_list_entier_edit = TierListEntier.find_by(animation_id: params[:id], user_id: current_user.id)
-  end
-
-  def search_results
   end
 
   private

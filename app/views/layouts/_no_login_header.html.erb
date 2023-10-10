@@ -3,19 +3,6 @@
     <%= link_to 'AnimeTierList', root_path, class: "btn btn-ghost normal-case text-xl"  %>
   </div>
   <div class="flex-none gap-2">
-    <div class="form-control">
-      <%= search_form_for @q, url: search_results_animations_path do |f| %>
-        <form>
-          <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-          <div class="relative">
-            <%= f.search_field :title_or_title_kana_cont, class: "input input-bordered hidden md:inline-block", placeholder: "タイトルで検索", value: "" %>
-          </div>
-        </form>
-        <div class="md:hidden">
-          <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-        </div>
-      <% end %>
-    </div>
     <div class="flex">
       <button class="btn btn-primary mx-2">
         <%= link_to '会員登録', new_user_registration_path %>

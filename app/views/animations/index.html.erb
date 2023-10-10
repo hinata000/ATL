@@ -1,48 +1,75 @@
-<div class="form-control">
-  <%= search_form_for @q, url: search_results_animations_path do |f| %>
-    <form>
-      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-      <div class="relative">
-        <%= f.search_field :title_cont, class: "input input-bordered", placeholder: "タイトルで検索", value: "" %>
-        <%= sort_link(@q, :updated_at, '新着順' ) %>
-      </div>
-    </form>
-  <% end %>
-</div>
-
-<%= sort_link(@q, :title, '新着順' ) %>
-<%= sort_link(@q, :bookmarks_count, '新着順' ) %>
-<%= sort_link(@q, :tier_average, '新着順' ) %>
-
-<%= turbo_frame_tag "animations-list" do %>
-  <div class="py-6 sm:py-8 lg:py-12">
-    <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
-      <!-- text - start -->
-      <div class="mb-10 md:mb-16">
-        <h2 class="primary-content text-2xl lg:text-3xl font-bold mb-4 md:mb-6 pl-4">アニメ一覧</h2>
-      </div>
-      <!-- text - end -->
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <% @animations.each do |animation| %>
-          <div>
-            <%= link_to image_tag(animation.image, class: "w-full h-full object-cover object-center group-hover:scale-110 transition duration-200", alt: animation.title), animation_path(animation.id), class: "group h-36 block bg-gray-100 rounded-t-lg overflow-hidden relative", data: { turbo_frame: "_top" } %>
-            <div class="flex justify-between items-start bg-base-200 rounded-b-lg gap-2 p-4">
-              <div class="flex flex-col truncate">
-                <div class="flex">
-                  <div class="relative">
-                    <div class="text-gray-500 text-xl">★★★★★</div>
-                  </div>
-                </div>
-                <%= link_to animation.title, animation_path(animation.id), class: "secondary-content hover:base-content lg:text-lg font-semibold transition duration-100 mt-1 truncate", data: { turbo_frame: "_top" } %>
-              </div>
-            </div>
-          </div>
-        <% end %>
+<%= search_form_for @q, url: animations_path do |f| %>
+  <div class="flex justify-center my-10 mx-2">
+    <div class="form-control lg:w-2/5">
+      <div class="input-group">
+        <%= f.search_field :title_or_title_kana_cont, class: "input input-bordered w-full", placeholder: "タイトルで検索" %>
+        <%= f.select :year_eq, [*1970..2023].sort.reverse, {include_blank: "年代"}, class: "select select-bordered w-24" %>
+        <%= f.select :season_eq, Animation.seasons.keys.map{|season|[I18n.t("enums.animation.season.#{season}"), Animation.seasons[season]]}, {include_blank: "放送クール"}, class: "select select-bordered w-28 sm:w-32" %>
+        <button class="btn btn-square">
+          <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+        </button>
       </div>
     </div>
   </div>
 
-  <%= paginate @animations %>
+  <div class="text-right mt-4 mr-6 mb-1">
+    <select onChange="location.href=value;" class="select select-ghost w-fit select-sm text-right">
+      <option disabled selected class="">並べ替え</option>
+      <option class="" value="<%= sort_by_sort_url(sort_url(@q, :id), 'id+desc') %>">新着順</option>
+      <option class="" value="<%= sort_by_sort_url(sort_url(@q, :bookmarks_count), 'bookmarks_count+desc') %>">ブックマークが多い順</option>
+      <option class="" value="<%= sort_by_sort_url(sort_url(@q, :tier_average), 'tier_average+desc') %>">Tierが高い順</option>
+    </select>
+  </div>
 
 <% end %>
+
+<div class="mb-6 mx-6">
+  <%= turbo_frame_tag "animation-page-#{@animations.current_page}" do %>
+    <div class="sm:grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 sm:gap-2">
+      <% @animations.each do |animation| %>
+
+        <div>
+          <%= link_to image_tag(animation.image, class: "w-full h-full object-cover object-center group-hover:scale-110 transition duration-200", alt: animation.title), "/animations/#{animation.id}", class: "group h-36 block bg-gray-100 rounded-t-lg overflow-hidden relative", data: { turbo_frame: "_top" } %>
+          <div class="bg-base-200 rounded-b-lg p-4 mb-4">
+            <div class="flex flex-col truncate">
+
+              <div class="flex justify-between">
+                <% if animation.tier_lists.present? || animation.tier_list_entiers.present? %>
+                  <span class="badge text-base font-bold py-3" style="<%= animation.total_tier_color(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %>">
+                    <%= animation.total_tier_score_change(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %> Tier
+                  </span>
+                <% else %>
+                  <div class="badge py-3">
+                    <span class="text-xs font-bold">
+                      ー&nbsp;
+                    </span>
+                    <span class="text-base font-bold">
+                      Tier
+                    </span>
+                  </div>
+                <% end %>
+
+                <div class="flex">
+                  <div class="">
+                    <%= render 'tierlist_index_button', animation: animation %>
+                  </div>
+
+                  <div class="">
+                    <%= render 'bookmark_index_button', animation: animation %>
+                  </div>
+                </div>
+
+              </div>
+
+              <%= link_to animation.title, "/animations/#{animation.id}", class: "secondary-content hover:base-content lg:text-lg font-semibold transition duration-100 mt-1 truncate", data: { turbo_frame: "_top" } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= turbo_frame_tag "animation-page-#{@animations.next_page}", loading: :lazy, src: path_to_next_page(@animations) %>
+
+  <% end %>
+
+</div>
