@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up,
                                       keys: [:user_name, :user_id, :profile, :user_image, :header_image])
   end
+
+  def notification
+    @notifications = current_user.passive_notifications.order(created_at: :DESC)
+  end
 end
