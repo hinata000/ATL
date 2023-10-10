@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def set_notification
     if user_signed_in?
-      @notifications = current_user.passive_notifications.order(created_at: :DESC)
+      @notifications = current_user.passive_notifications.order(created_at: :DESC).limit(5)
     end
   end
 end
