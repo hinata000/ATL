@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :set_search
-  before_action :set_notification
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def set_search
@@ -13,9 +12,4 @@ class ApplicationController < ActionController::Base
                                       keys: [:user_name, :user_id, :profile, :user_image, :header_image])
   end
 
-  def set_notification
-    if user_signed_in?
-      @notifications = current_user.passive_notifications.order(created_at: :DESC).limit(5)
-    end
-  end
 end

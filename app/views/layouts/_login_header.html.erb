@@ -6,7 +6,14 @@
     <%= link_to animations_path, class: "" do %>
       <i class="fa-solid fa-magnifying-glass fa-lg fa-fw"></i>
     <% end %>
-    <%= render "layouts/notification", notifications: @notifications %>
+    <%= link_to notifications_path, class: "" do %>
+      <% if unchecked_notifications.any? %>
+        <i class="fa-regular fa-bell fa-xl fa-fw ml-4 sm:ml-6"></i>
+        <i class="fa-solid fa-circle"></i>
+      <% else %>
+        <i class="fa-regular fa-bell fa-xl fa-fw ml-4 sm:ml-6"></i>
+      <% end %>
+    <% end %>
     <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar ml-3 sm:ml-6">
         <div class="w-9 h-9 bg-base-300 rounded-full">

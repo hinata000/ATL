@@ -1,0 +1,26 @@
+<div class="py-6">
+  <div class="flex flex-col items-center justify-center px-3 py-6 mx-auto lg:py-0">
+    <div class="w-full bg-base-200 rounded-lg shadow sm:max-w-md xl:p-0">
+      <div class="pt-6 pb-2 px-6 sm:pt-8 sm:pb-2 sm:px-8">
+        <h2 class="text-xl font-bold leading-tight tracking-tight text-secondary-content md:text-2xl text-center">お知らせ</h2>
+          <div class="mt-7">
+            <% if @notifications.exists? %>
+              <% @notifications.each do |notification| %>
+                <%= link_to user_path(notification.visitor) do %>
+                  <div class="flex items-center mb-5">
+                    <%= image_tag notification.visitor.user_image.url, class: "w-12 h-12 bg-base-300 rounded-full object-cover mr-3" %>
+                    <div class="inline-block">
+                      <p class="inline"><%= notification.visitor.user_name %>があなたをフォローしました。</p>
+                      <p class="ml-1 text-sm text-gray-400 inline"><%= "#{time_ago_in_words(notification.created_at)}前" %></p>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            <% else %>
+              <p class="text-center mb-6">お知らせはありません</p>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
