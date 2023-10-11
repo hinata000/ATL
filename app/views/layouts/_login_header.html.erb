@@ -8,8 +8,10 @@
     <% end %>
     <%= link_to notifications_path, class: "" do %>
       <% if unchecked_notifications.any? %>
+        <div class="relative">
         <i class="fa-regular fa-bell fa-xl fa-fw ml-4 sm:ml-6"></i>
-        <i class="fa-solid fa-circle"></i>
+        <i class="fa-solid fa-circle fa-sm text-primary absolute right-0 -top-0.5"></i>
+        </div>
       <% else %>
         <i class="fa-regular fa-bell fa-xl fa-fw ml-4 sm:ml-6"></i>
       <% end %>
