@@ -136,11 +136,40 @@ class Animation < ApplicationRecord
   end
 
   def update_score
-    s = Animation.tier_average
-    v = TierList.select(:user_id).distinct.count + TierListEntier.select(:user_id).distinct.count
-    m = TierList.where(tier_score: 1).count + TierListEntier.where(tier_score: 1).count
 
-    score = (v / (v + m)) * S + (m / (v + m))
+    tier_average = self.tier_average
+    users_count = 0.0
+    lowest_tier_count = 0.0
+
+    if tier_average.nil?
+      tier_average = 0.0
+    end
+
+    if tier_lists.present? && tier_list_entiers.present?
+      users_count = tier_lists.select(:user_id).distinct.count + tier_list_entiers.select(:user_id).distinct.count
+    elsif tier_lists.present?
+      users_count = tier_lists.select(:user_id).distinct.count
+    elsif tier_list_entiers.present?
+      users_count = tier_list_entiers.select(:user_id).distinct.count
+    else
+      users_count = 0.0
+    end
+
+    if tier_lists.exists?(tier_score: 1) && tier_list_entiers.exists?(tier_score: 1)
+      lowest_tier_count = tier_lists.where(tier_score: 1).count.to_f + tier_list_entiers.where(tier_score: 1).count.to_f
+    elsif tier_lists.exists?(tier_score: 1)
+      lowest_tier_count = tier_lists.where(tier_score: 1).count.to_f
+    elsif tier_list_entiers.exists?(tier_score: 1)
+      lowest_tier_count = tier_list_entiers.where(tier_score: 1).count.to_f
+    else
+      lowest_tier_count = 0.0
+    end
+
+    if tier_average == nil
+      score = (users_count / (users_count + lowest_tier_count)) * tier_average + (lowest_tier_count / (users_count + lowest_tier_count))
+    else
+      score = 0.0
+    end
 
     self.update(score: score)
   end
