@@ -16,8 +16,9 @@
     <select onChange="location.href=value;" class="select select-ghost w-fit select-sm text-right">
       <option disabled selected class="">並べ替え</option>
       <option class="" value="<%= sort_by_sort_url(sort_url(@q, :id), 'id+desc') %>">新着順</option>
-      <option class="" value="<%= sort_by_sort_url(sort_url(@q, :bookmarks_count), 'bookmarks_count+desc') %>">ブックマークが多い順</option>
+      <option class="" value="<%= sort_by_sort_url(sort_url(@q, :score), 'score+desc') %>">評価が高い順</option>
       <option class="" value="<%= sort_by_sort_url(sort_url(@q, :tier_average), 'tier_average+desc') %>">Tierが高い順</option>
+      <option class="" value="<%= sort_by_sort_url(sort_url(@q, :bookmarks_count), 'bookmarks_count+desc') %>">ブックマークが多い順</option>
     </select>
   </div>
 

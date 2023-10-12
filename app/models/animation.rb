@@ -51,7 +51,7 @@ class Animation < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "title_kana", "id", "bookmarks_count", "tier_average", "year", "season"]
+    ["title", "title_kana", "id", "bookmarks_count", "tier_average", "year", "season", "score"]
   end
 
   def self.ransackable_associations(auth_object = nil)
