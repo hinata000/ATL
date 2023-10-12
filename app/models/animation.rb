@@ -134,4 +134,14 @@ class Animation < ApplicationRecord
     end
     self.update(tier_average: tier_average)
   end
+
+  def update_score
+    s = Animation.tier_average
+    v = TierList.select(:user_id).distinct.count + TierListEntier.select(:user_id).distinct.count
+    m = TierList.where(tier_score: 1).count + TierListEntier.where(tier_score: 1).count
+
+    score = (v / (v + m)) * S + (m / (v + m))
+
+    self.update(score: score)
+  end
 end

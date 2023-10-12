@@ -1,27 +1,92 @@
-<h2 class="mt-4">今期放送中のアニメ</h2>
-<div class="carousel carousel-center rounded-box">
-  <% @animations.each do |animation| %>
-    <div class="mx-2">
-      <%= link_to image_tag(animation.image, class: "w-full h-full object-cover object-center group-hover:scale-110 transition duration-200", alt: animation.title), "/animations/#{animation.id}", class: "group h-36 block bg-gray-100 rounded-t-lg overflow-hidden relative" %>
-      <div class="flex justify-between items-start bg-base-200 rounded-b-lg gap-2 p-4">
-        <div class="flex flex-col truncate">
-          <% if animation.tier_lists.present? || animation.tier_list_entiers.present? %>
-            <span class="badge text-base font-bold py-3" style="<%= animation.total_tier_color(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %>">
-              <%= animation.total_tier_score_change(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %> Tier
-            </span>
-          <% else %>
-            <div class="badge py-3">
-              <span class="text-xs font-bold">
-                ー&nbsp;
-              </span>
-              <span class="text-base font-bold">
-                Tier
-              </span>
+<div class="mb-12">
+  <div class="my-8">
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">今期のアニメ</h2>
+    <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
+  </div>
+
+  <%= render "animations/animation_lists", animations: @current_animations %>
+
+  <div class="text-center mt-4">
+    <%= link_to "もっと見る", "animations?q%5Bs%5D=id+asc&q%5Bseason_eq%5D=3&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=2023", class: "btn btn-md btn-wide" %>
+  </div>
+</div>
+
+<div class="mb-12">
+  <div class="my-8">
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">前期のアニメ</h2>
+    <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
+  </div>
+
+  <%= render "animations/animation_lists", animations: @previous_animations %>
+
+  <div class="text-center mt-4">
+    <%= link_to "もっと見る", "animations?q%5Bs%5D=id+asc&q%5Bseason_eq%5D=2&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=2023", class: "btn btn-md btn-wide" %>
+  </div>
+</div>
+
+<div class="mb-12">
+  <div class="my-8">
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">Tierが高い歴代アニメ</h2>
+    <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
+  </div>
+
+  <%= render "animations/animation_lists", animations: @previous_animations %>
+
+  <div class="text-center mt-4">
+    <%= link_to "もっと見る", "animations?q%5Bs%5D=tier_average+desc&q%5Bseason_eq%5D=&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=", class: "btn btn-md btn-wide" %>
+  </div>
+</div>
+
+<div class="mb-12">
+  <div class="my-8">
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">直近でTierListに追加されたアニメ・レビュー</h2>
+    <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
+  </div>
+
+  <div class="sm:grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 sm:gap-6 mx-6">
+    <% @previous_animations.each do |animation| %>
+
+      <div>
+        <%= link_to image_tag(animation.image, class: "w-full h-40 object-cover object-center group-hover:scale-110 transition duration-300", alt: animation.title), "/animations/#{animation.id}", class: "group h-36 block bg-gray-100 rounded-t-lg overflow-hidden relative", data: { turbo_frame: "_top" } %>
+        <div class="bg-base-200 rounded-b-lg p-4">
+          <div class="flex flex-col truncate">
+
+            <div class="flex justify-between">
+              <% if animation.tier_lists.present? || animation.tier_list_entiers.present? %>
+                <span class="badge text-base font-bold py-3" style="<%= animation.total_tier_color(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %>">
+                  <%= animation.total_tier_score_change(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %> Tier
+                </span>
+              <% else %>
+                <div class="badge py-3">
+                  <span class="text-xs font-bold">
+                    ー&nbsp;
+                  </span>
+                  <span class="text-base font-bold">
+                    Tier
+                  </span>
+                </div>
+              <% end %>
+
+              <div class="flex">
+                <div class="">
+                  <%= render 'animations/tierlist_index_button', animation: animation %>
+                </div>
+
+                <div class="">
+                  <%= render 'animations/bookmark_index_button', animation: animation %>
+                </div>
+              </div>
+
             </div>
-          <% end %>
-          <%= link_to animation.title, "/animations/#{animation.id}", class: "w-60 secondary-content hover:base-content lg:text-lg font-semibold transition duration-100 mt-1 truncate" %>
+
+            <%= link_to animation.title, "/animations/#{animation.id}", class: "secondary-content hover:base-content lg:text-lg font-semibold transition duration-100 mt-1 truncate", data: { turbo_frame: "_top" } %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to "もっと見る", "animations?q%5Bs%5D=id+asc&q%5Bseason_eq%5D=2&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=2023", class: "btn btn-md btn-wide" %>
+  </div>
 </div>
