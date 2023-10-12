@@ -26,20 +26,20 @@
 
 <div class="mb-12">
   <div class="my-8">
-    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">Tierが高い歴代アニメ</h2>
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">評価が高い歴代アニメ</h2>
     <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
   </div>
 
-  <%= render "animations/animation_lists", animations: @previous_animations %>
+  <%= render "animations/animation_lists", animations: @most_animations %>
 
   <div class="text-center mt-4">
-    <%= link_to "もっと見る", "animations?q%5Bs%5D=tier_average+desc&q%5Bseason_eq%5D=&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=", class: "btn btn-md btn-wide" %>
+    <%= link_to "もっと見る", "animations?q%5Bs%5D=score+desc&q%5Bseason_eq%5D=&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=", class: "btn btn-md btn-wide" %>
   </div>
 </div>
 
 <div class="mb-12">
   <div class="my-8">
-    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">直近でTierListに追加されたアニメ・レビュー</h2>
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">直近でTierListに追加されたアニメ</h2>
     <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
   </div>
 

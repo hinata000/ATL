@@ -22,6 +22,8 @@ class HomesController < ApplicationController
 
     @current_animations = Animation.where(season: current_season, year: Date.today.year).and(Animation.where.not(syobocal_tid: nil)).limit(6)
     @previous_animations = Animation.where(season: previous_season, year: Date.today.year).and(Animation.where.not(syobocal_tid: nil)).limit(6)
+    @most_animations = Animation.where.not(syobocal_tid: nil).order(score: :DESC).limit(6)
+    @latest_tier_lists = 
 
     @tier_lists = TierList.new
   end
