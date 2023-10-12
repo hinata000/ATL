@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_10_185533) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_081606) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_185533) do
     t.integer "bookmarks_count", default: 0, null: false
     t.float "tier_average", default: 0.0
     t.string "title_kana"
+    t.float "score", default: 0.0, null: false
   end
 
   create_table "bookmarks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
