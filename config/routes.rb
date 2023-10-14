@@ -14,13 +14,16 @@ Rails.application.routes.draw do
   get '/mypage' => 'users#mypage'
 
   resources :animations, only: [:index, :show,] do
-    resources :tier_lists, only: [:create, :new, :edit, :update, :destroy]
-    resources :tier_list_entiers, only: [:create, :new, :edit, :update, :destroy]
+    resources :tier_lists, only: [:create, :new, :edit, :update, :destroy, :index]
+    resources :tier_list_entiers, only: [:create, :new, :edit, :update, :destroy, :index]
     collection do
       get 'search_results'
       get 'bookmarks'
     end
   end
+
+  resources :tier_lists, only: :show
+  resources :tier_list_entiers, only: :show
 
   resources :relationships, only: [:create, :destroy]
 
