@@ -1,27 +1,93 @@
-<h2 class="mt-4">今期放送中のアニメ</h2>
-<div class="carousel carousel-center rounded-box">
-  <% @animations.each do |animation| %>
-    <div class="mx-2">
-      <%= link_to image_tag(animation.image, class: "w-full h-full object-cover object-center group-hover:scale-110 transition duration-200", alt: animation.title), "/animations/#{animation.id}", class: "group h-36 block bg-gray-100 rounded-t-lg overflow-hidden relative" %>
-      <div class="flex justify-between items-start bg-base-200 rounded-b-lg gap-2 p-4">
-        <div class="flex flex-col truncate">
-          <% if animation.tier_lists.present? || animation.tier_list_entiers.present? %>
-            <span class="badge text-base font-bold py-3" style="<%= animation.total_tier_color(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %>">
-              <%= animation.total_tier_score_change(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %> Tier
-            </span>
-          <% else %>
-            <div class="badge py-3">
-              <span class="text-xs font-bold">
-                ー&nbsp;
-              </span>
-              <span class="text-base font-bold">
-                Tier
-              </span>
+<div class="mb-12">
+  <div class="my-8">
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">今期のアニメ</h2>
+    <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
+  </div>
+
+  <%= render "animations/animation_lists", animations: @current_animations %>
+
+  <div class="text-center mt-4">
+    <%= link_to "もっと見る", "animations?q%5Bs%5D=id+asc&q%5Bseason_eq%5D=3&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=2023", class: "btn btn-md btn-wide" %>
+  </div>
+</div>
+
+<div class="mb-12">
+  <div class="my-8">
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">評価が高い歴代アニメ</h2>
+    <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
+  </div>
+
+  <%= render "animations/animation_lists", animations: @most_animations %>
+
+  <div class="text-center mt-4">
+    <%= link_to "もっと見る", "animations?q%5Bs%5D=score+desc&q%5Bseason_eq%5D=&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=", class: "btn btn-md btn-wide" %>
+  </div>
+</div>
+
+<div class="mb-12">
+  <div class="my-8">
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">前期のアニメ</h2>
+    <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
+  </div>
+
+  <%= render "animations/animation_lists", animations: @previous_animations %>
+
+  <div class="text-center mt-4">
+    <%= link_to "もっと見る", "animations?q%5Bs%5D=id+asc&q%5Bseason_eq%5D=2&q%5Btitle_or_title_kana_cont%5D=&q%5Byear_eq%5D=2023", class: "btn btn-md btn-wide" %>
+  </div>
+</div>
+
+<div class="mb-12">
+  <div class="my-8">
+    <h2 class="text-center text-primary-content text-xl sm:text-2xl ">直近でTierListに追加されたアニメ</h2>
+    <div class="border-b-2 border-primary-content w-4 mx-auto mt-2"></div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-6 mx-6">
+    <% @tier_list_mix.each do |tier_list| %>
+
+        <div class="bg-base-200 rounded-lg h-auto p-4">
+
+          <div class="flex items-center">
+            <%= link_to image_tag(tier_list.user.user_image.thumb.url, class: "rounded-full bg-base-300"), user_path(tier_list.user), class: "avatar h-11 w-11 lg:w-16 lg:h-16" %>
+            <div class="flex flex-col ml-2">
+              <%= link_to tier_list.user.user_name, user_path(tier_list.user), class: "link link-hover text-accent-content w-fit" %>
+              <p><%= "#{time_ago_in_words(tier_list.created_at)}前" %></p>
             </div>
-          <% end %>
-          <%= link_to animation.title, "/animations/#{animation.id}", class: "w-60 secondary-content hover:base-content lg:text-lg font-semibold transition duration-100 mt-1 truncate" %>
+          </div>
+
+          <div class="flex flex-col p-2">
+            <%= link_to animation_path(tier_list.animation), class: "link link-hover w-fit" do %>
+            <p class="text-accent-content text-lg inline"><%= tier_list.animation.title %></p>
+            <p class="text-accent-content text-base inline">（<%= tier_list.animation.season_name_text %>）</p>
+            <% end %>
+            <span class="badge text-base font-bold py-3 mt-1" style="<%= tier_list.animation.tier_color(tier_list.animation.tier_average) %>">
+              <%= tier_list.animation.tier_score_change(tier_list.animation.tier_average) %> Tier
+            </span>
+            <% if tier_list.spoiler == true %>
+              <div class="collapse">
+                <input type="checkbox" />
+                <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
+                <div class="collapse-content">
+                  <p><%= simple_format(tier_list.comment.truncate(100)) %></p>
+                </div>
+              </div>
+            <% else %>
+              <% if tier_list.comment.blank? %>
+              <% else %>
+                <div class="pt-2 px-4">
+                  <p><%= simple_format(tier_list.comment.truncate(100)) %></p>
+                  <% if tier_list.comment.length > 100 %>
+                    <div class="mt-2">
+                      <%= link_to "続きを読む", "#", class: "link link-accent" %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+
         </div>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

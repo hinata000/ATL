@@ -51,7 +51,7 @@ class Animation < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "title_kana", "id", "bookmarks_count", "tier_average", "year", "season"]
+    ["title", "title_kana", "id", "bookmarks_count", "tier_average", "year", "season", "score"]
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -125,13 +125,55 @@ class Animation < ApplicationRecord
   end
 
   def update_tier_average
-    if tier_lists.average(:tier_score).to_f > 0 && tier_list_entiers.average(:tier_score).to_f > 0
+
+    if tier_lists.present? && tier_list_entiers.present?
       tier_average = (tier_lists.average(:tier_score).to_f + tier_list_entiers.average(:tier_score).to_f) / 2
-    elsif tier_lists.average(:tier_score).to_f > 0
+    elsif tier_lists.present?
       tier_average = tier_lists.average(:tier_score).to_f
-    elsif tier_list_entiers.average(:tier_score).to_f > 0
+    elsif tier_list_entiers.present?
       tier_average = tier_list_entiers.average(:tier_score).to_f
+    else
+      tier_average = 0.0
     end
+
     self.update(tier_average: tier_average)
+
   end
+
+  def update_score
+
+    tier_average = self.tier_average
+
+    if tier_lists.present? && tier_list_entiers.present?
+      tier_count = tier_lists.count + tier_list_entiers.count
+    elsif tier_lists.present?
+      tier_count = tier_lists.count
+    elsif tier_list_entiers.present?
+      tier_count = tier_list_entiers.count
+    else
+      tier_count = 0
+    end
+
+    if tier_lists.exists?(tier_score: 1) && tier_list_entiers.exists?(tier_score: 1)
+      lowest_tier_count = tier_lists.where(tier_score: 1).count + tier_list_entiers.where(tier_score: 1).count
+    elsif tier_lists.exists?(tier_score: 1)
+      lowest_tier_count = tier_lists.where(tier_score: 1).count
+    elsif tier_list_entiers.exists?(tier_score: 1)
+      lowest_tier_count = tier_list_entiers.where(tier_score: 1).count
+    else
+      lowest_tier_count = 0
+    end
+
+    if tier_average == 0.0
+      score = 0.0
+    elsif lowest_tier_count == 0
+      score = ((tier_average + tier_count) * 2)
+    else
+      score = ((tier_average + tier_count / lowest_tier_count) * 2)
+    end
+
+    self.update(score: score)
+
+  end
+
 end
