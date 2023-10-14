@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :tier_lists, only: :show
+  resources :tier_list_entiers, only: :show
+
   resources :relationships, only: [:create, :destroy]
 
   resources :bookmarks, only: [:create, :destroy]

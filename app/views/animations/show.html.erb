@@ -81,11 +81,11 @@
                   <span class="badge text-base font-bold py-3" style="<%= @animation.tier_color(t.tier_score) %>">
                     <%= @animation.tier_score_change(t.tier_score) %> Tier
                   </span>
-                  <%# 表示する方法を思いついたら実装
-                  <span class="badge text-base font-bold py-3">
-                    全期間
-                  </span>
-                  %>
+                  <% if t.class_name == @tier_list_new.class_name %>
+                    <span class="badge text-base font-bold py-3">放送クール</span>
+                  <% else %>
+                    <span class="badge text-base font-bold py-3">全期間</span>
+                  <% end %>
                   <% if t.spoiler == true %>
                     <div class="collapse">
                       <input type="checkbox" />

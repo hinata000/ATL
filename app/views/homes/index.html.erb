@@ -58,12 +58,19 @@
 
           <div class="flex flex-col p-2">
             <%= link_to animation_path(tier_list.animation), class: "link link-hover w-fit" do %>
-            <p class="text-accent-content text-lg inline"><%= tier_list.animation.title %></p>
-            <p class="text-accent-content text-base inline">（<%= tier_list.animation.season_name_text %>）</p>
+              <p class="text-accent-content text-lg inline"><%= tier_list.animation.title %></p>
+              <p class="text-accent-content text-base inline">（<%= tier_list.animation.season_name_text %>）</p>
             <% end %>
-            <span class="badge text-base font-bold py-3 mt-1" style="<%= tier_list.animation.tier_color(tier_list.animation.tier_average) %>">
-              <%= tier_list.animation.tier_score_change(tier_list.animation.tier_average) %> Tier
-            </span>
+            <div class="flex">
+              <span class="badge text-base font-bold py-3 mt-1 mr-1" style="<%= tier_list.animation.tier_color(tier_list.animation.tier_average) %>">
+                <%= tier_list.animation.tier_score_change(tier_list.animation.tier_average) %> Tier
+              </span>
+              <% if tier_list.class_name == @tier_list_new.class_name %>
+                <span class="badge text-base font-bold py-3 py-3 mt-1">放送クール</span>
+              <% else %>
+                <span class="badge text-base font-bold py-3 py-3 mt-1">全期間</span>
+              <% end %>
+            </div>
             <% if tier_list.spoiler == true %>
               <div class="collapse">
                 <input type="checkbox" />
@@ -79,7 +86,11 @@
                   <p><%= simple_format(tier_list.comment.truncate(100)) %></p>
                   <% if tier_list.comment.length > 100 %>
                     <div class="mt-2">
-                      <%= link_to "続きを読む", "#", class: "link link-accent" %>
+                      <% if tier_list.class_name == @tier_list_new.class_name %>
+                        <%= link_to "続きを読む", tier_list_path(tier_list), class: "link link-accent" %>
+                      <% else %>
+                        <%= link_to "続きを読む", tier_list_entier_path(tier_list), class: "link link-accent" %>
+                      <% end %>
                     </div>
                   <% end %>
                 </div>

@@ -14,19 +14,21 @@
                 <%= link_to t.animation.title, animation_path(t.animation.id), class: "block text-sm font-bold link link-hover truncate", data: { turbo_frame: "_top" } %>
                 <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
               </div>
-              <div class="badge text-base font-bold py-3 sm:mt-3 mt-2" style="<%= t.animation.tier_color(t.tier_score) %>">
-                <%= t.animation.tier_score_change(t.tier_score) %> Tier
+              <div class="flex">
+                <span class="badge text-base font-bold py-3 sm:mt-3 mt-2 mr-1" style="<%= t.animation.tier_color(t.tier_score) %>">
+                  <%= t.animation.tier_score_change(t.tier_score) %> Tier
+                </span>
+                <% if t.class_name == @tier_list_new.class_name %>
+                  <span class="badge text-base font-bold py-3 sm:mt-3 mt-2">放送クール</span>
+                <% else %>
+                  <span class="badge text-base font-bold py-3 sm:mt-3 mt-2">全期間</span>
+                <% end %>
               </div>
             </div>
           </div>
 
           <!-- stars - start -->
           <div class="pb-2">
-            <%# 表示する方法を思いついたら実装
-            <span class="badge text-base font-bold py-3">
-              全期間
-            </span>
-            %>
             <% if t.spoiler == true %>
               <div class="collapse">
                 <input type="checkbox" />

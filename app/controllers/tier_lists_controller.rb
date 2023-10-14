@@ -38,6 +38,10 @@ class TierListsController < ApplicationController
     redirect_to request.referer, notice: "TierListから削除しました"
   end
 
+  def show
+    @tier_list = TierList.find(params[:id])
+  end
+
   private
 
     def tier_list_params

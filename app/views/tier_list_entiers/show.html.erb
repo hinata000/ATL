@@ -1,0 +1,39 @@
+<div class="mt-8 mb-4 px-2">
+  <div class="bg-base-200 rounded-lg h-auto p-4 sm:max-w-lg mx-auto">
+
+    <div class="flex items-center">
+      <%= link_to image_tag(@tier_list_entier.user.user_image.thumb.url, class: "rounded-full bg-base-300"), user_path(@tier_list_entier.user), class: "avatar h-11 w-11 lg:w-16 lg:h-16" %>
+      <div class="flex flex-col ml-2">
+        <%= link_to @tier_list_entier.user.user_name, user_path(@tier_list_entier.user), class: "link link-hover text-accent-content w-fit" %>
+        <p><%= "#{time_ago_in_words(@tier_list_entier.created_at)}前" %></p>
+      </div>
+    </div>
+
+    <div class="flex flex-col p-2">
+      <%= link_to animation_path(@tier_list_entier.animation), class: "link link-hover w-fit" do %>
+      <p class="text-accent-content text-lg inline"><%= @tier_list_entier.animation.title %></p>
+      <p class="text-accent-content text-base inline">（<%= @tier_list_entier.animation.season_name_text %>）</p>
+      <% end %>
+      <span class="badge text-base font-bold py-3 mt-1" style="<%= @tier_list_entier.animation.tier_color(@tier_list_entier.animation.tier_average) %>">
+        <%= @tier_list_entier.animation.tier_score_change(@tier_list_entier.animation.tier_average) %> Tier
+      </span>
+      <% if @tier_list_entier.spoiler == true %>
+        <div class="collapse">
+          <input type="checkbox" />
+          <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
+          <div class="collapse-content">
+            <p><%= simple_format(@tier_list_entier.comment.truncate(100)) %></p>
+          </div>
+        </div>
+      <% else %>
+        <% if @tier_list_entier.comment.blank? %>
+        <% else %>
+          <div class="pt-2 px-4">
+            <p><%= simple_format(@tier_list_entier.comment) %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
