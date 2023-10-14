@@ -49,4 +49,8 @@ class TierList < ApplicationRecord
   def update_score
     animation.update_score
   end
+
+  def class_name
+    self.class.name
+  end
 end

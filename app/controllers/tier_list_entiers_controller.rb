@@ -38,6 +38,12 @@ class TierListEntiersController < ApplicationController
     redirect_to request.referer, notice: "TierListから削除しました"
   end
 
+  def show
+  end
+
+  def index
+  end
+
   private
 
     def tier_list_entier_params
