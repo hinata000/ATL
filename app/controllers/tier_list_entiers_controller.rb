@@ -42,9 +42,6 @@ class TierListEntiersController < ApplicationController
     @tier_list_entier = TierListEntier.find(params[:id])
   end
 
-  def index
-  end
-
   private
 
     def tier_list_entier_params
