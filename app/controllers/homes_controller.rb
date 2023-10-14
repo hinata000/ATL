@@ -23,8 +23,13 @@ class HomesController < ApplicationController
     @current_animations = Animation.where(season: current_season, year: Date.today.year).and(Animation.where.not(syobocal_tid: nil)).limit(6)
     @previous_animations = Animation.where(season: previous_season, year: Date.today.year).and(Animation.where.not(syobocal_tid: nil)).limit(6)
     @most_animations = Animation.where.not(syobocal_tid: nil).order(score: :DESC).limit(6)
-    @latest_tier_lists = 
 
-    @tier_lists = TierList.new
+    @tier_lists = TierList.order(id: :DESC).limit(2)
+    @tier_list_entiers = TierListEntier.order(id: :DESC).limit(2)
+    @tier_list_mix = @tier_lists | @tier_list_entiers
+    @tier_list_mix.sort!{ |a, b| b.created_at <=> a.created_at }
+
+    @tier_list_new = TierList.new
+    @tier_list_entier_new = TierListEntier.new
   end
 end
