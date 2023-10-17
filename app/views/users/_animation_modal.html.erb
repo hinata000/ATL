@@ -2,10 +2,10 @@
   <td class="p-0">
     <%= link_to animation_path(t.id), data: { turbo_frame: "_top" } do %>
       <% if t.image.present? %>
-          <%= image_tag t.image, class: "h-12 w-24 sm:h-24 sm:w-48 p-0 object-cover object-center" %>
+          <%= image_tag t.image, class: "h-16 w-32 sm:h-24 sm:w-48 p-0 object-cover object-center" %>
       <% else %>
         <div class="relative overflow-hidden">
-          <%= image_tag "no-image.png", class: "h-12 w-24 sm:h-24 sm:w-48 p-0 object-cover object-center" %>
+          <%= image_tag "no-image.png", class: "h-16 w-32 sm:h-24 sm:w-48 p-0 object-cover object-center" %>
           <p class="absolute top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 text-xs sm:text-base font-bold text-primary-content"><%= t.title.truncate(15) %></p>
         </div>
       <% end %>

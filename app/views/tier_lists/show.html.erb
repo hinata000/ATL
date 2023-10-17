@@ -22,14 +22,14 @@
           <input type="checkbox" />
           <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
           <div class="collapse-content">
-            <p><%= simple_format(@tier_list.comment.truncate(100)) %></p>
+            <p class="whitespace-pre-wrap"><%= @tier_list.comment %></p>
           </div>
         </div>
       <% else %>
         <% if @tier_list.comment.blank? %>
         <% else %>
           <div class="pt-2 px-4">
-            <p><%= simple_format(@tier_list.comment) %></p>
+            <p class="whitespace-pre-wrap"><%= @tier_list.comment %></p>
           </div>
         <% end %>
       <% end %>

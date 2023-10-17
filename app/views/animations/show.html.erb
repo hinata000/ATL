@@ -98,12 +98,30 @@
                       <input type="checkbox" />
                       <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
                       <div class="collapse-content">
-                        <p><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+                        <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
+                        <% if t.comment.length > 200 %>
+                          <div class="mt-2">
+                            <% if t.class_name == @tier_list_new.class_name %>
+                              <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent" %>
+                            <% else %>
+                              <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent" %>
+                            <% end %>
+                          </div>
+                        <% end %>
                       </div>
                     </div>
                   <% else %>
                     <div class="p-4">
-                      <p><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+                      <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
+                      <% if t.comment.length > 200 %>
+                        <div class="mt-2">
+                          <% if t.class_name == @tier_list_new.class_name %>
+                            <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent" %>
+                          <% else %>
+                            <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent" %>
+                          <% end %>
+                        </div>
+                      <% end %>
                     </div>
                   <% end %>
                 </div>

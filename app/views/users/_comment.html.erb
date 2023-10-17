@@ -1,10 +1,10 @@
-<div class="pt-4">
+<div class="pt-6">
   <% if tier_list_mix.pluck(:comment).present? %>
     <% tier_list_mix.each do |t| %>
       <% if t.comment.present? %>
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col mb-6">
           <div class="flex items-center">
-            <div class="sm:w-1/3 w-1/2 mr-3">
+            <div class="sm:w-1/3 w-1/2">
 
               <% if t.animation.image.present? %>
                 <%= link_to animation_path(t.animation.id), data: { turbo_frame: "_top" } do %>
@@ -19,7 +19,7 @@
                 </div>
               <% end %>
             </div>
-            <div class="flex flex-col sm:w-2/3 w-1/2">
+            <div class="flex flex-col sm:w-2/3 w-1/2 pl-4">
               <div>
                 <%= link_to t.animation.title, animation_path(t.animation.id), class: "block text-sm font-bold link link-hover truncate", data: { turbo_frame: "_top" } %>
                 <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
@@ -38,25 +38,39 @@
           </div>
 
           <!-- stars - start -->
-          <div class="pb-2">
+          <div class="mt-1">
             <% if t.spoiler == true %>
               <div class="collapse">
                 <input type="checkbox" />
                 <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
                 <div class="collapse-content">
-                  <p><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+                  <p class="whitespace-pre-wrap mb-3"><%= t.comment.truncate(200) %></p>
+                  <% if t.class_name == @tier_list_new.class_name %>
+                    <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
+                  <% else %>
+                    <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
+                  <% end %>
                 </div>
               </div>
             <% else %>
               <div class="p-4">
-                <p><%= safe_join(t.comment.split("\n"),tag(:br)) %></p>
+                <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
               </div>
+              <% if t.comment.length > 200 %>
+                <div class="px-4">
+                  <% if t.class_name == @tier_list_new.class_name %>
+                    <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
+                  <% else %>
+                    <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>
       <% end %>
     <% end %>
   <% else %>
-    <p class="my-6 text-center">レビューが存在しません</p>
+    <p class="text-center">レビューが存在しません</p>
   <% end %>
 </div>

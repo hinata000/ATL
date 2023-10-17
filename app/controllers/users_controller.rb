@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @tier_list = @user.tier_lists
     @tier_list_entier = @user.tier_list_entiers
     @tier_list_mix = @tier_list | @tier_list_entier
-    @tier_list_mix.sort!{ |a, b| b.created_at <=> a.created_at }
+    @tier_list_mix.sort!{ |a, b| b.updated_at <=> a.updated_at }
 
     @q = Animation.joins(:tier_lists).where(tier_lists: { user_id: @user.id }).ransack(params[:q])
     @tier_lists = @q.result(distinct: true).order(created_at: :desc)
