@@ -10,7 +10,7 @@ class Animation < ApplicationRecord
     base_url = "https://api.annict.com/v1"
     access_token = ENV["ANNICT_ACCESS_TOKEN"]
 
-    start_year = 1970 # どの年からデータを取得したいかを指定
+    start_year = 2020
     end_year = Date.today.year
     seasons = ["spring", "summer", "autumn", "winter"]
 
