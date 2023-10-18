@@ -1,6 +1,6 @@
 class AnimationsController < ApplicationController
 
-  before_action :set_tier_list, only: [:show, :search_results]
+  before_action :set_tier_list, only: [:show, :index]
 
   def index
     @q = Animation.where.not(syobocal_tid: nil).ransack(params[:q])
