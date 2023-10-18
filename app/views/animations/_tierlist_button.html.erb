@@ -23,12 +23,10 @@
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-    <div class="">
-      <% if user_signed_in? && animation.tier_lists.find_by(user_id: current_user.id).present? %>
-        <%= render "tier_lists/edit", animation: animation %>
-      <% else %>
-        <%= render "tier_lists/new", animation: animation %>
-      <% end %>
-    </div>
+    <% if user_signed_in? && animation.tier_lists.find_by(user_id: current_user.id).present? %>
+      <%= render "tier_lists/edit", animation: animation %>
+    <% else %>
+      <%= render "tier_lists/new", animation: animation %>
+    <% end %>
   </div>
 </dialog>
