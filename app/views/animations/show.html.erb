@@ -30,10 +30,10 @@
         <div class="lg:w-3/5 w-full lg:pl-10 lg:py-2 mt-6 lg:mt-0">
           <h1 class="text-gray-300 text-2xl lg:text-3xl title-font font-medium mb-1 text-center lg:text-left"><%= animation.title %></h1>
           <p class="text-gray-400 leading-relaxed py-2 text-center lg:text-left"><%= animation.season_name_text%> | <%= animation.media_text %></p>
-          <% if @tier_list.present? || @tier_list_entier.present? %>
-            <div class="tracking-tighter ml-1 text-center lg:text-left" style="<%= @animation.total_tier_color(@animation.tier_lists.average(:tier_score).to_f, @animation.tier_list_entiers.average(:tier_score).to_f) %>">
+          <% if @tier_list.present? %>
+            <div class="tracking-tighter ml-1 text-center lg:text-left" style="<%= @animation.tier_color(@animation.tier_average) %>">
               <span class="text-4xl font-bold">
-                <%= @animation.total_tier_score_change(@animation.tier_lists.average(:tier_score).to_f, @animation.tier_list_entiers.average(:tier_score).to_f) %>
+                <%= @animation.tier_score_change(@animation.tier_average) %>
               </span>
               <span class="text-2xl font-bold -ml-1.5">
                 Tier
@@ -65,10 +65,10 @@
           <div class="mt-10">
 
             <div class="mb-4">
-              <p class="text-2xl lg:text-xl font-bold text-center lg:text-left"><%= @tier_lists.count + @tier_list_entiers.count %>件のTierList追加履歴・コメント</p>
+              <p class="text-2xl lg:text-xl font-bold text-center lg:text-left"><%= @tier_lists.count %>件のTierList追加履歴・コメント</p>
             </div>
 
-            <% @tier_list_mix.each do |t| %>
+            <% @tier_lists.each do |t| %>
               <div class="">
                 <div class="flex flex-col gap-3 py-2 px-3">
                   <div class="flex items-center">
@@ -88,11 +88,6 @@
                   <span class="badge text-base font-bold py-3" style="<%= @animation.tier_color(t.tier_score) %>">
                     <%= @animation.tier_score_change(t.tier_score) %> Tier
                   </span>
-                  <% if t.class_name == @tier_list_new.class_name %>
-                    <span class="badge text-base font-bold py-3">放送クール</span>
-                  <% else %>
-                    <span class="badge text-base font-bold py-3">全期間</span>
-                  <% end %>
                   <% if t.spoiler == true %>
                     <div class="collapse">
                       <input type="checkbox" />
@@ -101,11 +96,7 @@
                         <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
                         <% if t.comment.length > 200 %>
                           <div class="mt-2">
-                            <% if t.class_name == @tier_list_new.class_name %>
-                              <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent" %>
-                            <% else %>
-                              <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent" %>
-                            <% end %>
+                            <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent" %>
                           </div>
                         <% end %>
                       </div>
@@ -115,11 +106,7 @@
                       <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
                       <% if t.comment.length > 200 %>
                         <div class="mt-2">
-                          <% if t.class_name == @tier_list_new.class_name %>
-                            <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent" %>
-                          <% else %>
-                            <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent" %>
-                          <% end %>
+                          <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent" %>
                         </div>
                       <% end %>
                     </div>

@@ -2,7 +2,6 @@ class Animation < ApplicationRecord
   enum season: { spring: 1, summer: 2, autumn: 3, winter: 4 }
   has_one :animation_detail
   has_many :tier_lists, dependent: :destroy
-  has_many :tier_list_entiers, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
 
   # Annictから情報を取得
@@ -126,12 +125,8 @@ class Animation < ApplicationRecord
 
   def update_tier_average
 
-    if tier_lists.present? && tier_list_entiers.present?
-      tier_average = (tier_lists.average(:tier_score).to_f + tier_list_entiers.average(:tier_score).to_f) / 2
-    elsif tier_lists.present?
+    if tier_lists.present?
       tier_average = tier_lists.average(:tier_score).to_f
-    elsif tier_list_entiers.present?
-      tier_average = tier_list_entiers.average(:tier_score).to_f
     else
       tier_average = 0.0
     end
@@ -144,22 +139,14 @@ class Animation < ApplicationRecord
 
     tier_average = self.tier_average
 
-    if tier_lists.present? && tier_list_entiers.present?
-      tier_count = tier_lists.count + tier_list_entiers.count
-    elsif tier_lists.present?
+    if tier_lists.present?
       tier_count = tier_lists.count
-    elsif tier_list_entiers.present?
-      tier_count = tier_list_entiers.count
     else
       tier_count = 0
     end
 
-    if tier_lists.exists?(tier_score: 1) && tier_list_entiers.exists?(tier_score: 1)
-      lowest_tier_count = tier_lists.where(tier_score: 1).count + tier_list_entiers.where(tier_score: 1).count
-    elsif tier_lists.exists?(tier_score: 1)
+    if tier_lists.exists?(tier_score: 1)
       lowest_tier_count = tier_lists.where(tier_score: 1).count
-    elsif tier_list_entiers.exists?(tier_score: 1)
-      lowest_tier_count = tier_list_entiers.where(tier_score: 1).count
     else
       lowest_tier_count = 0
     end

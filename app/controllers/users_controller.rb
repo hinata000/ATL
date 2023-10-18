@@ -6,17 +6,12 @@ class UsersController < ApplicationController
   def show
     @bookmarks = @user.bookmarks.order(created_at: :desc)
 
-    @tier_list = @user.tier_lists
-    @tier_list_entier = @user.tier_list_entiers
-    @tier_list_mix = @tier_list | @tier_list_entier
-    @tier_list_mix.sort!{ |a, b| b.updated_at <=> a.updated_at }
+    @tier_lists = @user.tier_lists
 
     @q = Animation.joins(:tier_lists).where(tier_lists: { user_id: @user.id }).ransack(params[:q])
-    @tier_lists = @q.result(distinct: true).order(created_at: :desc)
-    @tier_list_entiers = Animation.joins(:tier_list_entiers).where(tier_list_entiers: { user_id: @user.id })
+    @search_results = @q.result(distinct: true).order(created_at: :desc)
 
     @tier_list_new = TierList.new
-    @tier_list_entier_new = TierListEntier.new
   end
 
   def edit

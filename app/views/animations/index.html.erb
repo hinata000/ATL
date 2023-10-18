@@ -42,9 +42,9 @@
             <div class="flex flex-col truncate">
 
               <div class="flex justify-between">
-                <% if animation.tier_lists.present? || animation.tier_list_entiers.present? %>
-                  <span class="badge text-base font-bold py-3" style="<%= animation.total_tier_color(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %>">
-                    <%= animation.total_tier_score_change(animation.tier_lists.average(:tier_score).to_f, animation.tier_list_entiers.average(:tier_score).to_f) %> Tier
+                <% if animation.tier_lists.present? %>
+                  <span class="badge text-base font-bold py-3" style="<%= animation.tier_color(animation.tier_average) %>">
+                    <%= animation.tier_score_change(animation.tier_average) %> Tier
                   </span>
                 <% else %>
                   <div class="badge py-3">

@@ -21,7 +21,7 @@
             <% end %>
           </div>
           <div class="flex justify-between items-center my-5 px-6">
-            <p class="font-medium text-base-content text-sm text-center w-1/3 py-3">TierList<br><%= @tier_list.count + @tier_list_entier.count %></p>
+            <p class="font-medium text-base-content text-sm text-center w-1/3 py-3">TierList<br><%= @tier_lists.count %></p>
             <div class="w-1/3">
               <%= render "relationships/follow_list" %>
             </div>
@@ -47,23 +47,25 @@
           </div>
           <div class="" data-tab-target="content">
 
-            <div class="text-center pt-4 pb-2">
-              <%= search_form_for @q, url: user_path do |f| %>
-                <%= f.select :year_eq, [*2020..2023].sort.reverse, {}, class: "select select-bordered w-fit" %>
-                <%= f.select :season_eq, Animation.seasons.keys.map{|season|[I18n.t("enums.animation.season.#{season}"), Animation.seasons[season]]}, {}, class: "select select-bordered w-fit" %>
-                <%= f.submit "絞り込み", class: "btn btn-primary w-fit" %>
-              <% end %>
-            </div>
+            <% if @tier_lists.present? %>
 
-            <% if params[:q].present? %>
-              <%= render "tier_list", tier_lists: @tier_lists %>
+              <div class="text-center pt-4 pb-2">
+                <%= search_form_for @q, url: user_path do |f| %>
+                  <%= f.select :year_eq, [*2020..2023].sort.reverse, {}, class: "select select-bordered w-fit" %>
+                  <%= f.select :season_eq, Animation.seasons.keys.map{|season|[I18n.t("enums.animation.season.#{season}"), Animation.seasons[season]]}, {}, class: "select select-bordered w-fit" %>
+                  <%= f.submit "絞り込み", class: "btn btn-primary w-fit" %>
+                <% end %>
+              </div>
+
+              <%= render "tier_list", tier_lists: @search_results %>
+
             <% else %>
-              <%= render "tier_list_entier", tier_list_entiers: @tier_list_entiers %>
+              <p class="text-center">TierListがありません</p>
             <% end %>
 
           </div>
           <div class="hidden w-5/6 md:w-5/6  lg:w-7/12 xl:w-5/12 mx-auto" data-tab-target="content">
-            <%= render "comment", tier_list_mix: @tier_list_mix %>
+            <%= render "comment", tier_lists: @tier_lists %>
           </div>
           <div class="hidden w-5/6 md:w-5/6  lg:w-7/12 xl:w-5/12 mx-auto" data-tab-target="content">
             <%= render "bookmark", {bookmarks: @bookmarks, animation: @animation, user: @user} %>

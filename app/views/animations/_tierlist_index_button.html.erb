@@ -1,40 +1,31 @@
-<button onclick="tier_list_select_<%= animation.id %>.showModal()">
-  <% if user_signed_in? %>
-    <% if animation.tier_lists.find_by(user_id: current_user.id).present? || animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
-      <label tabindex="0" class="btn btn-ghost btn-xs">
-        <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
-        <p class="text-accent"><%= animation.tier_lists.count + animation.tier_list_entiers.count %></p>
-      </label>
-    <% else %>
-      <label tabindex="0" class="btn btn-ghost btn-xs">
-        <i class="fa-solid fa-square-plus text-2xl"></i>
-        <p><%= animation.tier_lists.count + animation.tier_list_entiers.count %></p>
-      </label>
+<% if user_signed_in? %>
+  <% if animation.tier_lists.find_by(user_id: current_user.id).present? %>
+    <%= link_to animation_path(animation.id), class: "btn btn-ghost btn-xs text-accent", data: { turbo_method: "get", turbo_confirm: "TierListの編集はアニメ詳細画面から行ってください", turbo_frame: "_top" } do %>
+      <i class="fa-solid fa-square-plus text-2xl text-accent"></i>
+      <p class="text-accent"><%= animation.tier_lists.count %></p>
     <% end %>
   <% else %>
-    <label tabindex="0" class="btn btn-ghost btn-xs">
-      <i class="fa-solid fa-square-plus text-2xl"></i>
-      <p><%= animation.tier_lists.count + animation.tier_list_entiers.count %></p>
-    </label>
+    <button onclick="tier_list_select_<%= animation.id %>.showModal()">
+      <label tabindex="0" class="btn btn-ghost btn-xs">
+        <i class="fa-solid fa-square-plus text-2xl"></i>
+        <p><%= animation.tier_lists.count %></p>
+      </label>
+    </button>
   <% end %>
-</button>
+<% else %>
+  <label tabindex="0" class="btn btn-ghost btn-xs">
+    <i class="fa-solid fa-square-plus text-2xl"></i>
+    <p><%= animation.tier_lists.count %></p>
+  </label>
+<% end %>
+
 <dialog id="tier_list_select_<%= animation.id %>" class="modal">
   <div class="modal-box">
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-    <h2 class="text-center text-xl font-bold mb-8">保存先を選択してください</h2>
-    <div class="flex justify-around mx-14 sm:mx-24">
-      <% if user_signed_in? && animation.tier_lists.find_by(user_id: current_user.id).present? %>
-        <%= link_to "放送クール", animation_path(animation.id), class: "btn text-accent", data: { turbo_method: "get", turbo_confirm: "TierListの編集はアニメ詳細画面から行ってください", turbo_frame: "_top" } %>
-      <% else %>
-        <%= render "tier_lists/new", animation: animation %>
-      <% end %>
-      <% if user_signed_in? && animation.tier_list_entiers.find_by(user_id: current_user.id).present? %>
-        <%= link_to "全期間", animation_path(animation.id), class: "btn text-accent", data: { turbo_method: "get", turbo_confirm: "TierListの編集はアニメ詳細画面から行ってください", turbo_frame: "_top" } %>
-      <% else %>
-        <%= render "tier_list_entiers/new", animation: animation %>
-      <% end %>
+    <div class="">
+      <%= render "tier_lists/new", animation: animation %>
     </div>
   </div>
 </dialog>
