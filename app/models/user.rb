@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   has_many :tier_lists, dependent: :destroy
-  has_many :tier_list_entiers, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_animations, through: :bookmarks, source: :animation
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
