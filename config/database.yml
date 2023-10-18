@@ -14,7 +14,7 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password:
+  password: password
   host: localhost
 
 development:
@@ -61,4 +61,4 @@ production:
   host: <%= ENV['HEROKU_DB_HOST'] %>
   username: <%= ENV['HEROKU_DB_USERNAME'] %>
   password: <%= ENV['HEROKU_DB_PASSWORD'] %>
-  url: <%= ENV['JAWSDB_URL'] %>
+  url: <%= ENV['JAWSDB_ORANGE_URL'] %>
