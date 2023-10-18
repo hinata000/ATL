@@ -15,7 +15,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: password
-  host: localhost
+  host: db
 
 development:
   <<: *default
@@ -61,4 +61,4 @@ production:
   host: <%= ENV['HEROKU_DB_HOST'] %>
   username: <%= ENV['HEROKU_DB_USERNAME'] %>
   password: <%= ENV['HEROKU_DB_PASSWORD'] %>
-  url: <%= ENV['JAWSDB_ORANGE_URL'] %>
+  url: <%= ENV['JAWSDB_URL'] %>
