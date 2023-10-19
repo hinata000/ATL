@@ -30,4 +30,7 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
+
+  get '/terms', to: 'static_pages#terms'
+  get '/privacy_policy', to: 'static_pages#privacy_policy'
 end
