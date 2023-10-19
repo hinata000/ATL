@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:mypage, :edit, :update]
   before_action :ensure_normal_user, only: [:update, :destroy]
 
@@ -26,6 +26,11 @@ class UsersController < ApplicationController
     else
       redirect_to edit_user_path(current_user)
     end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to root_path, notice: "TierListに追加しました"
   end
 
   def mypage
