@@ -36,8 +36,8 @@
         <div class="bg-base-200 rounded-lg h-auto p-4">
 
           <div class="flex items-center">
-            <%= link_to image_tag(tier_list.user.user_image.thumb.url, class: "rounded-full bg-base-300"), user_path(tier_list.user), class: "avatar h-11 w-11 lg:w-16 lg:h-16" %>
-            <div class="flex flex-col ml-2">
+            <%= link_to image_tag(tier_list.user.user_image.thumb.url, class: "rounded-full bg-base-300"), user_path(tier_list.user), class: "avatar w-12 h-12" %>
+            <div class="flex flex-col ml-3">
               <%= link_to tier_list.user.user_name, user_path(tier_list.user), class: "link link-hover text-accent-content w-fit" %>
               <p><%= "#{time_ago_in_words(tier_list.created_at)}前" %></p>
             </div>
