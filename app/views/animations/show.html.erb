@@ -5,7 +5,7 @@
       <div class="mx-auto flex flex-wrap">
         <div class="lg:w-2/5 w-full h-full">
           <% if animation.image.present? %>
-            <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded w-full" %>
+            <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded w-full h-44 sm:h-80 md:h-96 lg:h-56 xl:h-72 2xl:h-80" %>
           <% else %>
             <div class="relative">
               <%= image_tag "no-image.png", alt: animation.title, class: "rounded w-full" %>
