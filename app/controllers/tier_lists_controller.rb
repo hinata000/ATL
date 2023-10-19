@@ -35,7 +35,7 @@ class TierListsController < ApplicationController
   def destroy
     @tier_list = TierList.find(params[:id])
     @tier_list.destroy
-    redirect_to request.referer, notice: "TierListから削除しました"
+    redirect_to request.referer, status: :see_other, notice: "TierListから削除しました"
   end
 
   def show

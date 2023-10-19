@@ -1,5 +1,5 @@
 <%= search_form_for @q, url: animations_path do |f| %>
-  <div class="flex justify-center my-10 mx-2">
+  <div class="flex justify-center mt-10 sm:mt16 mb-10 mx-2">
     <div class="form-control lg:w-2/5">
       <div class="input-group">
         <%= f.search_field :title_or_title_kana_cont, class: "input input-bordered w-full", placeholder: "タイトルで検索" %>
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="text-right mt-4 mr-6 mb-1">
+  <div class="text-right mt-14 mr-6 mb-1">
     <select onChange="location.href=value;" class="select select-ghost w-fit select-sm text-right">
       <option disabled selected class="">並べ替え</option>
       <option class="" value="<%= sort_by_sort_url(sort_url(@q, :id), 'id+desc') %>">新着順</option>
@@ -24,7 +24,7 @@
 
 <% end %>
 
-<div class="mb-6 mx-6">
+<div class="mb-4 mx-6">
   <%= turbo_frame_tag "animation-page-#{@animations.current_page}" do %>
     <div class="sm:grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 sm:gap-2">
       <% @animations.each do |animation| %>

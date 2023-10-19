@@ -1,11 +1,11 @@
-<div class="body-font overflow-hidden pt-12 pb-4">
+<div class="body-font overflow-hidden pt-6 pb-4">
   <% @animations.each do |animation| %>
   <% @animations_detail.each do |animationD| %>
     <div class="container px-5 mx-auto">
       <div class="mx-auto flex flex-wrap">
         <div class="lg:w-2/5 w-full h-full">
           <% if animation.image.present? %>
-            <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded w-full" %>
+            <%= image_tag animation.image, alt: animation.title, class: "object-cover object-center rounded w-full h-44 sm:h-80 md:h-96 lg:h-56 xl:h-72 2xl:h-80" %>
           <% else %>
             <div class="relative">
               <%= image_tag "no-image.png", alt: animation.title, class: "rounded w-full" %>
@@ -31,16 +31,16 @@
           <h1 class="text-gray-300 text-2xl lg:text-3xl title-font font-medium mb-1 text-center lg:text-left"><%= animation.title %></h1>
           <p class="text-gray-400 leading-relaxed py-2 text-center lg:text-left"><%= animation.season_name_text%> | <%= animation.media_text %></p>
           <% if @tier_list.present? %>
-            <div class="tracking-tighter ml-1 text-center lg:text-left" style="<%= @animation.tier_color(@animation.tier_average) %>">
+            <div class="tracking-tighter ml-1 mt-1 text-center lg:text-left" style="<%= @animation.tier_color(@animation.tier_average) %>">
               <span class="text-4xl font-bold">
                 <%= @animation.tier_score_change(@animation.tier_average) %>
               </span>
-              <span class="text-2xl font-bold -ml-1.5">
+              <span class="text-2xl font-bold -ml-1.5 mt-1">
                 Tier
               </span>
             </div>
             <% else %>
-              <div class="ml-2 text-center lg:text-left">
+              <div class="ml-2 mt-1 text-center lg:text-left">
                 <span class="text-2xl font-bold text-neutral-content">
                   ー Tier
                 </span>
@@ -62,37 +62,46 @@
             <% end %>
           </div>
 
-          <div class="mt-10">
+          <div class="mt-12">
 
             <div class="mb-4">
-              <p class="text-2xl lg:text-xl font-bold text-center lg:text-left"><%= @tier_lists.count %>件のTierList追加履歴・コメント</p>
+              <p class="text-xl font-bold text-center lg:text-left"><%= @tier_lists.count %>件のTierList追加履歴・コメント</p>
             </div>
 
-            <% @tier_lists.each do |t| %>
-              <div class="">
-                <div class="flex flex-col gap-3 py-2 px-3">
-                  <div class="flex items-center">
-                    <div class="avatar h-11 w-11 lg:w-12 lg:h-12">
-                      <%= link_to user_path(t.user.id) do %>
-                        <%= image_tag t.user.user_image.thumb.url, class: "rounded-full bg-base-300" %>
-                      <% end %>
-                    </div>
-                  <div class="ml-2">
-                    <%= link_to t.user.user_name, user_path(t.user.id), class: "block text-base font-bold link link-hover" %>
-                    <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
-                  </div>
-                </div>
-
-                <!-- stars - start -->
+            <%= turbo_frame_tag "tier_lists-page-#{@tier_lists.current_page}" do %>
+              <% @tier_lists.each do |t| %>
                 <div class="">
-                  <span class="badge text-base font-bold py-3" style="<%= @animation.tier_color(t.tier_score) %>">
-                    <%= @animation.tier_score_change(t.tier_score) %> Tier
-                  </span>
-                  <% if t.spoiler == true %>
-                    <div class="collapse">
-                      <input type="checkbox" />
-                      <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
-                      <div class="collapse-content">
+                  <div class="flex flex-col gap-3 py-2 px-3">
+                    <div class="flex items-center">
+                      <div class="avatar w-12 h-12">
+                        <%= link_to image_tag(t.user.user_image.thumb.url, class: "rounded-full bg-base-300 object-cover object-center"), user_path(t.user.id), class: "w-full" %>
+                      </div>
+                    <div class="ml-2">
+                      <%= link_to t.user.user_name, user_path(t.user.id), class: "block text-base font-bold link link-hover" %>
+                      <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
+                    </div>
+                  </div>
+
+                  <!-- stars - start -->
+                  <div class="">
+                    <span class="badge text-base font-bold py-3" style="<%= @animation.tier_color(t.tier_score) %>">
+                      <%= @animation.tier_score_change(t.tier_score) %> Tier
+                    </span>
+                    <% if t.spoiler == true %>
+                      <div class="collapse">
+                        <input type="checkbox" />
+                        <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
+                        <div class="collapse-content">
+                          <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
+                          <% if t.comment.length > 200 %>
+                            <div class="mt-2">
+                              <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent" %>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% else %>
+                      <div class="p-4">
                         <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
                         <% if t.comment.length > 200 %>
                           <div class="mt-2">
@@ -100,19 +109,11 @@
                           </div>
                         <% end %>
                       </div>
-                    </div>
-                  <% else %>
-                    <div class="p-4">
-                      <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
-                      <% if t.comment.length > 200 %>
-                        <div class="mt-2">
-                          <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent" %>
-                        </div>
-                      <% end %>
-                    </div>
-                  <% end %>
+                    <% end %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
+              <%= turbo_frame_tag "tier_lists-page-#{@tier_lists.next_page}", loading: :lazy, src: path_to_next_page(@tier_lists) %>
             <% end %>
           </div>
 

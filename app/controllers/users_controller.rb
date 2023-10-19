@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:mypage, :edit, :update]
   before_action :ensure_normal_user, only: [:update, :destroy]
 
   def show
-    @bookmarks = @user.bookmarks.order(created_at: :desc)
+    @bookmarks = @user.bookmarks.all.order(created_at: :desc).page(params[:page]).per(10)
+
+    @reviews = @user.tier_lists.where.not(comment: "").order(created_at: :desc).page(params[:page]).per(10)
 
     @tier_lists = @user.tier_lists
 
@@ -26,6 +28,11 @@ class UsersController < ApplicationController
     else
       redirect_to edit_user_path(current_user)
     end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to root_path, status: :see_other, notice: "アカウントを削除しました"
   end
 
   def mypage

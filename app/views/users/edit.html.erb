@@ -1,4 +1,4 @@
-<section class="py-6">
+<section class="py-1">
   <div class="flex flex-col items-center justify-center px-3 py-6 mx-auto lg:py-0">
       <div class="w-full bg-base-200 rounded-lg shadow sm:max-w-md xl:p-0">
         <%= form_with model: @user, local: true do |f| %>
@@ -27,8 +27,11 @@
                     <%= f.file_field :header_image, class: "file-input file-input-bordered w-full" %>
                     <%= f.hidden_field :header_image_cache %>
                   </div>
-                  <div class="actions py-6">
+                  <div class="actions pt-6">
                     <%= f.submit "更新", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
+                  </div>
+                  <div class="actions text-center">
+                    <%= link_to "アカウントを削除する", user_path(current_user.id), class: "font-bold text-red-400", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
                   </div>
               </form>
           </div>
