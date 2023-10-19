@@ -1,74 +1,77 @@
 <div class="pt-6">
-  <% if tier_lists.pluck(:comment).present? %>
-    <% tier_lists.each do |t| %>
-      <% if t.comment.present? %>
-        <div class="flex flex-col mb-6">
-          <div class="flex items-center">
-            <div class="sm:w-1/3 w-1/2">
+  <% if reviews.present? %>
+    <%= turbo_frame_tag "reviews-page-#{@reviews.current_page}" do %>
+      <% reviews.each do |t| %>
+        <% if t.comment.present? %>
+          <div class="flex flex-col mb-6">
+            <div class="flex items-center">
+              <div class="sm:w-1/3 w-1/2">
 
-              <% if t.animation.image.present? %>
-                <%= link_to animation_path(t.animation.id), data: { turbo_frame: "_top" } do %>
-                  <%= image_tag t.animation.image, class: "object-cover object-center rounded w-full h-20 sm:h-24" %>
-                <% end %>
-              <% else %>
-                <div class="relative overflow-hidden">
+                <% if t.animation.image.present? %>
                   <%= link_to animation_path(t.animation.id), data: { turbo_frame: "_top" } do %>
-                    <%= image_tag "no-image.png", class: "object-cover object-center rounded w-full h-20 sm:h-24" %>
+                    <%= image_tag t.animation.image, class: "object-cover object-center rounded w-full h-20 sm:h-24" %>
                   <% end %>
-                  <p class="absolute top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 text-sm sm:text-base font-bold text-primary-content">NO IMAGE</p>
-                </div>
-              <% end %>
-            </div>
-            <div class="flex flex-col sm:w-2/3 w-1/2 pl-4">
-              <div>
-                <%= link_to t.animation.title, animation_path(t.animation.id), class: "block text-sm font-bold link link-hover truncate", data: { turbo_frame: "_top" } %>
-                <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
-              </div>
-              <div class="flex">
-                <span class="badge text-base font-bold py-3 sm:mt-3 mt-2 mr-1" style="<%= t.animation.tier_color(t.tier_score) %>">
-                  <%= t.animation.tier_score_change(t.tier_score) %> Tier
-                </span>
-                <% if t.class_name == @tier_list_new.class_name %>
-                  <span class="badge text-base font-bold py-3 sm:mt-3 mt-2">放送クール</span>
                 <% else %>
-                  <span class="badge text-base font-bold py-3 sm:mt-3 mt-2">全期間</span>
+                  <div class="relative overflow-hidden">
+                    <%= link_to animation_path(t.animation.id), data: { turbo_frame: "_top" } do %>
+                      <%= image_tag "no-image.png", class: "object-cover object-center rounded w-full h-20 sm:h-24" %>
+                    <% end %>
+                    <p class="absolute top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 text-sm sm:text-base font-bold text-primary-content">NO IMAGE</p>
+                  </div>
                 <% end %>
               </div>
+              <div class="flex flex-col sm:w-2/3 w-1/2 pl-4">
+                <div>
+                  <%= link_to t.animation.title, animation_path(t.animation.id), class: "block text-sm font-bold link link-hover truncate", data: { turbo_frame: "_top" } %>
+                  <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
+                </div>
+                <div class="flex">
+                  <span class="badge text-base font-bold py-3 sm:mt-3 mt-2 mr-1" style="<%= t.animation.tier_color(t.tier_score) %>">
+                    <%= t.animation.tier_score_change(t.tier_score) %> Tier
+                  </span>
+                  <% if t.class_name == @tier_list_new.class_name %>
+                    <span class="badge text-base font-bold py-3 sm:mt-3 mt-2">放送クール</span>
+                  <% else %>
+                    <span class="badge text-base font-bold py-3 sm:mt-3 mt-2">全期間</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <!-- stars - start -->
+            <div class="mt-1">
+              <% if t.spoiler == true %>
+                <div class="collapse">
+                  <input type="checkbox" />
+                  <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
+                  <div class="collapse-content">
+                    <p class="whitespace-pre-wrap mb-3"><%= t.comment.truncate(200) %></p>
+                    <% if t.class_name == @tier_list_new.class_name %>
+                      <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
+                    <% else %>
+                      <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
+                    <% end %>
+                  </div>
+                </div>
+              <% else %>
+                <div class="p-4">
+                  <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
+                </div>
+                <% if t.comment.length > 200 %>
+                  <div class="px-4">
+                    <% if t.class_name == @tier_list_new.class_name %>
+                      <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
+                    <% else %>
+                      <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
             </div>
           </div>
-
-          <!-- stars - start -->
-          <div class="mt-1">
-            <% if t.spoiler == true %>
-              <div class="collapse">
-                <input type="checkbox" />
-                <div class="collapse-title text-red-400">このコメントはネタバレが含まれます</div>
-                <div class="collapse-content">
-                  <p class="whitespace-pre-wrap mb-3"><%= t.comment.truncate(200) %></p>
-                  <% if t.class_name == @tier_list_new.class_name %>
-                    <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
-                  <% else %>
-                    <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
-                  <% end %>
-                </div>
-              </div>
-            <% else %>
-              <div class="p-4">
-                <p class="whitespace-pre-wrap"><%= t.comment.truncate(200) %></p>
-              </div>
-              <% if t.comment.length > 200 %>
-                <div class="px-4">
-                  <% if t.class_name == @tier_list_new.class_name %>
-                    <%= link_to "続きを読む", tier_list_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
-                  <% else %>
-                    <%= link_to "続きを読む", tier_list_entier_path(t), class: "link link-accent", data: { turbo_frame: "_top" } %>
-                  <% end %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+        <% end %>
       <% end %>
+      <%= turbo_frame_tag "reviews-page-#{@reviews.next_page}", loading: :lazy, src: path_to_next_page(@reviews) %>
     <% end %>
   <% else %>
     <p class="text-center">レビューが存在しません</p>

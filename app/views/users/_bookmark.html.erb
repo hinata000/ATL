@@ -1,37 +1,40 @@
 <div class="pt-6">
   <% if bookmarks.present? %>
-    <% bookmarks.each do |b| %>
-      <div class="flex flex-col mb-4">
-        <div class="flex items-center">
-          <div class="sm:w-1/3 w-1/2">
-            <% if b.animation.image.present? %>
-              <%= link_to animation_path(b.animation.id), data: { turbo_frame: "_top" } do %>
-                <%= image_tag b.animation.image, class: "object-cover object-center rounded w-full h-20 sm:h-24" %>
-              <% end %>
-            <% else %>
-              <div class="relative">
+    <%= turbo_frame_tag "bookmarks-page-#{@bookmarks.current_page}" do %>
+      <% bookmarks.each do |b| %>
+        <div class="flex flex-col mb-4">
+          <div class="flex items-center">
+            <div class="sm:w-1/3 w-1/2">
+              <% if b.animation.image.present? %>
                 <%= link_to animation_path(b.animation.id), data: { turbo_frame: "_top" } do %>
-                  <%= image_tag "no-image.png", class: "object-cover object-center rounded w-full h-20 sm:h-24" %>
+                  <%= image_tag b.animation.image, class: "object-cover object-center rounded w-full h-20 sm:h-24" %>
                 <% end %>
-                <p class="absolute top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 text-sm sm:text-base font-bold text-primary-content">NO IMAGE</p>
+              <% else %>
+                <div class="relative">
+                  <%= link_to animation_path(b.animation.id), data: { turbo_frame: "_top" } do %>
+                    <%= image_tag "no-image.png", class: "object-cover object-center rounded w-full h-20 sm:h-24" %>
+                  <% end %>
+                  <p class="absolute top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 text-sm sm:text-base font-bold text-primary-content">NO IMAGE</p>
+                </div>
+              <% end %>
+            </div>
+            <div class="flex flex-col w-1/2 sm:w-2/3 pl-3">
+              <div class="pl-1">
+                <%= link_to b.animation.title, animation_path(b.animation.id), class: "block text-sm font-bold link link-hover truncate", data: { turbo_frame: "_top" } %>
+                <span class="block text-sm"><%= b.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
               </div>
-            <% end %>
-          </div>
-          <div class="flex flex-col w-1/2 sm:w-2/3 pl-3">
-            <div class="pl-1">
-              <%= link_to b.animation.title, animation_path(b.animation.id), class: "block text-sm font-bold link link-hover truncate", data: { turbo_frame: "_top" } %>
-              <span class="block text-sm"><%= b.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
-            </div>
-            
-            <div class="flex pt-2">
-              <%= render 'animations/tierlist_index_button', animation: b.animation %>
-              <%= render 'animations/bookmark_index_button', animation: b.animation %>
-            </div>
+              
+              <div class="flex pt-2">
+                <%= render 'animations/tierlist_index_button', animation: b.animation %>
+                <%= render 'animations/bookmark_index_button', animation: b.animation %>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
+    <%= turbo_frame_tag "bookmarks-page-#{@bookmarks.next_page}", loading: :lazy, src: path_to_next_page(@bookmarks) %>
     <% else %>
       <p class="text-center">ブックマークが存在しません</p>
   <% end %>

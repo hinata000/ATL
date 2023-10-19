@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   before_action :ensure_normal_user, only: [:update, :destroy]
 
   def show
-    @bookmarks = @user.bookmarks.order(created_at: :desc)
+    @bookmarks = @user.bookmarks.all.order(created_at: :desc).page(params[:page]).per(10)
+
+    @reviews = @user.tier_lists.where.not(comment: "").order(created_at: :desc).page(params[:page]).per(10)
 
     @tier_lists = @user.tier_lists
 
