@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root 'homes#index'
 
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update, :destroy]
 
   resources :notifications, only: :index
 
