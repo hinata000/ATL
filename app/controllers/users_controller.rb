@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to root_path, notice: "アカウントを削除しました"
+    redirect_to root_path, status: :see_other, notice: "アカウントを削除しました"
   end
 
   def mypage
