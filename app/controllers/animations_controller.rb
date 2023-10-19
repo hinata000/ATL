@@ -12,7 +12,7 @@ class AnimationsController < ApplicationController
     @animations = Animation.where(id: params[:id])
     @animations_detail = AnimationDetail.where(animation_id: params[:id])
     @tier_list = TierList.find_by(animation_id: params[:id])
-    @tier_lists = @animation.tier_lists
+    @tier_lists = @animation.tier_lists.page(params[:page]).per(10)
 
     @tier_list_edit = TierList.find_by(animation_id: params[:id], user_id: current_user.id)
   end
