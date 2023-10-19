@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to root_path, notice: "TierListに追加しました"
+    redirect_to root_path, notice: "アカウントを削除しました"
   end
 
   def mypage

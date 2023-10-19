@@ -30,6 +30,9 @@
                   <div class="actions py-6">
                     <%= f.submit "更新", class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center" %>
                   </div>
+                  <div class="actions py-6">
+                    <%= link_to "アカウントを削除する", user_path(current_user.id), class: "w-full btn btn-primary text-primary-content px-5 py-2.5 text-center", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？"} %>
+                  </div>
               </form>
           </div>
         <% end %>
