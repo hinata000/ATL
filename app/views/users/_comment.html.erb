@@ -29,11 +29,6 @@
                   <span class="badge text-base font-bold py-3 sm:mt-3 mt-2 mr-1" style="<%= t.animation.tier_color(t.tier_score) %>">
                     <%= t.animation.tier_score_change(t.tier_score) %> Tier
                   </span>
-                  <% if t.class_name == @tier_list_new.class_name %>
-                    <span class="badge text-base font-bold py-3 sm:mt-3 mt-2">放送クール</span>
-                  <% else %>
-                    <span class="badge text-base font-bold py-3 sm:mt-3 mt-2">全期間</span>
-                  <% end %>
                 </div>
               </div>
             </div>
