@@ -60,32 +60,13 @@ class Animation < ApplicationRecord
   def tier_score_change(score)
     if score >= 4.5
       "SS"
-    elsif score >= 4
+    elsif score >= 3.5
       'S'
-    elsif score >= 3
+    elsif score >= 2.5
       'A'
-    elsif score >= 2
+    elsif score >= 1.5
       'B'
     elsif score >= 1
-      'C'
-    end
-  end
-
-  def total_tier_score_change(score, entier_score)
-    if score > 0 && entier_score > 0
-      total_score = (score + entier_score) / 2
-    else
-      total_score = score + entier_score
-    end
-    if total_score >= 4.5
-      "SS"
-    elsif total_score >= 4
-      'S'
-    elsif total_score >= 3
-      'A'
-    elsif total_score >= 2
-      'B'
-    elsif total_score >= 1
       'C'
     end
   end
@@ -93,43 +74,20 @@ class Animation < ApplicationRecord
   def tier_color(score)
     if score >= 4.5
       'color: #EF4444;'
-    elsif score >= 4
+    elsif score >= 3.5
       'color: #D97706;'
-    elsif score >= 3
+    elsif score >= 2.5
       'color: #F59E0B;'
-    elsif score >= 2
+    elsif score >= 1.5
       'color: #FCD34D;'
     elsif score >= 1
       'color: #10B981;'
     end
   end
 
-  def total_tier_color(score, entier_score)
-    if score > 0 && entier_score > 0
-      total_score = (score + entier_score) / 2
-    else
-      total_score = score + entier_score
-    end
-    if total_score >= 4.5
-      'color: #EF4444;'
-    elsif total_score >= 4
-      'color: #D97706;'
-    elsif total_score >= 3
-      'color: #F59E0B;'
-    elsif total_score >= 2
-      'color: #FCD34D;'
-    elsif total_score >= 1
-      'color: #10B981;'
-    end
-  end
-
   def update_tier_average
 
-    if tier_lists.present?
-      tier_average = tier_lists.average(:tier_score).to_f
-    else
-      tier_average = 0.0
-    end
+    tier_average = tier_lists.average(:tier_score).to_f
 
     self.update(tier_average: tier_average)
 
@@ -139,17 +97,9 @@ class Animation < ApplicationRecord
 
     tier_average = self.tier_average
 
-    if tier_lists.present?
-      tier_count = tier_lists.count
-    else
-      tier_count = 0
-    end
+    lowest_tier_count = tier_lists.where(tier_score: 1).count
 
-    if tier_lists.exists?(tier_score: 1)
-      lowest_tier_count = tier_lists.where(tier_score: 1).count
-    else
-      lowest_tier_count = 0
-    end
+    tier_count = tier_lists.count
 
     if tier_average == 0.0
       score = 0.0
