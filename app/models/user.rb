@@ -8,10 +8,19 @@ class User < ApplicationRecord
   has_many :followers, through: :reverse_of_relationships, source: :follower
   has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
   has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
+
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+  validates :password, format: { with: VALID_PASSWORD_REGEX }
+  validates :user_name, presence: true, length: { maximum: 20 }
+  VALID_USER_ID_REGEX = /\A[a-z0-9]+$\z/i.freeze
+  validates :user_id, presence: true, uniqueness: true, format: { with: VALID_USER_ID_REGEX }, length: { maximum: 10 }
+  validates :profile, length: { maximum: 150 }
+
   mount_uploader :user_image, UserImageUploader
   mount_uploader :header_image, HeaderImageUploader
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
