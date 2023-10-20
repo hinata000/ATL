@@ -9,8 +9,6 @@ class User < ApplicationRecord
   has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
   has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
 
-  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
-  validates :password, format: { with: VALID_PASSWORD_REGEX }
   validates :user_name, presence: true, length: { maximum: 15 }
   VALID_USER_ID_REGEX = /\A[a-z0-9]+$\z/i.freeze
   validates :user_id, presence: true, uniqueness: true, format: { with: VALID_USER_ID_REGEX }, length: { maximum: 15 }
