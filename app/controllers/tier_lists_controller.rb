@@ -5,7 +5,7 @@ class TierListsController < ApplicationController
     @tier_list = TierList.new(tier_list_params)
     @tier_list.user_id = current_user.id
     if @tier_list.save
-      redirect_to request.referer, notice: "TierListに追加しました"
+      redirect_to request.referer
     else
       redirect_to request.referer, alert: "TierListに追加できませんでした"
     end
