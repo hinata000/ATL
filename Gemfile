@@ -60,6 +60,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'enum_help'
 gem "fog-aws"
+gem "rspec-rails"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
