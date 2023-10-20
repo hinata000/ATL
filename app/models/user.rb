@@ -11,9 +11,9 @@ class User < ApplicationRecord
 
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
   validates :password, format: { with: VALID_PASSWORD_REGEX }
-  validates :user_name, presence: true, length: { maximum: 20 }
+  validates :user_name, presence: true, length: { maximum: 15 }
   VALID_USER_ID_REGEX = /\A[a-z0-9]+$\z/i.freeze
-  validates :user_id, presence: true, uniqueness: true, format: { with: VALID_USER_ID_REGEX }, length: { maximum: 10 }
+  validates :user_id, presence: true, uniqueness: true, format: { with: VALID_USER_ID_REGEX }, length: { maximum: 15 }
   validates :profile, length: { maximum: 150 }
 
   mount_uploader :user_image, UserImageUploader
