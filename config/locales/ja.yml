@@ -6,3 +6,8 @@ ja:
         summer: "夏クール"
         autumn: "秋クール"
         winter: "冬クール"
+  activerecord:
+    attributes:
+      user:
+        user_name: "ユーザー名"
+        user_id: "ユーザーID"
