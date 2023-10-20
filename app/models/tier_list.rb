@@ -12,6 +12,8 @@ class TierList < ApplicationRecord
     less_than_or_equal_to: 5,
     greater_than_or_equal_to: 1}, presence: true
 
+  validates :comment, length: { maximum: 500 }
+
   validates_uniqueness_of :animation_id, scope: :user_id
 
   def tier_score_change(score)

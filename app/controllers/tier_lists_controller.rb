@@ -1,25 +1,14 @@
 class TierListsController < ApplicationController
   before_action :authenticate_user!
 
-  def new
-    @tier_list = TierList.new(animation_id: params[:animation_id])
-    @animation = Animation.find_by(id: params[:animation_id])
-  end
-
   def create
     @tier_list = TierList.new(tier_list_params)
     @tier_list.user_id = current_user.id
     if @tier_list.save
-      redirect_to request.referer, notice: "TierListに追加しました"
+      redirect_to request.referer
     else
-      @animation = Animation.find_by(id: params[:animation_id])
-      render :new, status: :unprocessable_entity
+      redirect_to request.referer, alert: "TierListに追加できませんでした"
     end
-  end
-
-  def edit
-    @tier_list = TierList.find(params[:id])
-    @animation = Animation.find_by(id: params[:animation_id])
   end
 
   def update
@@ -27,8 +16,7 @@ class TierListsController < ApplicationController
     if @tier_list.update(tier_list_params)
       redirect_to request.referer, notice: "TierListを編集しました"
     else
-      @animation = Animation.find(params[:id])
-      render :edit
+      redirect_to request.referer, alert: "TierListを編集できませんでした"
     end
   end
 
