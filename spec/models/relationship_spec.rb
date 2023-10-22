@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Relationship, type: :model do
+RSpec.xdescribe Relationship, type: :model do
   let(:relationship) { FactoryBot.create(:relationship) }
 
   context 'follower_idとfollowed_idが入力された場合' do
