@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
-  let(:notification) { build(:notification) }
+  let(:notification) { FactoryBot.create(:notification) }
 
   context 'visitor_idとvisited_idとcheckedが入力された場合' do
     example '登録できること' do

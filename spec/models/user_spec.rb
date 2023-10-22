@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  user = FactoryBot.build(:user)
+  let(:user) { FactoryBot.create(:user) }
 
   context 'メールアドレス、ユーザー名、ユーザーID、パスワードが入力された場合' do
     example '登録できること' do
@@ -110,9 +110,9 @@ RSpec.describe User, type: :model do
   end
 
   describe TierList, type: :model do
-  tier_list = FactoryBot.build(:tier_list)
+    let(:tier_list) { FactoryBot.create(:tier_list) }
 
-    xit 'ユーザーが削除された場合、所有していたTierListも削除されること' do
+    it 'ユーザーが削除された場合、所有していたTierListも削除されること' do
       user = tier_list.user
       expect {
         user.destroy
@@ -121,9 +121,9 @@ RSpec.describe User, type: :model do
   end
 
   describe Bookmark, type: :model do
-    bookmark = FactoryBot.build(:bookmark)
+    let(:bookmark) { FactoryBot.create(:bookmark) }
 
-    xit 'ユーザーが削除された場合、所有していたBookmarkも削除されること' do
+    it 'ユーザーが削除された場合、所有していたBookmarkも削除されること' do
       user = bookmark.user
       expect {
         user.destroy

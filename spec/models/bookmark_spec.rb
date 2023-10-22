@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Bookmark, type: :model do
-  let(:bookmark) { build(:bookmark) }
+  let(:bookmark) { FactoryBot.create(:bookmark) }
 
   context 'user_idとanimation_idが入力された場合' do
     example '登録できること' do
