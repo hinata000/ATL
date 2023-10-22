@@ -119,4 +119,14 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe Bookmark, type: :model do
+    let(:bookmark) { create(:bookmark) }
+    it 'ユーザーが削除された場合、所有していたBookmarkも削除されること' do
+      user = bookmark.user
+      expect {
+        user.destroy
+      }.to change(Bookmark, :count).by (-1)
+    end
+  end
+
 end
