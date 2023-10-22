@@ -11,6 +11,34 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_10_12_081606) do
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "animation_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "animation_id"
     t.text "staffs"
@@ -66,18 +94,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_081606) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
-  create_table "tier_list_entiers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "tier_score", null: false
-    t.text "comment"
-    t.boolean "spoiler", null: false
-    t.bigint "animation_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["animation_id"], name: "index_tier_list_entiers_on_animation_id"
-    t.index ["user_id"], name: "index_tier_list_entiers_on_user_id"
-  end
-
   create_table "tier_lists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "animation_id", null: false
     t.bigint "user_id", null: false
@@ -112,10 +128,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_081606) do
     t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookmarks", "animations"
   add_foreign_key "bookmarks", "users"
-  add_foreign_key "tier_list_entiers", "animations"
-  add_foreign_key "tier_list_entiers", "users"
   add_foreign_key "tier_lists", "animations"
   add_foreign_key "tier_lists", "users"
 end

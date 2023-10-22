@@ -14,7 +14,7 @@ class TierList < ApplicationRecord
 
   validates :comment, length: { maximum: 500 }
 
-  validates_uniqueness_of :animation_id, scope: :user_id
+  validates :animation_id, uniqueness: { scope: :user_id }
 
   def tier_score_change(score)
     if score >= 4.5
@@ -44,13 +44,9 @@ class TierList < ApplicationRecord
     end
   end
 
-  def update_tier_average
-    animation.update_tier_average
-  end
+  delegate :update_tier_average, to: :animation
 
-  def update_score
-    animation.update_score
-  end
+  delegate :update_score, to: :animation
 
   def class_name
     self.class.name
