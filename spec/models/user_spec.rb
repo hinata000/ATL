@@ -111,6 +111,7 @@ RSpec.describe User, type: :model do
 
   describe TierList, type: :model do
     let(:tier_list) { create(:tier_list) }
+
     it 'ユーザーが削除された場合、所有していたTierListも削除されること' do
       user = tier_list.user
       expect {
@@ -121,6 +122,7 @@ RSpec.describe User, type: :model do
 
   describe Bookmark, type: :model do
     let(:bookmark) { create(:bookmark) }
+
     it 'ユーザーが削除された場合、所有していたBookmarkも削除されること' do
       user = bookmark.user
       expect {

@@ -10,7 +10,7 @@ class Animation < ApplicationRecord
     access_token = ENV["ANNICT_ACCESS_TOKEN"]
 
     start_year = 2020
-    end_year = Date.today.year
+    end_year = Time.zone.today.year
     seasons = ["spring", "summer", "autumn", "winter"]
 
     (start_year..end_year).each do |year|
