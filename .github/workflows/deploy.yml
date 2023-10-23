@@ -1,21 +1,34 @@
-name: deploy to heroku
-
+name: Build & Push to Heroku Docker Registry
 on:
-  push:
+  pull_request:
     branches:
-      - main
-
+    - main
+    types: [closed]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Deploy
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          usedocker: true
+    # checkout source
+    - name: Git Checkout
+      uses: actions/checkout@v2
+    # Login in Heroku
+    - name: Heroku Container Registry login
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+    - name: Create rails master key for build
+      run: |
+        touch $GITHUB_WORKSPACE/master.key
+        echo ${{ secrets.RAILS_MASTER_KEY }} > $GITHUB_WORKSPACE/master.key
+    # Build and push Docker image
+    - name: Build and push
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
+    # Release
+    - name: Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
+        heroku run bundle exec rails db:migrate RAILS_ENV=production -a ${{ secrets.HEROKU_APP_NAME }} web
