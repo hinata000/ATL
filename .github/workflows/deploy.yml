@@ -1,4 +1,4 @@
-name: Deploy
+name: deploy to heroku
 
 on:
   push:
@@ -9,8 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.13
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Deploy
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
