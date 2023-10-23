@@ -4,12 +4,8 @@
   </div>
   <div class="flex-none gap-2">
     <div class="flex">
-      <button class="btn btn-primary btn-sm sm:btn-md mx-2">
-        <%= link_to '会員登録', new_user_registration_path %>
-      </button>
-      <button class="btn btn-sm sm:btn-md mr-2">
-        <%= link_to 'ログイン', new_user_session_path %>
-      </button>
+      <%= link_to '会員登録', new_user_registration_path, class: "btn btn-primary btn-md mx-2" %>
+      <%= link_to 'ログイン', new_user_session_path, class: "btn btn-md mr-2" %>
     </div>
   </div>
 </div>
