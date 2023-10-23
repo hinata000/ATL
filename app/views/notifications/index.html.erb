@@ -7,7 +7,7 @@
             <% if @notifications.exists? %>
               <%= turbo_frame_tag "notifications-page-#{@notifications.current_page}" do %>
                 <% @notifications.each do |notification| %>
-                  <%= link_to user_path(notification.visitor) do %>
+                  <%= link_to user_path(notification.visitor), data: { turbo_frame: "_top" } do %>
                     <div class="flex items-center mb-5">
                       <%= image_tag notification.visitor.user_image.thumb.url, class: "rounded-full bg-base-300 object-cover object-center w-12 h-12 mr-3" %>
                       <div class="inline-block">

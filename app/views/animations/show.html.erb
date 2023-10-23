@@ -18,10 +18,10 @@
 
           <%= render 'bookmark_button', animation: animation %>
 
-          <%= link_to animation.official_site_url, class: "btn btn-neutral" do %>
+          <%= link_to animation.official_site_url, target: :_blank, rel: "noopener noreferrer", class: "btn btn-neutral" do %>
             <i class="fa-solid fa-pager text-2xl"></i>
           <% end %>
-          <%= link_to "https://twitter.com/#{animation.twitter_username}", class: "btn btn-neutral" do %>
+          <%= link_to "https://twitter.com/#{animation.twitter_username}", target: :_blank, rel: "noopener noreferrer", class: "btn btn-neutral" do %>
             <i class="fa-brands fa-x-twitter text-2xl"></i>
           <% end %>
 
@@ -74,10 +74,10 @@
                   <div class="flex flex-col gap-3 py-2 px-3">
                     <div class="flex items-center">
                       <div class="avatar w-12 h-12">
-                        <%= link_to image_tag(t.user.user_image.thumb.url, class: "rounded-full bg-base-300 object-cover object-center"), user_path(t.user.id), class: "w-full" %>
+                        <%= link_to image_tag(t.user.user_image.thumb.url, class: "rounded-full bg-base-300 object-cover object-center"), user_path(t.user.id), class: "w-full", data: { turbo_frame: "_top" } %>
                       </div>
                     <div class="ml-2">
-                      <%= link_to t.user.user_name, user_path(t.user.id), class: "block text-base font-bold link link-hover" %>
+                      <%= link_to t.user.user_name, user_path(t.user.id), class: "block text-base font-bold link link-hover", data: { turbo_frame: "_top" } %>
                       <span class="block text-sm"><%= t.updated_at.strftime('%Y/%m/%d %H:%M') %></span>
                     </div>
                   </div>

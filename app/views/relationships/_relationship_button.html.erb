@@ -1,9 +1,11 @@
-<% if user_signed_in? && user == current_user %>
-  <%= link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn-neutral w-full" %>
-<% else %>
-  <% if current_user.following?(user) %>
-    <%= render 'relationships/unfollow', user: user %>
+<% if user_signed_in? %>
+  <% if user == current_user %>
+    <%= link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn-neutral w-full" %>
   <% else %>
-    <%= render 'relationships/follow', user: user %>
+    <% if current_user.following?(user) %>
+      <%= render 'relationships/unfollow', user: user %>
+    <% else %>
+      <%= render 'relationships/follow', user: user %>
+    <% end %>
   <% end %>
 <% end %>

@@ -26,7 +26,14 @@
               
               <div class="flex pt-2">
                 <%= render 'animations/tierlist_index_button', animation: b.animation %>
-                <%= render 'animations/bookmark_index_button', animation: b.animation %>
+                <% if user_signed_in? %>
+                  <%= render 'animations/bookmark_index_button', animation: b.animation %>
+                <% else %>
+                  <%= link_to bookmarks_path(animation_id: b.animation.id), class: "btn btn-ghost btn-xs", data: { "turbo-method": :post, turbo_frame: "_top" } do %>
+                    <i class="fa-solid fa-bookmark text-2xl"></i>
+                    <p><%= b.animation.bookmarks.count %></p>
+                  <% end %>
+                <% end %>
               </div>
 
             </div>

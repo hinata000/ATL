@@ -23,7 +23,7 @@
       <%= f.label :spoiler, "コメントがネタバレになる場合はチェックを入れてください" %>
     </div>
     <div class="mx-auto py-2 w-fit">
-      <%= f.submit "TierListへ追加する", class: "btn btn-primary btn-block" %>
+      <%= f.submit "TierListへ追加する", class: "btn btn-primary btn-block", data: { turbo_frame: "_top" } %>
     </div>
   <% end %>
 </div>
