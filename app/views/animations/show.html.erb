@@ -18,10 +18,10 @@
 
           <%= render 'bookmark_button', animation: animation %>
 
-          <%= link_to animation.official_site_url, class: "btn btn-neutral" do %>
+          <%= link_to animation.official_site_url, target: :_blank, rel: "noopener noreferrer", class: "btn btn-neutral" do %>
             <i class="fa-solid fa-pager text-2xl"></i>
           <% end %>
-          <%= link_to "https://twitter.com/#{animation.twitter_username}", class: "btn btn-neutral" do %>
+          <%= link_to "https://twitter.com/#{animation.twitter_username}", target: :_blank, rel: "noopener noreferrer", class: "btn btn-neutral" do %>
             <i class="fa-brands fa-x-twitter text-2xl"></i>
           <% end %>
 
