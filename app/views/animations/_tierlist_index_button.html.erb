@@ -13,10 +13,13 @@
     </button>
   <% end %>
 <% else %>
-  <label tabindex="0" class="btn btn-ghost btn-xs">
-    <i class="fa-solid fa-square-plus text-2xl"></i>
-    <p><%= animation.tier_lists.count %></p>
-  </label>
+  <button onclick="tier_list_select_<%= animation.id %>.showModal()">
+    <label tabindex="0" class="btn btn-ghost btn-xs">
+      <i class="fa-solid fa-square-plus text-2xl"></i>
+      <p><%= animation.tier_lists.count %></p>
+    </label>
+  </button>
+
 <% end %>
 
 <dialog id="tier_list_select_<%= animation.id %>" class="modal">
