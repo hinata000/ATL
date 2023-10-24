@@ -1,15 +1,16 @@
 # AnimeTierList
+![atl-banner](https://github.com/hinata000/ATL/assets/99871721/dac9fe5e-78a1-4065-acb3-5ac0768f67c8)
 
-## サービスURL
+## ■ サービスURL
 [AnimeTierList](https://animetierlist.net)  
 レスポンシブ対応していますので、スマホからでもご利用いただけます。
 
-## AnimeTierListについて
+## ■ AnimeTierListについて
 
-### ■ サービス概要
+### サービス概要
 視聴したアニメをTierで評価することで、自分だけのTierListを作成することができるサービスです。
 
-### ■ ターゲットユーザー
+### ターゲットユーザー
 * 視聴したアニメの視聴記録や評価、感想を手軽につけたい方
 * 他のユーザーが視聴したアニメの評価や感想などを閲覧したい方
 * アニメ自体の情報や評価を閲覧したい方
@@ -47,7 +48,7 @@ Youtubeで「〇〇年秋アニメ ランキング」のような動画を視聴
 |  <div style="text-align: center;">フォロー / フォロー解除</div>  |  <div style="text-align: center;">フォロー / フォロワー一覧</div>  |
 | ---- | ---- |
 |  ![Videotogif (10)](https://github.com/hinata000/ATL/assets/99871721/13cbe1ac-9d70-4ef0-853e-c1060bbd5db5)  |  ![Videotogif (9)](https://github.com/hinata000/ATL/assets/99871721/63481def-6a41-4221-b8fa-5414a5ede573)  |
-|  <div style="text-align: center;">マイページのフォロー / フォロワー一覧画面や他のユーザーのプロフィール画面からフォロー/フォロー解除ができます</div>  |  <div style="text-align: center;">プロフィールページからユーザーのフォロー/フォロワー一覧が閲覧できます</div>  |
+|  <div style="text-align: center;">他のユーザーをフォローすることができます</div>  |  <div style="text-align: center;">プロフィールページからユーザーのフォロー/フォロワー一覧が閲覧できます</div>  |
 
 |  <div style="text-align: center;">プロフィール編集画面</div>  |  <div style="text-align: center;">お知らせ画面</div>  |
 | ---- | ---- |
