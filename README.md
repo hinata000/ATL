@@ -1,7 +1,7 @@
 # AnimeTierList
 
 ## サービスURL
-[AnimeTierList](https://animetierlist.net)
+[AnimeTierList](https://animetierlist.net)  
 レスポンシブ対応していますので、スマホからでもご利用いただけます。
 
 ## AnimeTierListについて
@@ -77,6 +77,13 @@ Youtubeで「〇〇年秋アニメ ランキング」のような動画を視聴
 ### 環境構築
 * Docker / Docker Compose
 
-## ■ ER図
+### API
+* Annict API
+* syobocal API
 
-## ■ 今後の課題
+## ■ ER図
+![atl-er](https://github.com/hinata000/ATL/assets/99871721/271a28b7-d96b-4470-96d8-bc3ee1ac1cb2)
+
+## ■ 今後の追加点や改善点
+* TierListの画像保存機能
+* TierListのSNS共有機能
