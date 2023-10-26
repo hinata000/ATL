@@ -11,10 +11,11 @@ class TierList < ApplicationRecord
   validates :tier_score, numericality: {
     less_than_or_equal_to: 5,
     greater_than_or_equal_to: 1}, presence: true
-
   validates :comment, length: { maximum: 500 }
-
   validates :animation_id, uniqueness: { scope: :user_id }
+
+  delegate :update_tier_average, to: :animation
+  delegate :update_score, to: :animation
 
   def tier_score_change(score)
     if score >= 4.5
@@ -43,10 +44,6 @@ class TierList < ApplicationRecord
       'color: #10B981;'
     end
   end
-
-  delegate :update_tier_average, to: :animation
-
-  delegate :update_score, to: :animation
 
   def class_name
     self.class.name
