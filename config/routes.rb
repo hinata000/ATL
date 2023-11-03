@@ -33,4 +33,5 @@ Rails.application.routes.draw do
 
   get '/terms', to: 'static_pages#terms'
   get '/privacy_policy', to: 'static_pages#privacy_policy'
+  get '/landing-page', to: 'static_pages#landing-page'
 end
