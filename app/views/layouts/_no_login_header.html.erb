@@ -1,6 +1,11 @@
 <div class="navbar bg-base-100">
   <div class="flex-1">
-    <%= link_to image_tag("atl-header.png"), root_path, class: "btn btn-ghost" %>
+    <div class="hidden md:inline-block">
+      <%= link_to image_tag("atl-header.png"), root_path, class: "btn btn-ghost py-4" %>
+    </div>
+    <div class="md:hidden">
+      <%= link_to image_tag("atl-favicon.png", class: "h-10 w-10"), root_path, class: "btn btn-ghost" %>
+    </div>
   </div>
   <div class="flex-none gap-2">
     <div class="flex items-center">
