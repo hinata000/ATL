@@ -3,8 +3,9 @@
     <%= link_to image_tag("atl-header.png"), root_path, class: "btn btn-ghost" %>
   </div>
   <div class="flex-none gap-2">
-    <div class="flex">
-      <%= link_to '会員登録', new_user_registration_path, class: "btn btn-primary btn-md mx-2" %>
+    <div class="flex items-center">
+      <%= link_to '使い方', landing_page_path, class: "btn btn-ghost btn-md mr-2" %>
+      <%= link_to '会員登録', new_user_registration_path, class: "btn btn-primary btn-md mr-2" %>
       <%= link_to 'ログイン', new_user_session_path, class: "btn btn-md mr-2" %>
     </div>
   </div>
