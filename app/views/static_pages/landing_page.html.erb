@@ -1,0 +1,37 @@
+<div class="flex flex-col items-center justify-center py-2 px-3 mt-2 mb-6 mx-auto">
+  <div class="w-full bg-base-200 rounded-t-lg shadow sm:max-w-2xl">
+    <%= image_tag 'atl-banner', class: "mt-8 mb-6" %>
+    <div class="text-center p-4">
+      <h2 class="text-2xl text-primary-content font-bold mt-6 mb-2">AnimeTierListとは</h2>
+      <p class="text-lg">AnimeTierListは、視聴したアニメのTierListが簡単に作成できるサービスです。</p>
+      <p class="text-lg">TierListを作成することで、各クールのアニメをTierで管理できるほか、同じアニメが好きなユーザーのTierListを参照することで、気になるアニメを簡単に探すことができます。</p>
+    </div>
+    <div class="text-center px-4 my-8">
+      <h2 class="text-2xl text-primary-content font-bold">AnimeTierListでできること</h2>
+      <h3 class="text-secondary-content text-xl mt-10 mb-2">アニメを簡単に探せる</h3>
+      <p class="text-lg">AnimeTierListでは、過去3年分の約2000種類のアニメが登録されており、タイトルや放送された年代、クールなどからアニメを絞り込み検索することができます。</p>
+      <%= image_tag 'lp-01', class: "my-2" %>
+      <h3 class="text-secondary-content text-xl mt-16 mb-2">視聴したアニメをTierListへ追加</h3>
+      <p class="text-lg">各アニメのTierList追加ボタン<i class="fa-solid fa-square-plus text-xl px-1"></i>をクリックし、</p>
+      <p class="text-lg">Tierを選択することで、簡単にTierListに追加できます。</p>
+      <p class="text-lg">また、この際にレビューを入力することもできます。</p>
+      <%= image_tag 'lp-02', class: "my-2" %>
+      <h3 class="text-secondary-content text-xl mt-16 mb-2">気になるアニメをブックマークへ追加</h3>
+      <p class="text-lg">「気になってるアニメあったんだけど、あれなんだっけ？」となることの防止策として、</p>
+      <p class="text-lg">各アニメのブックマークボタン<i class="fa-solid fa-bookmark text-xl px-1"></i>をクリックし、</p>
+      <p class="text-lg">ブックマークにアニメを追加しておくこともできます。</p>
+      <%= image_tag 'lp-03', class: "my-2" %>
+      <h3 class="text-secondary-content text-xl mt-16 mb-2">自分や他のユーザーのTierListやレビュー、ブックマークを閲覧</h3>
+      <p class="text-lg">マイページや他のユーザーのプロフィールページにて、</p>
+      <p class="text-lg">TierListやレビュー、ブックマークの一覧を閲覧することができます。</p>
+      <p class="text-lg">この時に気になるユーザーがいればフォローすることで、いつでもプロフィールページを見ることができます。</p>
+      <%= image_tag 'lp-04', class: "my-2" %>
+    </div>
+  </div>
+  <div class="flex justify-center items-center w-full bg-primary rounded-b-lg shadow sm:max-w-2xl h-56">
+    <div class="text-center">
+      <h2 class="text-2xl text-primary-content font-bold mb-5">自分だけのTierListを作ろう</h2>
+      <%= link_to '会員登録', new_user_registration_path, class: "btn btn-md text-primary-content" %>
+    </div>
+  </div>
+</div>
