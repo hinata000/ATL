@@ -1,4 +1,5 @@
 class TierListsController < ApplicationController
+  before_action :set_tier_list, only: [:show, :update, :destroy]
   before_action :authenticate_user!, except: [:show]
 
   def create
@@ -12,7 +13,6 @@ class TierListsController < ApplicationController
   end
 
   def update
-    @tier_list = TierList.find(params[:id])
     if @tier_list.update(tier_list_params)
       redirect_to request.referer, notice: "TierListを編集しました"
     else
@@ -21,18 +21,20 @@ class TierListsController < ApplicationController
   end
 
   def destroy
-    @tier_list = TierList.find(params[:id])
     @tier_list.destroy
     redirect_to request.referer, status: :see_other, notice: "TierListから削除しました"
   end
 
   def show
-    @tier_list = TierList.find(params[:id])
   end
 
   private
 
     def tier_list_params
       params.require(:tier_list).permit(:animation_id, :tier_score, :comment, :spoiler)
+    end
+
+    def set_tier_list
+      @tier_list = TierList.find(params[:id])
     end
 end
